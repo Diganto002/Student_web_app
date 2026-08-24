@@ -12,3 +12,4 @@ npm-debug.log*
 
 # OS files
 .DS_Store
+student_system.db\nnode_modules/\n.env
