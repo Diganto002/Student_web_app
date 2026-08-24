@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | University Of Liberal Arts Bangladesh</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-['Inter'] transition-colors duration-300 min-h-screen flex flex-col">
+
+  <!-- Header Navigation -->
+  <header class="bg-white border-b border-slate-200 dark:bg-slate-900 dark:border-slate-800 shadow-sm sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
+          <i class="fa-solid fa-university"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-bold leading-tight">University Of Liberal Arts Bangladesh</h1>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">Admin Management Dashboard (User: <strong id="adminUserBadge" class="text-indigo-500">spetrum</strong>)</p>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <!-- Light / Dark Mode Toggle Button -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition text-sm font-semibold flex items-center gap-2">
+          <i id="themeIcon" class="fa-solid fa-moon text-indigo-500"></i>
+          <span id="themeText" class="hidden sm:inline">Dark</span>
+        </button>
+
+        <!-- Navigation Links -->
+        <a href="index.html" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-semibold transition">
+          Home Portal
+        </a>
+
+        <a href="register.html" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>Student Form</span>
+        </a>
+
+        <!-- Logout Button -->
+        <button onclick="logout()" class="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8 space-y-6">
+
+    <!-- Summary Metrics Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-xl shadow-sm">
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Total Applications</p>
+        <h3 id="statTotal" class="text-2xl font-extrabold mt-1">0</h3>
+      </div>
+      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-xl shadow-sm">
+        <p class="text-xs font-semibold text-amber-500 uppercase">Submitted</p>
+        <h3 id="statSubmitted" class="text-2xl font-extrabold text-amber-500 mt-1">0</h3>
+      </div>
+      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-xl shadow-sm">
+        <p class="text-xs font-semibold text-emerald-500 uppercase">Approved</p>
+        <h3 id="statApproved" class="text-2xl font-extrabold text-emerald-500 mt-1">0</h3>
+      </div>
+      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-xl shadow-sm">
+        <p class="text-xs font-semibold text-rose-500 uppercase">Rejected</p>
+        <h3 id="statRejected" class="text-2xl font-extrabold text-rose-500 mt-1">0</h3>
+      </div>
+    </div>
+
+    <!-- Search & Filter Bar -->
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <!-- Search Input -->
+      <div class="w-full sm:w-80 relative">
+        <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="Search Name, REG ID, Email..."
+          class="w-full pl-9 pr-4 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-950 p-1 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-semibold">
+        <button onclick="setFilter('All')" id="filterAll" class="px-3 py-1.5 rounded-md bg-indigo-600 text-white">All</button>
+        <button onclick="setFilter('Submitted')" id="filterSubmitted" class="px-3 py-1.5 rounded-md text-slate-500 hover:text-indigo-500">Submitted</button>
+        <button onclick="setFilter('Approved')" id="filterApproved" class="px-3 py-1.5 rounded-md text-slate-500 hover:text-emerald-500">Approved</button>
+        <button onclick="setFilter('Rejected')" id="filterRejected" class="px-3 py-1.5 rounded-md text-slate-500 hover:text-rose-500">Rejected</button>
+      </div>
+    </div>
+
+    <!-- Student List Table -->
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm border-collapse">
+          <thead class="bg-slate-100 dark:bg-slate-950 text-xs uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800">
+            <tr>
+              <th class="p-3">REG ID</th>
+              <th class="p-3">Student Name</th>
+              <th class="p-3">Contact</th>
+              <th class="p-3">Course</th>
+              <th class="p-3">Status</th>
+              <th class="p-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentTable" class="divide-y divide-slate-200 dark:divide-slate-800">
+            <!-- Data dynamically loaded via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Student Details Modal -->
+  <div id="detailModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-3">
+        <h3 id="modalName" class="font-bold text-lg">Student Details</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="modalBody" class="text-xs space-y-2 text-slate-600 dark:text-slate-300">
+        <!-- Loaded dynamically -->
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <button onclick="closeModal()" class="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-xs font-semibold">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 dark:bg-slate-900 dark:border-slate-800 py-4 text-center text-xs text-slate-500 mt-auto">
+    <p>&copy; 2026 University Of Liberal Arts Bangladesh (ULAB)</p>
+  </footer>
+
+  <!-- Dashboard Script -->
+  <script>
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-400';
+        document.getElementById('themeText').innerText = 'Light';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-moon text-indigo-500';
+        document.getElementById('themeText').innerText = 'Dark';
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      initTheme();
+    }
+
+    initTheme();
+
+    const adminToken = localStorage.getItem('adminToken');
+    const adminUser = localStorage.getItem('adminUser') || 'spetrum';
+    if (!adminToken) {
+      window.location.href = 'admin-login.html';
+    } else {
+      document.getElementById('adminUserBadge').innerText = adminUser;
+    }
+
+    let currentFilter = 'All';
+    let currentSearch = '';
+
+    // Initial mock dataset for static GitHub Pages demo
+    const defaultMockStudents = [
+      { id: 1, registration_id: 'REG1001', first_name: 'Mh', last_name: 'Diganto', email: 'mhdiganto@gmail.com', phone: '01712345678', date_of_birth: '2002-10-14', gender: 'Male', address: 'Mohammadpur, Dhaka', course_name: 'Computer Science & Engineering (CSE)', status: 'Approved', created_at: new Date().toISOString() },
+      { id: 2, registration_id: 'REG1002', first_name: 'Mostagir', last_name: 'Hossain', email: 'mhdiganto002@gmail.com', phone: '01912345678', date_of_birth: '2000-10-13', gender: 'Male', address: 'Bogura', course_name: 'Software Engineering (SE)', status: 'Approved', created_at: new Date().toISOString() },
+      { id: 3, registration_id: 'REG1003', first_name: 'Mahmudul', last_name: 'Hasan', email: 'mahmudul.hasan@gmail.com', phone: '01812345678', date_of_birth: '2001-05-20', gender: 'Male', address: 'Uttara, Dhaka', course_name: 'Data Science & Artificial Intelligence (DSAI)', status: 'Rejected', created_at: new Date().toISOString() },
+      { id: 4, registration_id: 'REG1004', first_name: 'Ayesha', last_name: 'Rahman', email: 'ayesha.rahman@gmail.com', phone: '01612345678', date_of_birth: '2003-08-15', gender: 'Female', address: 'Dhanmondi, Dhaka', course_name: 'Bachelor of Business Administration (BBA)', status: 'Submitted', created_at: new Date().toISOString() },
+      { id: 5, registration_id: 'REG1005', first_name: 'Tanvir', last_name: 'Ahmed', email: 'tanvir.ahmed@gmail.com', phone: '01512345678', date_of_birth: '1999-12-01', gender: 'Male', address: 'Mirpur, Dhaka', course_name: 'Media Studies & Journalism (MSJ)', status: 'Submitted', created_at: new Date().toISOString() }
+    ];
+
+    if (!localStorage.getItem('mockStudents')) {
+      localStorage.setItem('mockStudents', JSON.stringify(defaultMockStudents));
+    }
+
+    async function loadStudents() {
+      try {
+        let res;
+        try {
+          const params = new URLSearchParams({ search: currentSearch, status: currentFilter });
+          res = await fetch('/students?' + params.toString());
+        } catch (netErr) {
+          res = null;
+        }
+
+        if (res && res.ok) {
+          const data = await res.json();
+          renderStats(data.stats);
+          renderTable(data.data);
+        } else {
+          // GitHub Pages demo fallback
+          let list = JSON.parse(localStorage.getItem('mockStudents') || '[]');
+          if (currentSearch) {
+            const s = currentSearch.toLowerCase();
+            list = list.filter(item => 
+              (item.registration_id && item.registration_id.toLowerCase().includes(s)) ||
+              (item.first_name && item.first_name.toLowerCase().includes(s)) ||
+              (item.last_name && item.last_name.toLowerCase().includes(s)) ||
+              (item.email && item.email.toLowerCase().includes(s)) ||
+              (item.phone && item.phone.includes(s))
+            );
+          }
+          if (currentFilter && currentFilter !== 'All') {
+            list = list.filter(item => item.status === currentFilter);
+          }
+
+          const allList = JSON.parse(localStorage.getItem('mockStudents') || '[]');
+          const stats = {
+            total: allList.length,
+            submitted: allList.filter(x => x.status === 'Submitted').length,
+            approved: allList.filter(x => x.status === 'Approved').length,
+            rejected: allList.filter(x => x.status === 'Rejected').length,
+          };
+          renderStats(stats);
+          renderTable(list);
+        }
+      } catch (err) {
+        console.error('Error loading students:', err);
+      }
+    }
+
+    function renderStats(stats) {
+      if (!stats) return;
+      document.getElementById('statTotal').innerText = stats.total || 0;
+      document.getElementById('statSubmitted').innerText = stats.submitted || 0;
+      document.getElementById('statApproved').innerText = stats.approved || 0;
+      document.getElementById('statRejected').innerText = stats.rejected || 0;
+    }
+
+    function renderTable(students) {
+      const tbody = document.getElementById('studentTable');
+      if (!students || students.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">No student records found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = students.map(s => {
+        let badgeColor = 'bg-amber-500/10 text-amber-500 border-amber-500/20';
+        if (s.status === 'Approved') badgeColor = 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20';
+        if (s.status === 'Rejected') badgeColor = 'bg-rose-500/10 text-rose-500 border-rose-500/20';
+
+        const isSubmitted = s.status === 'Submitted';
+
+        return `
+          <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+            <td class="p-3 font-mono font-bold text-indigo-500">${s.registration_id}</td>
+            <td class="p-3 font-semibold">${s.first_name} ${s.last_name}</td>
+            <td class="p-3 text-xs"><div>${s.email}</div><div class="text-slate-400">${s.phone}</div></td>
+            <td class="p-3">${s.course_name}</td>
+            <td class="p-3"><span class="px-2.5 py-0.5 rounded-full text-xs font-bold border ${badgeColor}">${s.status}</span></td>
+            <td class="p-3 text-right space-x-1">
+              <button onclick="viewDetails('${s.registration_id}')" class="px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs transition">Details</button>
+              ${isSubmitted ? `
+                <button onclick="updateStatus(${s.id}, 'approve', '${s.registration_id}')" class="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition">Approve</button>
+                <button onclick="updateStatus(${s.id}, 'reject', '${s.registration_id}')" class="px-2.5 py-1 rounded bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition">Reject</button>
+              ` : `<span class="text-xs text-slate-400 italic">Finalized</span>`}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function updateStatus(id, action, regId) {
+      if (!confirm(`Are you sure you want to ${action.toUpperCase()} this student application?`)) return;
+
+      try {
+        let res;
+        try {
+          res = await fetch(`/students/${id}/${action}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${adminToken}`
+            },
+            body: JSON.stringify({ remarks: `Action ${action} performed by Admin ${adminUser}` })
+          });
+        } catch (netErr) {
+          res = null;
+        }
+
+        if (res && res.ok) {
+          alert(`Success: Registration updated to ${action.toUpperCase()}`);
+          loadStudents();
+        } else if (res) {
+          const data = await res.json();
+          alert('Error: ' + (data.message || 'Operation failed'));
+        } else {
+          // GitHub Pages demo fallback
+          let mockList = JSON.parse(localStorage.getItem('mockStudents') || '[]');
+          const target = mockList.find(x => x.id === id || x.registration_id === regId);
+          if (target) {
+            target.status = action === 'approve' ? 'Approved' : 'Rejected';
+            localStorage.setItem('mockStudents', JSON.stringify(mockList));
+            alert(`Success (Demo): Registration updated to ${action.toUpperCase()}`);
+            loadStudents();
+          }
+        }
+      } catch (err) {
+        alert('Status update error: ' + err.message);
+      }
+    }
+
+    async function viewDetails(regId) {
+      try {
+        let s;
+        try {
+          const res = await fetch(`/students/${regId}`);
+          if (res.ok) {
+            const data = await res.json();
+            s = data.data;
+          }
+        } catch (netErr) {
+          s = null;
+        }
+
+        if (!s) {
+          const mockList = JSON.parse(localStorage.getItem('mockStudents') || '[]');
+          s = mockList.find(x => x.registration_id === regId);
+        }
+
+        if (s) {
+          document.getElementById('modalName').innerText = `${s.first_name} ${s.last_name} (${s.registration_id})`;
+          
+          let historyHtml = (s.history || [
+            { old_status: 'Submitted', new_status: s.status, updated_at: s.created_at, remarks: 'Audit verified' }
+          ]).map(h => `
+            <div class="border-l-2 border-indigo-500 pl-3 py-1">
+              <div class="font-bold text-slate-800 dark:text-slate-100">${h.old_status || 'N/A'} &rarr; ${h.new_status}</div>
+              <div class="text-[11px] text-slate-400">${new Date(h.updated_at).toLocaleString()} - ${h.remarks || ''}</div>
+            </div>
+          `).join('');
+
+          document.getElementById('modalBody').innerHTML = `
+            <div class="grid grid-cols-2 gap-2 bg-slate-100 dark:bg-slate-950 p-3 rounded-lg">
+              <div><strong>Email:</strong> ${s.email}</div>
+              <div><strong>Phone:</strong> ${s.phone}</div>
+              <div><strong>DOB:</strong> ${s.date_of_birth}</div>
+              <div><strong>Gender:</strong> ${s.gender}</div>
+              <div class="col-span-2"><strong>Course:</strong> ${s.course_name}</div>
+              <div class="col-span-2"><strong>Address:</strong> ${s.address}</div>
+            </div>
+            <div class="pt-2">
+              <strong class="block mb-2">Status Transition Audit Log:</strong>
+              <div class="space-y-2">${historyHtml || 'No history logged.'}</div>
+            </div>
+          `;
+
+          document.getElementById('detailModal').classList.remove('hidden');
+          document.getElementById('detailModal').classList.add('flex');
+        }
+      } catch (err) {
+        alert('Failed to load student details.');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('detailModal').classList.add('hidden');
+      document.getElementById('detailModal').classList.remove('flex');
+    }
+
+    function handleSearch() {
+      currentSearch = document.getElementById('searchInput').value.trim();
+      loadStudents();
+    }
+
+    function setFilter(status) {
+      currentFilter = status;
+      ['All', 'Submitted', 'Approved', 'Rejected'].forEach(s => {
+        const btn = document.getElementById(`filter${s}`);
+        if (s === status) {
+          btn.className = 'px-3 py-1.5 rounded-md bg-indigo-600 text-white';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-md text-slate-500 hover:text-indigo-500';
+        }
+      });
+      loadStudents();
+    }
+
+    function logout() {
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('adminUser');
+      window.location.href = 'admin-login.html';
+    }
+
+    loadStudents();
+  </script>
+</body>
+</html>

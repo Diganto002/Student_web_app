@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Application | University Of Liberal Arts Bangladesh</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-['Inter'] transition-colors duration-300 min-h-screen flex flex-col">
+
+  <!-- Header Navigation -->
+  <header class="bg-white border-b border-slate-200 dark:bg-slate-900 dark:border-slate-800 shadow-sm sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      
+      <!-- Logo & Title -->
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
+          <i class="fa-solid fa-university"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-bold leading-tight">University Of Liberal Arts Bangladesh</h1>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">Student Application Form</p>
+        </div>
+      </a>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Light / Dark Mode Toggle Button -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition text-sm font-semibold flex items-center gap-2">
+          <i id="themeIcon" class="fa-solid fa-moon text-indigo-500"></i>
+          <span id="themeText" class="hidden sm:inline">Dark</span>
+        </button>
+
+        <!-- Links -->
+        <a href="index.html" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-semibold transition">
+          Home Portal
+        </a>
+
+        <a href="admin-login.html" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Admin Login</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Application Form Card -->
+  <main class="flex-grow max-w-2xl w-full mx-auto px-4 py-8">
+    
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 sm:p-8 rounded-2xl shadow-xl space-y-6">
+      
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-[11px] font-bold text-indigo-500 uppercase tracking-wider">ULAB Admission 2026</span>
+        <h2 class="text-xl font-bold mt-0.5">Student Application Form</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Please fill out all required details accurately to submit your application.</p>
+      </div>
+
+      <!-- Registration Form -->
+      <form id="registrationForm" onsubmit="handleRegistration(event)" class="space-y-4 text-sm">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- First Name -->
+          <div>
+            <label for="first_name" class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400">First Name *</label>
+            <input type="text" id="first_name" required placeholder="e.g. Mahmudul"
+              class="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+          <!-- Last Name -->
+          <div>
+            <label for="last_name" class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400">Last Name *</label>
+            <input type="text" id="last_name" required placeholder="e.g. Hasan"
+              class="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Email -->
+          <div>
+            <label for="email" class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400">Email Address *</label>
+            <input type="email" id="email" required placeholder="mhdiganto@gmail.com"
+              class="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label for="phone" class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400">Phone Number *</label>
+            <input type="tel" id="phone" maxlength="11" required placeholder="01712345678"
+              class="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <p class="text-[11px] text-slate-400 mt-1">Exact 11 digits format.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- DOB -->
+          <div>
+            <label for="date_of_birth" class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400">Date of Birth *</label>
+            <input type="date" id="date_of_birth" required onchange="calculateAge()"
+              class="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <p id="ageBadge" class="text-[11px] text-indigo-500 mt-1">Min age requirement: 16 years.</p>
+          </div>
+
+          <!-- Gender -->
+          <div>
+            <label for="gender" class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400">Gender *</label>
+            <select id="gender" required
+              class="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="" disabled selected>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Course / Program Dropdown List (5-6 Subjects) -->
+        <div>
+          <label for="course_name" class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400">Course / Program *</label>
+          <select id="course_name" required
+            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="" disabled selected>Select a Department Program</option>
+            <option value="Computer Science & Engineering (CSE)">Computer Science & Engineering (CSE)</option>
+            <option value="Software Engineering (SE)">Software Engineering (SE)</option>
+            <option value="Data Science & Artificial Intelligence (DSAI)">Data Science & Artificial Intelligence (DSAI)</option>
+            <option value="Electrical & Electronic Engineering (EEE)">Electrical & Electronic Engineering (EEE)</option>
+            <option value="Bachelor of Business Administration (BBA)">Bachelor of Business Administration (BBA)</option>
+            <option value="Media Studies & Journalism (MSJ)">Media Studies & Journalism (MSJ)</option>
+          </select>
+        </div>
+
+        <!-- Address -->
+        <div>
+          <label for="address" class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400">Address *</label>
+          <textarea id="address" rows="3" required placeholder="Enter full address..."
+            class="w-full px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="btnSubmit" class="w-full py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-md">
+          Submit Application
+        </button>
+
+      </form>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 dark:bg-slate-900 dark:border-slate-800 py-4 text-center text-xs text-slate-500">
+    <p>&copy; 2026 University Of Liberal Arts Bangladesh (ULAB) &bull; Admission Portal</p>
+  </footer>
+
+  <!-- Theme & JS Logic -->
+  <script>
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-400';
+        document.getElementById('themeText').innerText = 'Light';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-moon text-indigo-500';
+        document.getElementById('themeText').innerText = 'Dark';
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      initTheme();
+    }
+
+    initTheme();
+
+    function calculateAge() {
+      const dobVal = document.getElementById('date_of_birth').value;
+      const ageBadge = document.getElementById('ageBadge');
+      if (!dobVal) return;
+
+      const dob = new Date(dobVal);
+      const today = new Date();
+      let age = today.getFullYear() - dob.getFullYear();
+      const m = today.getMonth() - dob.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+
+      if (age < 16) {
+        ageBadge.innerText = `⚠️ Age: ${age} yrs (Underage! Minimum requirement is 16 years).`;
+        ageBadge.className = 'text-[11px] text-rose-500 font-semibold mt-1';
+      } else {
+        ageBadge.innerText = `✓ Age: ${age} yrs (Eligible).`;
+        ageBadge.className = 'text-[11px] text-emerald-500 font-semibold mt-1';
+      }
+    }
+
+    async function handleRegistration(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmit');
+      btn.disabled = true;
+      btn.innerText = 'Submitting...';
+
+      const formData = {
+        first_name: document.getElementById('first_name').value.trim(),
+        last_name: document.getElementById('last_name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        date_of_birth: document.getElementById('date_of_birth').value,
+        gender: document.getElementById('gender').value,
+        course_name: document.getElementById('course_name').value,
+        address: document.getElementById('address').value.trim(),
+      };
+
+      try {
+        let res;
+        try {
+          res = await fetch('/students', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+        } catch (netErr) {
+          // Backend offline or running on static GitHub Pages -> Use local mock store
+          res = null;
+        }
+
+        if (res && res.ok) {
+          const data = await res.json();
+          alert(`🎉 Application Submitted Successfully!\nAssigned ID: ${data.data.registration_id}`);
+          document.getElementById('registrationForm').reset();
+          document.getElementById('ageBadge').innerText = 'Min age requirement: 16 years.';
+          document.getElementById('ageBadge').className = 'text-[11px] text-indigo-500 mt-1';
+        } else if (res) {
+          const data = await res.json();
+          alert('Error: ' + (data.message || data.errors?.[0]?.message || 'Submission failed'));
+        } else {
+          // Client-side fallback for GitHub Pages
+          let mockStudents = JSON.parse(localStorage.getItem('mockStudents') || '[]');
+          const nextId = 'REG' + (1000 + mockStudents.length + 1);
+          const newStudent = {
+            id: mockStudents.length + 1,
+            registration_id: nextId,
+            ...formData,
+            status: 'Submitted',
+            created_at: new Date().toISOString()
+          };
+          mockStudents.unshift(newStudent);
+          localStorage.setItem('mockStudents', JSON.stringify(mockStudents));
+          alert(`🎉 Application Submitted Successfully (Demo Portal)!\nAssigned ID: ${nextId}`);
+          document.getElementById('registrationForm').reset();
+        }
+      } catch (err) {
+        alert('Submission error: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Submit Application';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "b1a2c3d4-e5f6-7890-abcd-1234567890ab",
+		"name": "Student Registration System API",
+		"description": "Postman Collection for Student Registration System - University Of Liberal Arts Bangladesh (ULAB)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Admin Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"spetrum\",\n  \"password\": \"admin123\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Submit Registration - Mh Diganto (POST /students)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"Mh\",\n  \"last_name\": \"Diganto\",\n  \"email\": \"mhdiganto@gmail.com\",\n  \"phone\": \"01712345678\",\n  \"date_of_birth\": \"2002-10-14\",\n  \"gender\": \"Male\",\n  \"address\": \"Mohammadpur, Dhaka\",\n  \"course_name\": \"Computer Science & Engineering (CSE)\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/students",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Submit Registration - Mostagir Hossain (POST /students)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"Mostagir\",\n  \"last_name\": \"Hossain\",\n  \"email\": \"mhdiganto002@gmail.com\",\n  \"phone\": \"01912345678\",\n  \"date_of_birth\": \"2000-10-13\",\n  \"gender\": \"Male\",\n  \"address\": \"Bogura\",\n  \"course_name\": \"Software Engineering (SE)\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/students",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. List Applications (GET /students)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/students?page=1&limit=10&search=&status=All",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"students"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "search",
+							"value": ""
+						},
+						{
+							"key": "status",
+							"value": "All"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Get Application Details (GET /students/:id)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/students/REG1001",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"students",
+						"REG1001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Approve Application (PUT /students/:id/approve)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"remarks\": \"Verified certificates and approved by Admin spetrum.\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/students/REG1004/approve",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"students",
+						"REG1004",
+						"approve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Reject Application (PUT /students/:id/reject)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"remarks\": \"Document requirements not met.\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/students/REG1005/reject",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"students",
+						"REG1005",
+						"reject"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "admin_token",
+			"value": "admin-token-spetrum-authenticated-2026"
+		}
+	]
+}

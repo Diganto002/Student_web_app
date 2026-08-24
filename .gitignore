@@ -1,0 +1,14 @@
+﻿# Node modules
+node_modules/
+
+# Local env files
+.env
+
+# SQLite DB
+student_system.db
+
+# Logs
+npm-debug.log*
+
+# OS files
+.DS_Store

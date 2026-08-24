@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | University Of Liberal Arts Bangladesh</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-['Inter'] transition-colors duration-300 min-h-screen flex flex-col justify-between">
+
+  <!-- Header Navigation -->
+  <header class="bg-white border-b border-slate-200 dark:bg-slate-900 dark:border-slate-800 shadow-sm">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
+          <i class="fa-solid fa-university"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-bold leading-tight">University Of Liberal Arts Bangladesh</h1>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">Admin Authentication</p>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <!-- Light / Dark Mode Toggle Button -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition text-sm font-semibold flex items-center gap-2">
+          <i id="themeIcon" class="fa-solid fa-moon text-indigo-500"></i>
+          <span id="themeText" class="hidden sm:inline">Dark</span>
+        </button>
+
+        <!-- Navigation Links -->
+        <a href="index.html" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-semibold transition">
+          Home Portal
+        </a>
+
+        <a href="register.html" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>Student Form</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Login Card -->
+  <main class="flex-grow flex items-center justify-center px-4 py-8">
+    <div class="w-full max-w-sm bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 sm:p-8 rounded-2xl shadow-xl space-y-6">
+      
+      <div class="text-center">
+        <div class="w-14 h-14 rounded-2xl bg-indigo-600 flex items-center justify-center mx-auto text-white text-2xl shadow-lg mb-3">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <h2 class="text-xl font-bold">Admin Authentication</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">University Of Liberal Arts Bangladesh</p>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4 text-sm">
+        <div>
+          <label class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400">Username</label>
+          <input type="text" id="username" required placeholder="Type username..."
+            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400">Password</label>
+          <input type="password" id="password" required placeholder="Type password..."
+            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <button type="submit" id="btnLogin" class="w-full py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-md">
+          Log In to Dashboard
+        </button>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 dark:bg-slate-900 dark:border-slate-800 py-4 text-center text-xs text-slate-500">
+    <p>&copy; 2026 University Of Liberal Arts Bangladesh (ULAB)</p>
+  </footer>
+
+  <!-- Theme & Login JS -->
+  <script>
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-400';
+        document.getElementById('themeText').innerText = 'Light';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-moon text-indigo-500';
+        document.getElementById('themeText').innerText = 'Dark';
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      initTheme();
+    }
+
+    initTheme();
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnLogin');
+      btn.disabled = true;
+      btn.innerText = 'Authenticating...';
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const isGitHubPages = window.location.hostname.includes('github.io');
+
+      try {
+        if (isGitHubPages) {
+          // Client-side authentication on GitHub Pages
+          const u = username.toLowerCase();
+          if ((u === 'spetrum' || u === 'spetum' || u === 'spectrum' || u === 'admin') && password === 'admin123') {
+            localStorage.setItem('adminToken', 'admin-token-spetrum-authenticated-2026');
+            localStorage.setItem('adminUser', username);
+            window.location.href = 'dashboard.html';
+          } else {
+            alert('Error: Invalid admin username or password (use username: spetrum, password: admin123)');
+          }
+        } else {
+          // Local / Backend Server API authentication
+          const res = await fetch('/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            localStorage.setItem('adminToken', data.token);
+            localStorage.setItem('adminUser', data.admin?.username || 'spetrum');
+            window.location.href = 'dashboard.html';
+          } else {
+            const data = await res.json().catch(() => ({ message: 'Invalid username or password' }));
+            alert('Error: ' + (data.message || 'Invalid credentials'));
+          }
+        }
+      } catch (err) {
+        // Fallback in case of server offline
+        const u = username.toLowerCase();
+        if ((u === 'spetrum' || u === 'spetum' || u === 'spectrum' || u === 'admin') && password === 'admin123') {
+          localStorage.setItem('adminToken', 'admin-token-spetrum-authenticated-2026');
+          localStorage.setItem('adminUser', username);
+          window.location.href = 'dashboard.html';
+        } else {
+          alert('Error: Invalid admin credentials (username: spetrum, password: admin123)');
+        }
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Log In to Dashboard';
+      }
+    }
+  </script>
+</body>
+</html>

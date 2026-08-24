@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Of Liberal Arts Bangladesh | Admission Portal</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-['Inter'] transition-colors duration-300 min-h-screen flex flex-col">
+
+  <!-- Header Navigation -->
+  <header class="bg-white border-b border-slate-200 dark:bg-slate-900 dark:border-slate-800 shadow-sm sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      
+      <!-- University Name & Logo -->
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
+          <i class="fa-solid fa-university"></i>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold leading-tight bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
+            University Of Liberal Arts Bangladesh
+          </h1>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">ULAB Academic Admission & Registration Portal</p>
+        </div>
+      </a>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Light / Dark Mode Toggle Button -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition text-sm font-semibold flex items-center gap-2">
+          <i id="themeIcon" class="fa-solid fa-moon text-indigo-500"></i>
+          <span id="themeText" class="hidden sm:inline">Dark</span>
+        </button>
+
+        <!-- Navigation Links -->
+        <a href="register.html" class="hidden sm:flex px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition items-center gap-1.5">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>Student Form</span>
+        </a>
+
+        <a href="admin-login.html" class="px-3.5 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-semibold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Admin Login</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8 space-y-8">
+
+    <!-- Banner Card -->
+    <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-800 text-white p-8 rounded-3xl shadow-xl relative overflow-hidden">
+      <div class="relative z-10 max-w-2xl space-y-4">
+        <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider backdrop-blur-md">Welcome to ULAB Portal</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight">University Of Liberal Arts Bangladesh</h2>
+        <p class="text-sm opacity-90">Empowering future leaders through liberal arts and modern technology education. Access student application forms or manage admission applications via admin control.</p>
+        
+        <!-- Action Navigation Buttons -->
+        <div class="pt-2 flex flex-wrap gap-3">
+          <a href="register.html" class="px-6 py-3 rounded-xl bg-white text-indigo-900 font-bold text-sm shadow-lg hover:bg-slate-100 transition flex items-center gap-2">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span>Student Registration Form</span>
+          </a>
+
+          <a href="admin-login.html" class="px-6 py-3 rounded-xl bg-slate-900/60 hover:bg-slate-900 text-white font-bold text-sm border border-white/20 backdrop-blur-md transition flex items-center gap-2">
+            <i class="fa-solid fa-user-shield"></i>
+            <span>Admin Portal</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Navigation Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Card 1: Student Registration -->
+      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-xl font-bold">
+            <i class="fa-solid fa-id-card"></i>
+          </div>
+          <h3 class="text-lg font-bold">Student Application</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Fill out the online admission form with personal and academic details. Select your program from CSE, SE, DSAI, EEE, BBA, or MSJ.</p>
+        </div>
+        <a href="register.html" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold text-center transition block">
+          Open Registration Form &rarr;
+        </a>
+      </div>
+
+      <!-- Card 2: Admin Portal -->
+      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-xl font-bold">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3 class="text-lg font-bold">Admin Management Portal</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Authorized admission officers and administrative staff can sign in using admin credentials to manage and approve/reject applications.</p>
+        </div>
+        <a href="admin-login.html" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold text-center transition block">
+          Admin Sign In &rarr;
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Academic Programs Overview -->
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm space-y-4">
+      <h3 class="text-base font-bold flex items-center gap-2">
+        <i class="fa-solid fa-graduation-cap text-indigo-500"></i>
+        <span>Offered Programs at ULAB</span>
+      </h3>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-semibold">
+        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-code text-indigo-500"></i>
+          <span>Computer Science & Engineering</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-laptop-code text-purple-500"></i>
+          <span>Software Engineering</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-brain text-emerald-500"></i>
+          <span>Data Science & AI</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-bolt text-amber-500"></i>
+          <span>Electrical & Electronic Eng.</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-briefcase text-blue-500"></i>
+          <span>Business Administration (BBA)</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-newspaper text-rose-500"></i>
+          <span>Media Studies & Journalism</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 dark:bg-slate-900 dark:border-slate-800 py-6 text-center text-xs text-slate-500">
+    <p>&copy; 2026 University Of Liberal Arts Bangladesh (ULAB) &bull; Admission System</p>
+  </footer>
+
+  <!-- Theme Manager JS -->
+  <script>
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-400';
+        document.getElementById('themeText').innerText = 'Light';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-moon text-indigo-500';
+        document.getElementById('themeText').innerText = 'Dark';
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      initTheme();
+    }
+
+    initTheme();
+  </script>
+</body>
+</html>
