@@ -79,6 +79,46 @@ const validateStudentRegistration = [
   }
 ];
 
+const validateAiChatRequest = [
+  body('message')
+    .isString().withMessage('Message must be a string')
+    .trim()
+    .notEmpty().withMessage('Message is required')
+    .isLength({ min: 1, max: 2000 }).withMessage('Message must be between 1 and 2000 characters'),
+
+  body('history')
+    .optional()
+    .isArray({ max: 10 }).withMessage('History must be an array with maximum 10 items'),
+
+  body('history.*.role')
+    .optional()
+    .isString().withMessage('History role must be a string')
+    .isIn(['user', 'assistant']).withMessage('History role must be user or assistant'),
+
+  body('history.*.content')
+    .optional()
+    .isString().withMessage('History content must be a string')
+    .trim()
+    .notEmpty().withMessage('History content cannot be empty')
+    .isLength({ max: 2000 }).withMessage('History content must not exceed 2000 characters'),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors: errors.array().map(err => ({
+          field: err.path,
+          message: err.msg
+        }))
+      });
+    }
+    next();
+  }
+];
+
 module.exports = {
-  validateStudentRegistration
+  validateStudentRegistration,
+  validateAiChatRequest
 };

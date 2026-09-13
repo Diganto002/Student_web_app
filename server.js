@@ -1,8 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+require('dotenv').config();
 const studentRoutes = require('./routes/studentRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 const setupSwagger = require('./config/swagger');
 
 const app = express();
@@ -22,6 +24,7 @@ setupSwagger(app);
 // API Routes
 app.use('/admin', adminRoutes);
 app.use('/students', studentRoutes);
+app.use('/ai', aiRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -46,10 +49,11 @@ app.use((err, req, res, next) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
+const HOST = process.env.HOST || '0.0.0.0';
+app.listen(PORT, HOST, () => {
   console.log(`====================================================`);
   console.log(`🚀 Student Registration System server running!`);
-  console.log(`🌐 Web Interface:    http://localhost:${PORT}`);
-  console.log(`📚 Swagger API Docs: http://localhost:${PORT}/api-docs`);
+  console.log(`🌐 Web Interface:    http://${HOST === '0.0.0.0' ? 'localhost' : HOST}:${PORT}`);
+  console.log(`📚 Swagger API Docs: http://${HOST === '0.0.0.0' ? 'localhost' : HOST}:${PORT}/api-docs`);
   console.log(`====================================================`);
 });

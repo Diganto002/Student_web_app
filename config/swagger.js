@@ -210,6 +210,42 @@ const options = {
             404: { description: 'Student not found' }
           }
         }
+      },
+      '/ai/chat': {
+        post: {
+          summary: 'Chat with Groq AI Admission Assistant',
+          tags: ['AI Assistant'],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['message'],
+                  properties: {
+                    message: { type: 'string', example: 'What programs are available for admission?' },
+                    history: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          role: { type: 'string', enum: ['user', 'assistant'] },
+                          content: { type: 'string' }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            200: { description: 'AI assistant reply returned' },
+            400: { description: 'Validation failure' },
+            500: { description: 'Server configuration error' },
+            502: { description: 'AI provider error' }
+          }
+        }
       }
     }
   },

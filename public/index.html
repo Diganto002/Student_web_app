@@ -121,6 +121,34 @@
 
     </div>
 
+    <!-- Application Status Lookup Section -->
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <h3 class="text-base font-bold flex items-center gap-2">
+          <i class="fa-solid fa-magnifying-glass text-indigo-500"></i>
+          <span>Track Application Status</span>
+        </h3>
+        <span class="text-xs text-slate-500 dark:text-slate-400">Enter your Registration ID (e.g. REG1001)</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <div class="relative flex-grow">
+          <input type="text" id="statusLookupInput" placeholder="Enter Registration ID (e.g. REG1001)"
+            class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 uppercase font-mono">
+          <i class="fa-solid fa-id-card absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+        </div>
+        <button id="statusLookupBtn" onclick="checkApplicationStatus()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-search"></i>
+          <span>Check Status</span>
+        </button>
+      </div>
+
+      <!-- Status Result Box (hidden by default) -->
+      <div id="statusResultBox" class="hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4 space-y-3 text-sm">
+        <!-- Loaded via JS -->
+      </div>
+    </div>
+
     <!-- Academic Programs Overview -->
     <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm space-y-4">
       <h3 class="text-base font-bold flex items-center gap-2">
@@ -156,6 +184,32 @@
       </div>
     </div>
 
+    <!-- AI Chat Assistant -->
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm space-y-4">
+      <h3 class="text-base font-bold flex items-center gap-2">
+        <i class="fa-solid fa-robot text-indigo-500"></i>
+        <span>AI Chat Assistant (Groq)</span>
+      </h3>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        Ask admission-related questions. Make sure <code>GROQ_API_KEY</code> is configured in your local server environment.
+      </p>
+
+      <div id="aiChatMessages" class="h-72 overflow-y-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 space-y-3 text-sm">
+        <div class="text-slate-600 dark:text-slate-300">
+          <span class="font-semibold">Assistant:</span> Hi! Ask me anything about registration, requirements, or admission steps.
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <textarea id="aiChatInput" rows="3" maxlength="2000" placeholder="Type your question..." class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        <div class="flex justify-end">
+          <button id="aiChatSendBtn" onclick="sendAiMessage()" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition">
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- Footer -->
@@ -165,6 +219,8 @@
 
   <!-- Theme Manager JS -->
   <script>
+    const aiHistory = [];
+
     function initTheme() {
       const savedTheme = localStorage.getItem('theme') || 'dark';
       if (savedTheme === 'dark') {
@@ -189,6 +245,174 @@
       }
       initTheme();
     }
+
+    function escapeHtml(value) {
+      return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatMessageContent(text) {
+      if (!text) return '';
+      let safe = escapeHtml(text);
+      // Convert bold **text** to <strong>text</strong>
+      safe = safe.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // Convert *text* to <em>text</em>
+      safe = safe.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      // Convert bullet points
+      safe = safe.replace(/^[•\-\*]\s+(.*)$/gm, '• $1');
+      // Convert newlines to <br>
+      safe = safe.replace(/\n/g, '<br>');
+      return safe;
+    }
+
+    function appendAiMessage(role, text) {
+      const container = document.getElementById('aiChatMessages');
+      const message = document.createElement('div');
+      const label = role === 'user' ? 'You' : 'Assistant';
+      const bubbleClass = role === 'user'
+        ? 'bg-indigo-100 text-indigo-900 dark:bg-indigo-900/40 dark:text-indigo-200'
+        : 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100';
+
+      message.className = `rounded-lg px-3 py-2 ${bubbleClass}`;
+      message.innerHTML = `<span class="font-semibold">${label}:</span> ${formatMessageContent(text)}`;
+      container.appendChild(message);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function sendAiMessage() {
+      const input = document.getElementById('aiChatInput');
+      const sendButton = document.getElementById('aiChatSendBtn');
+      const userMessage = input.value.trim();
+
+      if (!userMessage) {
+        return;
+      }
+
+      appendAiMessage('user', userMessage);
+      aiHistory.push({ role: 'user', content: userMessage });
+      input.value = '';
+      sendButton.disabled = true;
+      sendButton.classList.add('opacity-60', 'cursor-not-allowed');
+
+      try {
+        const response = await fetch('/ai/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: userMessage,
+            history: aiHistory.slice(-10)
+          })
+        });
+
+        const payload = await response.json();
+        if (!response.ok || !payload.success || !payload.data || !payload.data.reply) {
+          throw new Error(payload.message || 'AI request failed.');
+        }
+
+        const reply = payload.data.reply.trim();
+        aiHistory.push({ role: 'assistant', content: reply });
+        appendAiMessage('assistant', reply);
+      } catch (error) {
+        appendAiMessage('assistant', `Error: ${error.message}`);
+      } finally {
+        sendButton.disabled = false;
+        sendButton.classList.remove('opacity-60', 'cursor-not-allowed');
+      }
+    }
+
+    async function checkApplicationStatus() {
+      const input = document.getElementById('statusLookupInput');
+      const regId = input.value.trim().toUpperCase();
+      const resultBox = document.getElementById('statusResultBox');
+      const btn = document.getElementById('statusLookupBtn');
+
+      if (!regId) {
+        alert('Please enter a Registration ID (e.g., REG1001).');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = 'Searching...';
+
+      try {
+        let student = null;
+        try {
+          const res = await fetch(`/students/${encodeURIComponent(regId)}`);
+          if (res.ok) {
+            const data = await res.json();
+            student = data.data;
+          }
+        } catch (netErr) {
+          student = null;
+        }
+
+        if (!student) {
+          const mockList = JSON.parse(localStorage.getItem('mockStudents') || '[]');
+          student = mockList.find(x => x.registration_id && x.registration_id.toUpperCase() === regId);
+        }
+
+        if (student) {
+          let badgeColor = 'bg-amber-500/10 text-amber-500 border-amber-500/20';
+          if (student.status === 'Approved') badgeColor = 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20';
+          if (student.status === 'Rejected') badgeColor = 'bg-rose-500/10 text-rose-500 border-rose-500/20';
+
+          const remarksText = (student.history && student.history.length > 0)
+            ? student.history[0].remarks
+            : (student.status === 'Submitted' ? 'Application received and awaiting administrative review.' : 'Status updated.');
+
+          resultBox.className = 'rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4 space-y-3 text-xs sm:text-sm';
+          resultBox.innerHTML = `
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3 flex-wrap gap-2">
+              <div>
+                <span class="font-mono font-bold text-indigo-500 text-sm">${student.registration_id}</span>
+                <span class="ml-2 font-semibold text-slate-800 dark:text-slate-100">${student.first_name} ${student.last_name}</span>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-bold border ${badgeColor}">${student.status}</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-600 dark:text-slate-300">
+              <div><strong>Program:</strong> ${student.course_name}</div>
+              <div><strong>Application Date:</strong> ${new Date(student.created_at).toLocaleDateString()}</div>
+              <div><strong>Email:</strong> ${student.email}</div>
+              <div><strong>Phone:</strong> ${student.phone}</div>
+            </div>
+            <div class="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-1">
+              <span class="font-semibold text-slate-700 dark:text-slate-300">Admission Office Status Note:</span>
+              <p class="text-xs text-slate-500 dark:text-slate-400 italic">${remarksText}</p>
+            </div>
+          `;
+          resultBox.classList.remove('hidden');
+        } else {
+          resultBox.className = 'rounded-xl border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/30 p-4 text-rose-600 dark:text-rose-400 text-xs sm:text-sm';
+          resultBox.innerHTML = `<i class="fa-solid fa-circle-exclamation mr-2"></i> No application found matching <strong>${escapeHtml(regId)}</strong>. Please verify your Registration ID.`;
+          resultBox.classList.remove('hidden');
+        }
+      } catch (err) {
+        alert('Failed to check status: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-search"></i><span>Check Status</span>';
+      }
+    }
+
+    document.getElementById('statusLookupInput').addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        checkApplicationStatus();
+      }
+    });
+
+    document.getElementById('aiChatInput').addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendAiMessage();
+      }
+    });
 
     initTheme();
   </script>

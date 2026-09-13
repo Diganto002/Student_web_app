@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const dbPath = path.join(__dirname, 'student_system.db');
+const dbPath = process.env.DATABASE_PATH || path.join(__dirname, 'student_system.db');
 const db = new sqlite3.Database(dbPath);
 
 // Promisified Database Helper Methods
@@ -45,6 +45,7 @@ const dbExec = (sql) => {
 async function initDb() {
   try {
     await dbRun('PRAGMA foreign_keys = ON');
+    await dbRun('PRAGMA journal_mode = WAL');
 
     await dbExec(`
       CREATE TABLE IF NOT EXISTS students (

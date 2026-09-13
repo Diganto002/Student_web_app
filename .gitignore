@@ -1,15 +1,23 @@
-﻿# Node modules
+# Node modules
 node_modules/
 
 # Local env files
 .env
+.env.local
+.env.*.local
 
-# SQLite DB
-student_system.db
+# SQLite DB & WAL files
+student_system.db*
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
 
 # Logs
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # OS files
 .DS_Store
-student_system.db\nnode_modules/\n.env
+Thumbs.db

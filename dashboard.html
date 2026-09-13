@@ -124,6 +124,24 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Pagination Footer -->
+      <div class="px-4 py-3 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <div class="text-slate-500 dark:text-slate-400">
+          Showing <span id="pageInfoStart" class="font-semibold text-slate-800 dark:text-slate-200">0</span> to <span id="pageInfoEnd" class="font-semibold text-slate-800 dark:text-slate-200">0</span> of <span id="pageInfoTotal" class="font-semibold text-slate-800 dark:text-slate-200">0</span> applications
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btnPrevPage" onclick="changePage(-1)" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition">
+            <i class="fa-solid fa-chevron-left mr-1"></i> Previous
+          </button>
+          <span class="px-2 font-medium text-slate-600 dark:text-slate-300">
+            Page <strong id="currentPageNum" class="text-indigo-500">1</strong> of <span id="totalPageNum">1</span>
+          </span>
+          <button id="btnNextPage" onclick="changePage(1)" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition">
+            Next <i class="fa-solid fa-chevron-right ml-1"></i>
+          </button>
+        </div>
+      </div>
     </div>
 
   </main>
@@ -192,6 +210,9 @@
 
     let currentFilter = 'All';
     let currentSearch = '';
+    let currentPage = 1;
+    let totalPages = 1;
+    const pageLimit = 10;
 
     // Initial mock dataset for static GitHub Pages demo
     const defaultMockStudents = [
@@ -210,7 +231,7 @@
       try {
         let res;
         try {
-          const params = new URLSearchParams({ search: currentSearch, status: currentFilter });
+          const params = new URLSearchParams({ search: currentSearch, status: currentFilter, page: currentPage, limit: pageLimit });
           res = await fetch('/students?' + params.toString());
         } catch (netErr) {
           res = null;
@@ -220,6 +241,7 @@
           const data = await res.json();
           renderStats(data.stats);
           renderTable(data.data);
+          renderPagination(data.pagination);
         } else {
           // GitHub Pages demo fallback
           let list = JSON.parse(localStorage.getItem('mockStudents') || '[]');
@@ -245,10 +267,49 @@
             rejected: allList.filter(x => x.status === 'Rejected').length,
           };
           renderStats(stats);
-          renderTable(list);
+
+          totalPages = Math.ceil(list.length / pageLimit) || 1;
+          const startIdx = (currentPage - 1) * pageLimit;
+          const paginated = list.slice(startIdx, startIdx + pageLimit);
+
+          renderPagination({
+            total: list.length,
+            page: currentPage,
+            limit: pageLimit,
+            totalPages
+          });
+          renderTable(paginated);
         }
       } catch (err) {
         console.error('Error loading students:', err);
+      }
+    }
+
+    function renderPagination(pagination) {
+      if (!pagination) return;
+      currentPage = pagination.page || 1;
+      totalPages = pagination.totalPages || 1;
+
+      const total = pagination.total || 0;
+      const start = total === 0 ? 0 : (currentPage - 1) * (pagination.limit || pageLimit) + 1;
+      const end = Math.min(start + (pagination.limit || pageLimit) - 1, total);
+
+      document.getElementById('pageInfoStart').innerText = start;
+      document.getElementById('pageInfoEnd').innerText = end;
+      document.getElementById('pageInfoTotal').innerText = total;
+
+      document.getElementById('currentPageNum').innerText = currentPage;
+      document.getElementById('totalPageNum').innerText = totalPages;
+
+      document.getElementById('btnPrevPage').disabled = currentPage <= 1;
+      document.getElementById('btnNextPage').disabled = currentPage >= totalPages;
+    }
+
+    function changePage(delta) {
+      const target = currentPage + delta;
+      if (target >= 1 && target <= totalPages) {
+        currentPage = target;
+        loadStudents();
       }
     }
 
@@ -393,11 +454,13 @@
 
     function handleSearch() {
       currentSearch = document.getElementById('searchInput').value.trim();
+      currentPage = 1;
       loadStudents();
     }
 
     function setFilter(status) {
       currentFilter = status;
+      currentPage = 1;
       ['All', 'Submitted', 'Approved', 'Rejected'].forEach(s => {
         const btn = document.getElementById(`filter${s}`);
         if (s === status) {

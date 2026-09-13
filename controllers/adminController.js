@@ -17,8 +17,8 @@ exports.adminLogin = (req, res) => {
     const u = username.trim().toLowerCase();
     const p = password.trim();
 
-    // Accepts both spetrum / spectrum with password admin123
-    if ((u === 'spetrum' || u === 'spectrum') && p === 'admin123') {
+    // Accepts admin / spetrum / spectrum with password admin123
+    if ((u === 'spetrum' || u === 'spectrum' || u === 'admin') && p === 'admin123') {
       return res.status(200).json({
         success: true,
         message: 'Admin authentication successful!',
