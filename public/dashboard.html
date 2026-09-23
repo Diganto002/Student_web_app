@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | University Of Liberal Arts Bangladesh</title>
+  <title>Admin Management Dashboard | University Of Liberal Arts Bangladesh</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -16,46 +16,67 @@
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Premium Light Theme Canvas & Atmosphere */
+    html:not(.dark) body {
+      background-color: #f1f4f9;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.06) 0px, transparent 45%),
+        radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.05) 0px, transparent 45%),
+        radial-gradient(at 50% 100%, rgba(59, 130, 246, 0.03) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+    html:not(.dark) .light-card {
+      background-color: #ffffff;
+      border-color: rgba(226, 232, 240, 0.9);
+      box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 4px 16px -2px rgba(15, 23, 42, 0.03);
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-['Inter'] transition-colors duration-300 min-h-screen flex flex-col">
+<body class="bg-slate-100/70 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-['Inter'] transition-colors duration-300 min-h-screen flex flex-col">
 
   <!-- Header Navigation -->
-  <header class="bg-white border-b border-slate-200 dark:bg-slate-900 dark:border-slate-800 shadow-sm sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+  <header class="bg-white/95 backdrop-blur-md border-b border-slate-200/90 dark:bg-slate-900/90 dark:border-slate-800 shadow-xs sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
       
       <a href="index.html" class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-indigo-600/30">
           <i class="fa-solid fa-university"></i>
         </div>
         <div>
           <h1 class="text-base font-bold leading-tight">University Of Liberal Arts Bangladesh</h1>
-          <p class="text-[11px] text-slate-500 dark:text-slate-400">Admin Management Dashboard (User: <strong id="adminUserBadge" class="text-indigo-500">spetrum</strong>)</p>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">Admin Control Center &bull; Logged in as <strong id="adminUserBadge" class="text-indigo-600 dark:text-indigo-400">spetrum</strong></p>
         </div>
       </a>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2.5 sm:gap-3">
         <!-- Light / Dark Mode Toggle Button -->
-        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition text-sm font-semibold flex items-center gap-2">
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition text-sm font-semibold flex items-center gap-2 border border-slate-200/60 dark:border-slate-700">
           <i id="themeIcon" class="fa-solid fa-moon text-indigo-500"></i>
           <span id="themeText" class="hidden sm:inline">Dark</span>
         </button>
 
         <!-- Navigation Links -->
-        <a href="index.html" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-semibold transition">
-          Home Portal
+        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold transition text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700">
+          Home
         </a>
 
-        <a href="register.html" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition flex items-center gap-1.5">
+        <a href="student-login.html" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold transition text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700">
+          Student Portal
+        </a>
+
+        <a href="register.html" class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-sm shadow-indigo-600/20">
           <i class="fa-solid fa-user-plus"></i>
-          <span>Student Form</span>
+          <span class="hidden sm:inline">Admission Form</span>
         </a>
 
         <!-- Logout Button -->
-        <button onclick="logout()" class="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition flex items-center gap-1.5">
+        <button onclick="logout()" class="px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-sm shadow-rose-600/20">
           <i class="fa-solid fa-right-from-bracket"></i>
           <span>Logout</span>
         </button>
@@ -65,114 +86,638 @@
   </header>
 
   <!-- Main Content -->
-  <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8 space-y-6">
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
 
     <!-- Summary Metrics Cards -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-xl shadow-sm">
-        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Total Applications</p>
-        <h3 id="statTotal" class="text-2xl font-extrabold mt-1">0</h3>
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Applications</p>
+          <div class="w-9 h-9 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/40 flex items-center justify-center text-sm shadow-xs">
+            <i class="fa-solid fa-users"></i>
+          </div>
+        </div>
+        <h3 id="statTotal" class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mt-2">0</h3>
+        <div class="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+          <span>All submissions</span>
+        </div>
       </div>
-      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-xl shadow-sm">
-        <p class="text-xs font-semibold text-amber-500 uppercase">Submitted</p>
-        <h3 id="statSubmitted" class="text-2xl font-extrabold text-amber-500 mt-1">0</h3>
+
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <p class="text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Pending Review</p>
+          <div class="w-9 h-9 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-900/40 flex items-center justify-center text-sm shadow-xs">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+        </div>
+        <h3 id="statSubmitted" class="text-2xl sm:text-3xl font-black text-amber-600 dark:text-amber-400 mt-2">0</h3>
+        <div class="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+          <span>Requires verification</span>
+        </div>
       </div>
-      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-xl shadow-sm">
-        <p class="text-xs font-semibold text-emerald-500 uppercase">Approved</p>
-        <h3 id="statApproved" class="text-2xl font-extrabold text-emerald-500 mt-1">0</h3>
+
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <p class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Approved Students</p>
+          <div class="w-9 h-9 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/40 flex items-center justify-center text-sm shadow-xs">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+        </div>
+        <h3 id="statApproved" class="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-2">0</h3>
+        <div class="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span>Enrolled & active</span>
+        </div>
       </div>
-      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-xl shadow-sm">
-        <p class="text-xs font-semibold text-rose-500 uppercase">Rejected</p>
-        <h3 id="statRejected" class="text-2xl font-extrabold text-rose-500 mt-1">0</h3>
+
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <p class="text-[11px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Rejected</p>
+          <div class="w-9 h-9 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-rose-900/40 flex items-center justify-center text-sm shadow-xs">
+            <i class="fa-solid fa-ban"></i>
+          </div>
+        </div>
+        <h3 id="statRejected" class="text-2xl sm:text-3xl font-black text-rose-600 dark:text-rose-400 mt-2">0</h3>
+        <div class="mt-1 flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+          <span>Declined applicants</span>
+        </div>
       </div>
     </div>
 
-    <!-- Search & Filter Bar -->
-    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-      <!-- Search Input -->
-      <div class="w-full sm:w-80 relative">
-        <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="Search Name, REG ID, Email..."
-          class="w-full pl-9 pr-4 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+    <!-- Main Navigation Tabs -->
+    <div class="flex flex-wrap items-center gap-2.5 border-b border-slate-200/90 dark:border-slate-800 pb-3">
+      <button id="mainTabBtnAdmissions" onclick="switchAdminTab('admissions')" class="px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-indigo-600 text-white shadow-md shadow-indigo-600/25">
+        <i class="fa-solid fa-users"></i>
+        <span>Admissions & Applications</span>
+      </button>
+
+      <button id="mainTabBtnStudents" onclick="switchAdminTab('students')" class="px-4 py-2.5 rounded-2xl text-xs font-semibold transition flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700">
+        <i class="fa-solid fa-user-graduate"></i>
+        <span>Approved Students Roster</span>
+      </button>
+
+      <button id="mainTabBtnCourses" onclick="switchAdminTab('courses')" class="px-4 py-2.5 rounded-2xl text-xs font-semibold transition flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700">
+        <i class="fa-solid fa-book-bookmark"></i>
+        <span>Academic Course Management & Offerings</span>
+      </button>
+
+      <button id="mainTabBtnBilling" onclick="switchAdminTab('billing')" class="px-4 py-2.5 rounded-2xl text-xs font-semibold transition flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700">
+        <i class="fa-solid fa-receipt text-indigo-500"></i>
+        <span>Tuition & Billing Management</span>
+      </button>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 1: Admission Applications Review (Existing)               -->
+    <!-- ================================================================= -->
+    <div id="sectionAdmissions" class="space-y-4">
+      <!-- Search & Filter Bar -->
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-3xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="w-full sm:w-80 relative">
+          <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="Search Name, REG ID, Email, Phone..."
+            class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300/80 dark:border-slate-700 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-xs">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+        </div>
+
+        <div class="flex items-center gap-1.5 bg-slate-100/80 dark:bg-slate-950 p-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 text-xs font-semibold shadow-xs">
+          <button onclick="setFilter('All')" id="filterAll" class="px-3.5 py-1.5 rounded-xl bg-indigo-600 text-white font-bold shadow-xs">All</button>
+          <button onclick="setFilter('Submitted')" id="filterSubmitted" class="px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-indigo-600 dark:text-slate-400 transition font-medium">Pending Review</button>
+          <button onclick="setFilter('Approved')" id="filterApproved" class="px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-emerald-600 dark:text-slate-400 transition font-medium">Approved</button>
+          <button onclick="setFilter('Rejected')" id="filterRejected" class="px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-rose-600 dark:text-slate-400 transition font-medium">Rejected</button>
+        </div>
       </div>
 
-      <!-- Filter Buttons -->
-      <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-950 p-1 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-semibold">
-        <button onclick="setFilter('All')" id="filterAll" class="px-3 py-1.5 rounded-md bg-indigo-600 text-white">All</button>
-        <button onclick="setFilter('Submitted')" id="filterSubmitted" class="px-3 py-1.5 rounded-md text-slate-500 hover:text-indigo-500">Submitted</button>
-        <button onclick="setFilter('Approved')" id="filterApproved" class="px-3 py-1.5 rounded-md text-slate-500 hover:text-emerald-500">Approved</button>
-        <button onclick="setFilter('Rejected')" id="filterRejected" class="px-3 py-1.5 rounded-md text-slate-500 hover:text-rose-500">Rejected</button>
+      <!-- Student List Table -->
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead class="bg-slate-100 dark:bg-slate-950 text-xs uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800">
+              <tr>
+                <th class="p-3.5">REG ID</th>
+                <th class="p-3.5">Student Name</th>
+                <th class="p-3.5">Contact</th>
+                <th class="p-3.5">Department</th>
+                <th class="p-3.5">Status</th>
+                <th class="p-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody" class="divide-y divide-slate-200 dark:divide-slate-800 text-xs">
+              <tr>
+                <td colspan="6" class="p-6 text-center text-slate-400">Loading student applications...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500">
+          <span id="paginationInfo">Showing page 1</span>
+          <div class="flex items-center gap-2">
+            <button onclick="changePage(-1)" id="btnPrevPage" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed">Previous</button>
+            <span id="pageIndicator" class="font-bold">1</span>
+            <button onclick="changePage(1)" id="btnNextPage" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed">Next</button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Student List Table -->
-    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm border-collapse">
-          <thead class="bg-slate-100 dark:bg-slate-950 text-xs uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800">
-            <tr>
-              <th class="p-3">REG ID</th>
-              <th class="p-3">Student Name</th>
-              <th class="p-3">Contact</th>
-              <th class="p-3">Course</th>
-              <th class="p-3">Status</th>
-              <th class="p-3 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="studentTable" class="divide-y divide-slate-200 dark:divide-slate-800">
-            <!-- Data dynamically loaded via JS -->
-          </tbody>
-        </table>
+    <!-- ================================================================= -->
+    <!-- SECTION 2: Approved Students Roster                               -->
+    <!-- ================================================================= -->
+    <div id="sectionStudents" class="hidden space-y-4">
+      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-2xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-user-check"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold">Approved Students & Academic Enrollment</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">View active student login IDs, assigned departments, and advising statuses</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <select id="selStudentDeptFilter" onchange="loadApprovedStudents()" class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold outline-none">
+            <option value="All">All Departments</option>
+            <option value="CSE">CSE</option>
+            <option value="SE">SE</option>
+            <option value="DSAI">DSAI</option>
+            <option value="EEE">EEE</option>
+            <option value="BBA">BBA</option>
+            <option value="MSJ">MSJ</option>
+          </select>
+          <button onclick="loadApprovedStudents()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold transition">
+            <i class="fa-solid fa-rotate-right mr-1"></i> Refresh
+          </button>
+        </div>
       </div>
 
-      <!-- Pagination Footer -->
-      <div class="px-4 py-3 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-        <div class="text-slate-500 dark:text-slate-400">
-          Showing <span id="pageInfoStart" class="font-semibold text-slate-800 dark:text-slate-200">0</span> to <span id="pageInfoEnd" class="font-semibold text-slate-800 dark:text-slate-200">0</span> of <span id="pageInfoTotal" class="font-semibold text-slate-800 dark:text-slate-200">0</span> applications
-        </div>
-        <div class="flex items-center gap-2">
-          <button id="btnPrevPage" onclick="changePage(-1)" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition">
-            <i class="fa-solid fa-chevron-left mr-1"></i> Previous
-          </button>
-          <span class="px-2 font-medium text-slate-600 dark:text-slate-300">
-            Page <strong id="currentPageNum" class="text-indigo-500">1</strong> of <span id="totalPageNum">1</span>
-          </span>
-          <button id="btnNextPage" onclick="changePage(1)" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition">
-            Next <i class="fa-solid fa-chevron-right ml-1"></i>
-          </button>
+      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-100 dark:bg-slate-950 uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800 text-[10px]">
+              <tr>
+                <th class="p-3.5">Student ID (Login ID)</th>
+                <th class="p-3.5">Full Name</th>
+                <th class="p-3.5">Email</th>
+                <th class="p-3.5">Department</th>
+                <th class="p-3.5">Current Term</th>
+                <th class="p-3.5">Course Advising Status</th>
+                <th class="p-3.5">Initial Password Status</th>
+              </tr>
+            </thead>
+            <tbody id="approvedStudentsTableBody" class="divide-y divide-slate-200 dark:divide-slate-800">
+              <tr>
+                <td colspan="7" class="p-6 text-center text-slate-400">Loading approved students...</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 3: Academic Course Management & Offerings                 -->
+    <!-- ================================================================= -->
+    <div id="sectionCourses" class="hidden space-y-6">
+      
+      <!-- Academic Term Selector Bar -->
+      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+          <div>
+            <h3 class="text-base font-bold flex items-center gap-2">
+              <i class="fa-solid fa-calendar-check text-indigo-500"></i>
+              <span>Semester Course Allocation & Offerings</span>
+            </h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Configure available subjects for students based on Department, Semester, and Academic Year
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="openAddCourseModal()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold transition flex items-center gap-1.5">
+              <i class="fa-solid fa-plus text-indigo-500"></i>
+              <span>Add Course to Catalog</span>
+            </button>
+            <button onclick="openOfferCoursesModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-folder-plus"></i>
+              <span>Assign Courses to Term</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Selectors -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-[11px] uppercase font-bold text-slate-400 mb-1">Department</label>
+            <select id="courseFilterDept" onchange="loadOfferingsData()" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold outline-none">
+              <option value="CSE">Computer Science & Engineering (CSE)</option>
+              <option value="SE">Software Engineering (SE)</option>
+              <option value="DSAI">Data Science & AI (DSAI)</option>
+              <option value="EEE">Electrical & Electronic Engineering (EEE)</option>
+              <option value="BBA">Bachelor of Business Administration (BBA)</option>
+              <option value="MSJ">Media Studies & Journalism (MSJ)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[11px] uppercase font-bold text-slate-400 mb-1">Semester</label>
+            <select id="courseFilterSem" onchange="loadOfferingsData()" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold outline-none">
+              <option value="Spring">Spring Semester</option>
+              <option value="Summer">Summer Semester</option>
+              <option value="Fall">Fall Semester</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[11px] uppercase font-bold text-slate-400 mb-1">Academic Year</label>
+            <select id="courseFilterYear" onchange="loadOfferingsData()" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-semibold outline-none">
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Offered Courses Table -->
+      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold">Active Offerings:</span>
+            <span id="offeringSummaryTag" class="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-indigo-500/10 text-indigo-500 font-bold">CSE • Spring 2026</span>
+          </div>
+          <span id="offeredCountTag" class="text-xs text-slate-400">0 courses offered</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-100 dark:bg-slate-950 uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800 text-[10px]">
+              <tr>
+                <th class="p-3.5">Course Code</th>
+                <th class="p-3.5">Course Title</th>
+                <th class="p-3.5">Credit Hours</th>
+                <th class="p-3.5">Department</th>
+                <th class="p-3.5">Enrollment Status</th>
+                <th class="p-3.5 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="offeringsTableBody" class="divide-y divide-slate-200 dark:divide-slate-800">
+              <tr>
+                <td colspan="6" class="p-6 text-center text-slate-400">Loading course offerings...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 4: Tuition & Billing Management                           -->
+    <!-- ================================================================= -->
+    <div id="sectionBilling" class="hidden space-y-6">
+      
+      <!-- Financial Metric Cards (4 Cards) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Billed</span>
+            <div class="w-9 h-9 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/40 flex items-center justify-center text-sm shadow-xs">
+              <i class="fa-solid fa-file-invoice"></i>
+            </div>
+          </div>
+          <h3 id="statBillTotal" class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 mt-2">৳0</h3>
+          <span class="text-[11px] text-slate-500 font-medium block mt-1" id="statBillCount">0 semester assessments</span>
+        </div>
+
+        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Collected (Paid)</span>
+            <div class="w-9 h-9 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/40 flex items-center justify-center text-sm shadow-xs">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+          </div>
+          <h3 id="statBillCollected" class="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-2">৳0</h3>
+          <span class="text-[11px] text-emerald-600/90 dark:text-emerald-400/90 font-medium block mt-1" id="statBillPaidCount">0 paid bills</span>
+        </div>
+
+        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Outstanding (Due)</span>
+            <div class="w-9 h-9 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-rose-900/40 flex items-center justify-center text-sm shadow-xs">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+          </div>
+          <h3 id="statBillDue" class="text-2xl sm:text-3xl font-black text-rose-600 dark:text-rose-400 mt-2">৳0</h3>
+          <span class="text-[11px] text-rose-600/90 dark:text-rose-400/90 font-medium block mt-1" id="statBillUnpaidCount">0 pending payments</span>
+        </div>
+
+        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800/80 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Waivers / Discounts</span>
+            <div class="w-9 h-9 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-900/40 flex items-center justify-center text-sm shadow-xs">
+              <i class="fa-solid fa-percent"></i>
+            </div>
+          </div>
+          <h3 id="statBillDiscounts" class="text-2xl sm:text-3xl font-black text-amber-600 dark:text-amber-400 mt-2">৳0</h3>
+          <span class="text-[11px] text-amber-600/90 dark:text-amber-400/90 font-medium block mt-1">Granted to students</span>
+        </div>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-4 rounded-3xl shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        
+        <div class="w-full md:w-80 relative">
+          <input type="text" id="billSearchInput" onkeyup="handleBillSearch()" placeholder="Search Student ID, Name, Email..."
+            class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300/80 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-xs">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-400 text-xs"></i>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+          <!-- Department Filter -->
+          <select id="billDeptFilter" onchange="loadAdminBills()" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300/80 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500/20 shadow-xs">
+            <option value="All">All Departments</option>
+            <option value="CSE">CSE</option>
+            <option value="SE">SE</option>
+            <option value="DSAI">DSAI</option>
+            <option value="EEE">EEE</option>
+            <option value="BBA">BBA</option>
+            <option value="MSJ">MSJ</option>
+          </select>
+
+          <!-- Payment Status Filter -->
+          <select id="billStatusFilter" onchange="loadAdminBills()" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300/80 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500/20 shadow-xs">
+            <option value="All">All Statuses</option>
+            <option value="Unpaid">Unpaid / Due</option>
+            <option value="Paid">Paid</option>
+          </select>
+
+          <button onclick="loadAdminBills()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold transition flex items-center gap-1.5 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700 shadow-xs">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>Refresh</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Student Bills Roster Table -->
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-100/90 dark:bg-slate-950 uppercase text-slate-600 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-800 text-[10px] tracking-wider">
+              <tr>
+                <th class="p-4">Student</th>
+                <th class="p-4">Term</th>
+                <th class="p-4">Credits Enrolled</th>
+                <th class="p-4">Gross Tuition (@ ৳5,000)</th>
+                <th class="p-4">Discount / Waiver</th>
+                <th class="p-4">Net Payable</th>
+                <th class="p-4">Status</th>
+                <th class="p-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="billingTableBody" class="divide-y divide-slate-200/80 dark:divide-slate-800">
+              <tr>
+                <td colspan="8" class="p-6 text-center text-slate-400">Loading student tuition bills...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
   </main>
 
-  <!-- Student Details Modal -->
-  <div id="detailModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
-    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-4">
-      <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-3">
-        <h3 id="modalName" class="font-bold text-lg">Student Details</h3>
-        <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
+  <!-- Modal: View Student Details & Audit History -->
+  <div id="detailModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 w-full max-w-lg p-6 rounded-2xl shadow-xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+        <h3 class="font-bold text-base" id="modalName">Student Application Details</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
-
-      <div id="modalBody" class="text-xs space-y-2 text-slate-600 dark:text-slate-300">
-        <!-- Loaded dynamically -->
-      </div>
-
-      <div class="flex justify-end pt-2">
+      <div id="modalBody" class="text-xs space-y-3"></div>
+      <div class="flex justify-end pt-3 border-t border-slate-200 dark:border-slate-800">
         <button onclick="closeModal()" class="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-xs font-semibold">Close</button>
       </div>
     </div>
   </div>
 
+  <!-- Modal: Approve / Reject Action -->
+  <div id="actionModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 w-full max-w-md p-6 rounded-2xl shadow-xl space-y-4">
+      <h3 class="font-bold text-base" id="actionModalTitle">Confirm Action</h3>
+      <p class="text-xs text-slate-500" id="actionModalDesc">Enter admin remarks before updating status.</p>
+      <div>
+        <label class="block text-xs font-semibold mb-1">Remarks / Note (Optional)</label>
+        <textarea id="actionRemarks" rows="3" placeholder="Type administrative remarks..."
+          class="w-full p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-indigo-500"></textarea>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeActionModal()" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-xs font-semibold">Cancel</button>
+        <button id="btnConfirmAction" onclick="submitStatusUpdate()" class="px-4 py-1.5 rounded-lg text-white text-xs font-bold">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add New Course to Master Catalog -->
+  <div id="addCourseModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 w-full max-w-md p-6 rounded-3xl shadow-xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+        <h3 class="font-bold text-base">Add New Course to Catalog</h3>
+        <button onclick="closeAddCourseModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="addCourseForm" onsubmit="submitNewCourse(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold mb-1 text-slate-500">Course Code (e.g. CSE309)</label>
+          <input type="text" id="newCourseCode" required placeholder="CSE309" class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 uppercase font-mono font-bold">
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-slate-500">Course Title</label>
+          <input type="text" id="newCourseTitle" required placeholder="Web Application Security" class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 font-semibold">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold mb-1 text-slate-500">Credit Hours</label>
+            <input type="number" step="0.5" id="newCourseCredits" required value="3.0" min="1.0" max="6.0" class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 font-mono">
+          </div>
+          <div>
+            <label class="block font-semibold mb-1 text-slate-500">Department</label>
+            <select id="newCourseDept" class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 font-semibold">
+              <option value="CSE">CSE</option>
+              <option value="SE">SE</option>
+              <option value="DSAI">DSAI</option>
+              <option value="EEE">EEE</option>
+              <option value="BBA">BBA</option>
+              <option value="MSJ">MSJ</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-slate-500">Description (Optional)</label>
+          <textarea id="newCourseDesc" rows="2" placeholder="Course syllabus overview..." class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeAddCourseModal()" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold">Add Course</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Assign Courses to Semester Offering -->
+  <div id="offerCoursesModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 w-full max-w-lg p-6 rounded-3xl shadow-xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+        <div>
+          <h3 class="font-bold text-base">Assign Catalog Courses to Term</h3>
+          <p class="text-xs text-slate-400 mt-0.5" id="assignTermSubtitle">Select courses to open for enrollment</p>
+        </div>
+        <button onclick="closeOfferCoursesModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="unofferedCoursesList" class="space-y-2 text-xs max-h-72 overflow-y-auto p-1">
+        <p class="text-center text-slate-400 py-6">Loading catalog courses...</p>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
+        <button type="button" onclick="closeOfferCoursesModal()" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold text-xs">Cancel</button>
+        <button type="button" onclick="submitOfferCourses()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs">Assign Selected Courses</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Set Student Bill Discount / Waiver -->
+  <div id="discountModal" onclick="if (event.target === this) closeDiscountModal()" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 w-full max-w-md p-6 rounded-3xl shadow-xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+        <div>
+          <h3 class="font-bold text-base">Student Tuition Waiver / Discount</h3>
+          <p class="text-xs text-slate-500" id="discModalStudentInfo">Student: Loading...</p>
+        </div>
+        <button onclick="closeDiscountModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Quick Preset Discount Selection Buttons -->
+      <div class="space-y-1.5">
+        <label class="block text-xs font-semibold text-slate-500">Quick Select Discount Tier</label>
+        <div class="grid grid-cols-5 gap-1.5 text-xs font-bold">
+          <button type="button" onclick="selectPresetDiscount(0)" class="py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition text-center">0%</button>
+          <button type="button" onclick="selectPresetDiscount(20)" class="py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition text-center">20%</button>
+          <button type="button" onclick="selectPresetDiscount(40)" class="py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition text-center">40%</button>
+          <button type="button" onclick="selectPresetDiscount(50)" class="py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition text-center">50%</button>
+          <button type="button" onclick="selectPresetDiscount(100)" class="py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition text-center">100%</button>
+        </div>
+      </div>
+
+      <!-- Custom Input & Live Preview Box -->
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-slate-500">Discount Percentage (%)</label>
+          <input type="number" id="discPercentageInput" min="0" max="100" step="1" oninput="updateDiscountPreview()"
+            class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 font-mono font-bold text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+        </div>
+
+        <!-- Live Calculation Preview -->
+        <div class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5 text-xs">
+          <div class="flex justify-between text-slate-500">
+            <span>Gross Assessment:</span>
+            <span class="font-mono font-bold text-slate-800 dark:text-slate-100" id="discPreviewGross">৳0</span>
+          </div>
+          <div class="flex justify-between text-emerald-600 dark:text-emerald-400">
+            <span>Waiver Amount (<span id="discPreviewPercent">0%</span>):</span>
+            <span class="font-mono font-bold" id="discPreviewDiscountAmt">-৳0</span>
+          </div>
+          <div class="flex justify-between font-bold pt-1.5 border-t border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
+            <span>New Net Payable:</span>
+            <span class="font-mono font-extrabold text-indigo-600 dark:text-indigo-400 text-sm" id="discPreviewNet">৳0</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold mb-1 text-slate-500">Administrative Remarks (Optional)</label>
+          <input type="text" id="discRemarksInput" placeholder="e.g. Merit scholarship or sibling waiver"
+            class="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs outline-none">
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+        <button type="button" onclick="closeDiscountModal()" class="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold text-xs">Cancel</button>
+        <button type="button" id="btnApplyDiscount" onclick="submitDiscountUpdate()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md">Apply Waiver</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: View Bill Details & Full Voucher -->
+  <div id="billVoucherModal" onclick="if (event.target === this) closeBillVoucherModal()" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 w-full max-w-2xl p-6 rounded-3xl shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+        <div>
+          <h3 class="font-bold text-base" id="adminVoucherTitle">Student Fee Voucher</h3>
+          <p class="text-xs text-slate-400" id="adminVoucherSubtitle">Official university tuition breakdown</p>
+        </div>
+        <button onclick="closeBillVoucherModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="adminVoucherContent" class="space-y-4 text-xs">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div class="flex justify-between items-center pt-3 border-t border-slate-200 dark:border-slate-800">
+        <button onclick="closeBillVoucherModal()" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold text-xs">Close</button>
+        <button onclick="printAdminVoucher()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+          <i class="fa-solid fa-print"></i>
+          <span>Print Voucher</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 dark:bg-slate-900 dark:border-slate-800 py-4 text-center text-xs text-slate-500 mt-auto">
-    <p>&copy; 2026 University Of Liberal Arts Bangladesh (ULAB)</p>
+  <footer class="bg-white border-t border-slate-200 dark:bg-slate-900 dark:border-slate-800 py-4 text-center text-xs text-slate-500">
+    <p>&copy; 2026 University Of Liberal Arts Bangladesh (ULAB) &bull; Administration Portal</p>
   </footer>
 
-  <!-- Dashboard Script -->
   <script>
+    // State Variables
+    let currentPage = 1;
+    let currentFilter = 'All';
+    let currentSearch = '';
+    let currentActionId = null;
+    let currentActionType = null;
+    let currentAdminTab = 'admissions';
+
+    // Auth Check
+    const adminToken = localStorage.getItem('adminToken');
+    if (!adminToken) {
+      window.location.href = 'admin-login.html';
+    }
+
+    const adminUser = localStorage.getItem('adminUser');
+    if (adminUser) {
+      document.getElementById('adminUserBadge').innerText = adminUser;
+    }
+
+    // Theme Management
     function initTheme() {
       const savedTheme = localStorage.getItem('theme') || 'dark';
       if (savedTheme === 'dark') {
@@ -200,250 +745,247 @@
 
     initTheme();
 
-    const adminToken = localStorage.getItem('adminToken');
-    const adminUser = localStorage.getItem('adminUser') || 'spetrum';
-    if (!adminToken) {
-      window.location.href = 'admin-login.html';
-    } else {
-      document.getElementById('adminUserBadge').innerText = adminUser;
+    // Switch Admin Sections
+    function switchAdminTab(tab) {
+      currentAdminTab = tab;
+      const secAdmissions = document.getElementById('sectionAdmissions');
+      const secStudents = document.getElementById('sectionStudents');
+      const secCourses = document.getElementById('sectionCourses');
+      const secBilling = document.getElementById('sectionBilling');
+
+      const btnAdm = document.getElementById('mainTabBtnAdmissions');
+      const btnStu = document.getElementById('mainTabBtnStudents');
+      const btnCou = document.getElementById('mainTabBtnCourses');
+      const btnBil = document.getElementById('mainTabBtnBilling');
+
+      const activeClasses = 'px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-indigo-600 text-white shadow-md shadow-indigo-600/25';
+      const inactiveClasses = 'px-4 py-2.5 rounded-2xl text-xs font-semibold transition flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700';
+
+      secAdmissions.classList.add('hidden');
+      secStudents.classList.add('hidden');
+      secCourses.classList.add('hidden');
+      secBilling.classList.add('hidden');
+
+      btnAdm.className = inactiveClasses;
+      btnStu.className = inactiveClasses;
+      btnCou.className = inactiveClasses;
+      btnBil.className = inactiveClasses;
+
+      if (tab === 'admissions') {
+        secAdmissions.classList.remove('hidden');
+        btnAdm.className = activeClasses;
+        loadStudents();
+      } else if (tab === 'students') {
+        secStudents.classList.remove('hidden');
+        btnStu.className = activeClasses;
+        loadApprovedStudents();
+      } else if (tab === 'courses') {
+        secCourses.classList.remove('hidden');
+        btnCou.className = activeClasses;
+        loadOfferingsData();
+      } else if (tab === 'billing') {
+        secBilling.classList.remove('hidden');
+        btnBil.className = activeClasses;
+        loadAdminBills();
+      }
     }
 
-    let currentFilter = 'All';
-    let currentSearch = '';
-    let currentPage = 1;
-    let totalPages = 1;
-    const pageLimit = 10;
-
-    // Initial mock dataset for static GitHub Pages demo
-    const defaultMockStudents = [
-      { id: 1, registration_id: 'REG1001', first_name: 'Mh', last_name: 'Diganto', email: 'mhdiganto@gmail.com', phone: '01712345678', date_of_birth: '2002-10-14', gender: 'Male', address: 'Mohammadpur, Dhaka', course_name: 'Computer Science & Engineering (CSE)', status: 'Approved', created_at: new Date().toISOString() },
-      { id: 2, registration_id: 'REG1002', first_name: 'Mostagir', last_name: 'Hossain', email: 'mhdiganto002@gmail.com', phone: '01912345678', date_of_birth: '2000-10-13', gender: 'Male', address: 'Bogura', course_name: 'Software Engineering (SE)', status: 'Approved', created_at: new Date().toISOString() },
-      { id: 3, registration_id: 'REG1003', first_name: 'Mahmudul', last_name: 'Hasan', email: 'mahmudul.hasan@gmail.com', phone: '01812345678', date_of_birth: '2001-05-20', gender: 'Male', address: 'Uttara, Dhaka', course_name: 'Data Science & Artificial Intelligence (DSAI)', status: 'Rejected', created_at: new Date().toISOString() },
-      { id: 4, registration_id: 'REG1004', first_name: 'Ayesha', last_name: 'Rahman', email: 'ayesha.rahman@gmail.com', phone: '01612345678', date_of_birth: '2003-08-15', gender: 'Female', address: 'Dhanmondi, Dhaka', course_name: 'Bachelor of Business Administration (BBA)', status: 'Submitted', created_at: new Date().toISOString() },
-      { id: 5, registration_id: 'REG1005', first_name: 'Tanvir', last_name: 'Ahmed', email: 'tanvir.ahmed@gmail.com', phone: '01512345678', date_of_birth: '1999-12-01', gender: 'Male', address: 'Mirpur, Dhaka', course_name: 'Media Studies & Journalism (MSJ)', status: 'Submitted', created_at: new Date().toISOString() }
-    ];
-
-    if (!localStorage.getItem('mockStudents')) {
-      localStorage.setItem('mockStudents', JSON.stringify(defaultMockStudents));
-    }
-
+    // ==========================================
+    // TAB 1: ADMISSIONS APPLICATIONS
+    // ==========================================
     async function loadStudents() {
       try {
-        let res;
-        try {
-          const params = new URLSearchParams({ search: currentSearch, status: currentFilter, page: currentPage, limit: pageLimit });
-          res = await fetch('/students?' + params.toString());
-        } catch (netErr) {
-          res = null;
+        const params = new URLSearchParams({
+          page: currentPage,
+          limit: 10,
+          search: currentSearch,
+          status: currentFilter
+        });
+
+        const res = await fetch('/students?' + params.toString());
+        if (res.status === 401) {
+          logout();
+          return;
         }
 
-        if (res && res.ok) {
-          const data = await res.json();
-          renderStats(data.stats);
-          renderTable(data.data);
-          renderPagination(data.pagination);
-        } else {
-          // GitHub Pages demo fallback
-          let list = JSON.parse(localStorage.getItem('mockStudents') || '[]');
-          if (currentSearch) {
-            const s = currentSearch.toLowerCase();
-            list = list.filter(item => 
-              (item.registration_id && item.registration_id.toLowerCase().includes(s)) ||
-              (item.first_name && item.first_name.toLowerCase().includes(s)) ||
-              (item.last_name && item.last_name.toLowerCase().includes(s)) ||
-              (item.email && item.email.toLowerCase().includes(s)) ||
-              (item.phone && item.phone.includes(s))
-            );
-          }
-          if (currentFilter && currentFilter !== 'All') {
-            list = list.filter(item => item.status === currentFilter);
-          }
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
 
-          const allList = JSON.parse(localStorage.getItem('mockStudents') || '[]');
-          const stats = {
-            total: allList.length,
-            submitted: allList.filter(x => x.status === 'Submitted').length,
-            approved: allList.filter(x => x.status === 'Approved').length,
-            rejected: allList.filter(x => x.status === 'Rejected').length,
-          };
-          renderStats(stats);
-
-          totalPages = Math.ceil(list.length / pageLimit) || 1;
-          const startIdx = (currentPage - 1) * pageLimit;
-          const paginated = list.slice(startIdx, startIdx + pageLimit);
-
-          renderPagination({
-            total: list.length,
-            page: currentPage,
-            limit: pageLimit,
-            totalPages
-          });
-          renderTable(paginated);
+        // Update stats
+        if (data.stats) {
+          document.getElementById('statTotal').innerText = data.stats.total || 0;
+          document.getElementById('statSubmitted').innerText = data.stats.submitted || 0;
+          document.getElementById('statApproved').innerText = data.stats.approved || 0;
+          document.getElementById('statRejected').innerText = data.stats.rejected || 0;
         }
+
+        // Render Table
+        renderStudentsTable(data.data);
+
+        // Pagination
+        if (data.pagination) {
+          document.getElementById('pageIndicator').innerText = data.pagination.page;
+          document.getElementById('paginationInfo').innerText = `Showing page ${data.pagination.page} of ${data.pagination.totalPages} (${data.pagination.total} total applications)`;
+          document.getElementById('btnPrevPage').disabled = data.pagination.page <= 1;
+          document.getElementById('btnNextPage').disabled = data.pagination.page >= data.pagination.totalPages;
+        }
+
       } catch (err) {
         console.error('Error loading students:', err);
       }
     }
 
-    function renderPagination(pagination) {
-      if (!pagination) return;
-      currentPage = pagination.page || 1;
-      totalPages = pagination.totalPages || 1;
-
-      const total = pagination.total || 0;
-      const start = total === 0 ? 0 : (currentPage - 1) * (pagination.limit || pageLimit) + 1;
-      const end = Math.min(start + (pagination.limit || pageLimit) - 1, total);
-
-      document.getElementById('pageInfoStart').innerText = start;
-      document.getElementById('pageInfoEnd').innerText = end;
-      document.getElementById('pageInfoTotal').innerText = total;
-
-      document.getElementById('currentPageNum').innerText = currentPage;
-      document.getElementById('totalPageNum').innerText = totalPages;
-
-      document.getElementById('btnPrevPage').disabled = currentPage <= 1;
-      document.getElementById('btnNextPage').disabled = currentPage >= totalPages;
-    }
-
-    function changePage(delta) {
-      const target = currentPage + delta;
-      if (target >= 1 && target <= totalPages) {
-        currentPage = target;
-        loadStudents();
-      }
-    }
-
-    function renderStats(stats) {
-      if (!stats) return;
-      document.getElementById('statTotal').innerText = stats.total || 0;
-      document.getElementById('statSubmitted').innerText = stats.submitted || 0;
-      document.getElementById('statApproved').innerText = stats.approved || 0;
-      document.getElementById('statRejected').innerText = stats.rejected || 0;
-    }
-
-    function renderTable(students) {
-      const tbody = document.getElementById('studentTable');
+    function renderStudentsTable(students) {
+      const tbody = document.getElementById('studentTableBody');
       if (!students || students.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">No student records found.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400">No applications found matching your criteria.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = students.map(s => {
-        let badgeColor = 'bg-amber-500/10 text-amber-500 border-amber-500/20';
-        if (s.status === 'Approved') badgeColor = 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20';
-        if (s.status === 'Rejected') badgeColor = 'bg-rose-500/10 text-rose-500 border-rose-500/20';
+        let badgeClass = 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400 border border-amber-500/20';
+        if (s.status === 'Approved') badgeClass = 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-500/20';
+        if (s.status === 'Rejected') badgeClass = 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400 border border-rose-500/20';
 
-        const isSubmitted = s.status === 'Submitted';
+        const isLocked = s.status !== 'Submitted';
 
         return `
-          <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-            <td class="p-3 font-mono font-bold text-indigo-500">${s.registration_id}</td>
-            <td class="p-3 font-semibold">${s.first_name} ${s.last_name}</td>
-            <td class="p-3 text-xs"><div>${s.email}</div><div class="text-slate-400">${s.phone}</div></td>
-            <td class="p-3">${s.course_name}</td>
-            <td class="p-3"><span class="px-2.5 py-0.5 rounded-full text-xs font-bold border ${badgeColor}">${s.status}</span></td>
-            <td class="p-3 text-right space-x-1">
-              <button onclick="viewDetails('${s.registration_id}')" class="px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs transition">Details</button>
-              ${isSubmitted ? `
-                <button onclick="updateStatus(${s.id}, 'approve', '${s.registration_id}')" class="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition">Approve</button>
-                <button onclick="updateStatus(${s.id}, 'reject', '${s.registration_id}')" class="px-2.5 py-1 rounded bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition">Reject</button>
-              ` : `<span class="text-xs text-slate-400 italic">Finalized</span>`}
+          <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/60 transition">
+            <td class="p-3.5 font-mono font-bold text-indigo-600 dark:text-indigo-400">
+              <button onclick="viewDetails('${s.registration_id}')" class="hover:underline flex items-center gap-1.5">
+                <i class="fa-solid fa-id-badge text-slate-400 text-xs"></i>
+                ${s.registration_id}
+              </button>
+            </td>
+            <td class="p-3.5 font-semibold text-slate-900 dark:text-slate-100">${s.first_name} ${s.last_name}</td>
+            <td class="p-3.5 text-slate-500">
+              <div>${s.email}</div>
+              <div class="text-[11px] text-slate-400">${s.phone}</div>
+            </td>
+            <td class="p-3.5">
+              <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold font-mono text-[11px] text-slate-700 dark:text-slate-300">
+                ${s.department || s.course_name}
+              </span>
+            </td>
+            <td class="p-3.5">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold inline-flex items-center gap-1 ${badgeClass}">
+                ${s.status === 'Submitted' ? '<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>' : ''}
+                ${s.status}
+              </span>
+            </td>
+            <td class="p-3.5 text-right space-x-1">
+              <button onclick="viewDetails('${s.registration_id}')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300" title="View Details">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+
+              ${!isLocked ? `
+                <button onclick="openActionModal(${s.id}, 'approve')" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-[11px]" title="Approve Student">
+                  <i class="fa-solid fa-check mr-1"></i>Approve
+                </button>
+                <button onclick="openActionModal(${s.id}, 'reject')" class="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-[11px]" title="Reject Student">
+                  <i class="fa-solid fa-xmark mr-1"></i>Reject
+                </button>
+              ` : `
+                <span class="text-[11px] text-slate-400 italic">Locked</span>
+              `}
             </td>
           </tr>
         `;
       }).join('');
     }
 
-    async function updateStatus(id, action, regId) {
-      if (!confirm(`Are you sure you want to ${action.toUpperCase()} this student application?`)) return;
+    function openActionModal(id, action) {
+      currentActionId = id;
+      currentActionType = action;
+      const title = document.getElementById('actionModalTitle');
+      const desc = document.getElementById('actionModalDesc');
+      const btn = document.getElementById('btnConfirmAction');
 
+      if (action === 'approve') {
+        title.innerText = 'Approve Admission Application';
+        desc.innerText = 'Approving will activate the student account and set their Student ID as the default login credentials.';
+        btn.innerText = 'Approve Student';
+        btn.className = 'px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold';
+      } else {
+        title.innerText = 'Reject Admission Application';
+        desc.innerText = 'Rejecting will mark the application as denied. This decision cannot be reversed.';
+        btn.innerText = 'Reject Student';
+        btn.className = 'px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold';
+      }
+
+      document.getElementById('actionRemarks').value = '';
+      document.getElementById('actionModal').classList.remove('hidden');
+      document.getElementById('actionModal').classList.add('flex');
+    }
+
+    function closeActionModal() {
+      document.getElementById('actionModal').classList.add('hidden');
+      document.getElementById('actionModal').classList.remove('flex');
+    }
+
+    async function submitStatusUpdate() {
+      const remarks = document.getElementById('actionRemarks').value.trim();
       try {
-        let res;
-        try {
-          res = await fetch(`/students/${id}/${action}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${adminToken}`
-            },
-            body: JSON.stringify({ remarks: `Action ${action} performed by Admin ${adminUser}` })
-          });
-        } catch (netErr) {
-          res = null;
+        const res = await fetch(`/students/${currentActionId}/${currentActionType}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({ remarks })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          alert('Action failed: ' + (data.message || 'Error occurred.'));
+          return;
         }
 
-        if (res && res.ok) {
-          alert(`Success: Registration updated to ${action.toUpperCase()}`);
-          loadStudents();
-        } else if (res) {
-          const data = await res.json();
-          alert('Error: ' + (data.message || 'Operation failed'));
-        } else {
-          // GitHub Pages demo fallback
-          let mockList = JSON.parse(localStorage.getItem('mockStudents') || '[]');
-          const target = mockList.find(x => x.id === id || x.registration_id === regId);
-          if (target) {
-            target.status = action === 'approve' ? 'Approved' : 'Rejected';
-            localStorage.setItem('mockStudents', JSON.stringify(mockList));
-            alert(`Success (Demo): Registration updated to ${action.toUpperCase()}`);
-            loadStudents();
-          }
+        closeActionModal();
+        loadStudents();
+        if (currentActionType === 'approve') {
+          alert(`✅ Student Approved Successfully!\nLogin ID: ${data.data.registration_id}\nDefault Password: ${data.data.registration_id}`);
         }
       } catch (err) {
-        alert('Status update error: ' + err.message);
+        alert('Network error: ' + err.message);
       }
     }
 
     async function viewDetails(regId) {
       try {
-        let s;
-        try {
-          const res = await fetch(`/students/${regId}`);
-          if (res.ok) {
-            const data = await res.json();
-            s = data.data;
-          }
-        } catch (netErr) {
-          s = null;
-        }
+        const res = await fetch(`/students/${regId}`);
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.message);
 
-        if (!s) {
-          const mockList = JSON.parse(localStorage.getItem('mockStudents') || '[]');
-          s = mockList.find(x => x.registration_id === regId);
-        }
+        const s = data.data;
+        document.getElementById('modalName').innerText = `${s.first_name} ${s.last_name} (${s.registration_id})`;
 
-        if (s) {
-          document.getElementById('modalName').innerText = `${s.first_name} ${s.last_name} (${s.registration_id})`;
-          
-          let historyHtml = (s.history || [
-            { old_status: 'Submitted', new_status: s.status, updated_at: s.created_at, remarks: 'Audit verified' }
-          ]).map(h => `
-            <div class="border-l-2 border-indigo-500 pl-3 py-1">
-              <div class="font-bold text-slate-800 dark:text-slate-100">${h.old_status || 'N/A'} &rarr; ${h.new_status}</div>
-              <div class="text-[11px] text-slate-400">${new Date(h.updated_at).toLocaleString()} - ${h.remarks || ''}</div>
-            </div>
-          `).join('');
+        const historyHtml = (s.history || []).map(h => `
+          <div class="border-l-2 border-indigo-500 pl-3 py-1 text-xs">
+            <div class="font-bold text-slate-800 dark:text-slate-100">${h.old_status} &rarr; ${h.new_status}</div>
+            <div class="text-[11px] text-slate-400">${new Date(h.updated_at).toLocaleString()} - ${h.remarks || ''}</div>
+          </div>
+        `).join('') || '<p class="text-slate-400 italic">No status transitions recorded.</p>';
 
-          document.getElementById('modalBody').innerHTML = `
-            <div class="grid grid-cols-2 gap-2 bg-slate-100 dark:bg-slate-950 p-3 rounded-lg">
-              <div><strong>Email:</strong> ${s.email}</div>
-              <div><strong>Phone:</strong> ${s.phone}</div>
-              <div><strong>DOB:</strong> ${s.date_of_birth}</div>
-              <div><strong>Gender:</strong> ${s.gender}</div>
-              <div class="col-span-2"><strong>Course:</strong> ${s.course_name}</div>
-              <div class="col-span-2"><strong>Address:</strong> ${s.address}</div>
-            </div>
-            <div class="pt-2">
-              <strong class="block mb-2">Status Transition Audit Log:</strong>
-              <div class="space-y-2">${historyHtml || 'No history logged.'}</div>
-            </div>
-          `;
+        document.getElementById('modalBody').innerHTML = `
+          <div class="grid grid-cols-2 gap-2 bg-slate-100 dark:bg-slate-950 p-3 rounded-xl">
+            <div><span class="text-slate-400">Email:</span> <strong>${s.email}</strong></div>
+            <div><span class="text-slate-400">Phone:</span> <strong>${s.phone}</strong></div>
+            <div><span class="text-slate-400">DOB:</span> <strong>${s.date_of_birth}</strong></div>
+            <div><span class="text-slate-400">Gender:</span> <strong>${s.gender}</strong></div>
+            <div class="col-span-2"><span class="text-slate-400">Department:</span> <strong>${s.department || s.course_name}</strong></div>
+            <div class="col-span-2"><span class="text-slate-400">Address:</span> <strong>${s.address}</strong></div>
+          </div>
+          <div class="pt-2">
+            <strong class="block mb-2 text-xs">Status Transition Audit Log:</strong>
+            <div class="space-y-2">${historyHtml}</div>
+          </div>
+        `;
 
-          document.getElementById('detailModal').classList.remove('hidden');
-          document.getElementById('detailModal').classList.add('flex');
-        }
+        document.getElementById('detailModal').classList.remove('hidden');
+        document.getElementById('detailModal').classList.add('flex');
       } catch (err) {
-        alert('Failed to load student details.');
+        alert('Failed to load details: ' + err.message);
       }
     }
 
@@ -464,12 +1006,696 @@
       ['All', 'Submitted', 'Approved', 'Rejected'].forEach(s => {
         const btn = document.getElementById(`filter${s}`);
         if (s === status) {
-          btn.className = 'px-3 py-1.5 rounded-md bg-indigo-600 text-white';
+          btn.className = 'px-3 py-1.5 rounded-lg bg-indigo-600 text-white';
         } else {
-          btn.className = 'px-3 py-1.5 rounded-md text-slate-500 hover:text-indigo-500';
+          btn.className = 'px-3 py-1.5 rounded-lg text-slate-500 hover:text-indigo-500';
         }
       });
       loadStudents();
+    }
+
+    function changePage(delta) {
+      currentPage += delta;
+      loadStudents();
+    }
+
+    // ==========================================
+    // TAB 2: APPROVED STUDENTS ROSTER
+    // ==========================================
+    async function loadApprovedStudents() {
+      try {
+        const dept = document.getElementById('selStudentDeptFilter').value;
+        const res = await fetch(`/admin/approved-students?department=${encodeURIComponent(dept)}`, {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        const tbody = document.getElementById('approvedStudentsTableBody');
+        if (!data.data || data.data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400">No approved students found.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = data.data.map(s => {
+          const isReg = !!s.registration_status;
+          return `
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/60">
+              <td class="p-3.5 font-mono font-bold text-indigo-600 dark:text-indigo-400">${s.registration_id}</td>
+              <td class="p-3.5 font-semibold text-slate-900 dark:text-slate-100">${s.first_name} ${s.last_name}</td>
+              <td class="p-3.5 text-slate-500">${s.email}</td>
+              <td class="p-3.5"><span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold">${s.department}</span></td>
+              <td class="p-3.5">${s.semester} ${s.academic_year}</td>
+              <td class="p-3.5">
+                ${isReg
+                  ? `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-500/20"><i class="fa-solid fa-check mr-1"></i>Completed (${s.total_credits} cr)</span>`
+                  : `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400 border border-amber-500/20"><i class="fa-solid fa-clock mr-1"></i>Not Registered</span>`
+                }
+              </td>
+              <td class="p-3.5">
+                ${s.is_password_changed === 1
+                  ? `<span class="text-emerald-500 font-medium"><i class="fa-solid fa-lock mr-1 text-[10px]"></i>Custom Password</span>`
+                  : `<span class="text-amber-500 font-medium"><i class="fa-solid fa-key mr-1 text-[10px]"></i>Default (Student ID)</span>`
+                }
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error('Error loading approved students:', err);
+      }
+    }
+
+    // ==========================================
+    // TAB 3: ACADEMIC COURSE OFFERINGS
+    // ==========================================
+    let currentOfferings = [];
+    let currentAvailableToOffer = [];
+
+    async function loadOfferingsData() {
+      const dept = document.getElementById('courseFilterDept').value;
+      const sem = document.getElementById('courseFilterSem').value;
+      const year = document.getElementById('courseFilterYear').value;
+
+      document.getElementById('offeringSummaryTag').innerText = `${dept} • ${sem} ${year}`;
+
+      try {
+        const res = await fetch(`/admin/offerings?department=${dept}&semester=${sem}&academic_year=${year}`, {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        currentOfferings = data.offerings || [];
+        currentAvailableToOffer = data.available_to_offer || [];
+
+        document.getElementById('offeredCountTag').innerText = `${currentOfferings.length} courses offered`;
+
+        const tbody = document.getElementById('offeringsTableBody');
+        if (currentOfferings.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="p-8 text-center text-slate-400">
+                No courses currently assigned for ${dept} in ${sem} ${year}. Click "Assign Courses to Term" to open enrollment.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = currentOfferings.map(o => `
+          <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/60">
+            <td class="p-3.5 font-mono font-bold text-indigo-600 dark:text-indigo-400">${o.course_code}</td>
+            <td class="p-3.5 font-semibold text-slate-900 dark:text-slate-100">${o.course_title}</td>
+            <td class="p-3.5 font-mono">${o.credit_hours.toFixed(1)} Credits</td>
+            <td class="p-3.5">${o.department}</td>
+            <td class="p-3.5">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
+                o.is_open === 1
+                  ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-500/20'
+                  : 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
+              }">
+                ${o.is_open === 1 ? 'Open for Enrollment' : 'Closed'}
+              </span>
+            </td>
+            <td class="p-3.5 text-right">
+              <button onclick="toggleOfferingStatus(${o.offering_id})" class="px-3 py-1 rounded-lg text-xs font-semibold ${
+                o.is_open === 1
+                  ? 'bg-rose-50 hover:bg-rose-100 text-rose-600 dark:bg-rose-950/40 dark:text-rose-400'
+                  : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400'
+              }">
+                ${o.is_open === 1 ? 'Close Offering' : 'Open Offering'}
+              </button>
+            </td>
+          </tr>
+        `).join('');
+
+      } catch (err) {
+        console.error('Error loading offerings:', err);
+      }
+    }
+
+    async function toggleOfferingStatus(offeringId) {
+      try {
+        const res = await fetch(`/admin/offerings/${offeringId}/toggle`, {
+          method: 'PATCH',
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.message);
+        loadOfferingsData();
+      } catch (err) {
+        alert('Failed to update status: ' + err.message);
+      }
+    }
+
+    // Add Course to Catalog
+    function openAddCourseModal() {
+      const currentDept = document.getElementById('courseFilterDept').value;
+      document.getElementById('newCourseDept').value = currentDept;
+      document.getElementById('addCourseForm').reset();
+      document.getElementById('newCourseDept').value = currentDept;
+      document.getElementById('addCourseModal').classList.remove('hidden');
+      document.getElementById('addCourseModal').classList.add('flex');
+    }
+
+    function closeAddCourseModal() {
+      document.getElementById('addCourseModal').classList.add('hidden');
+      document.getElementById('addCourseModal').classList.remove('flex');
+    }
+
+    async function submitNewCourse(e) {
+      e.preventDefault();
+      const code = document.getElementById('newCourseCode').value.trim();
+      const title = document.getElementById('newCourseTitle').value.trim();
+      const credits = document.getElementById('newCourseCredits').value;
+      const dept = document.getElementById('newCourseDept').value;
+      const desc = document.getElementById('newCourseDesc').value.trim();
+
+      try {
+        const res = await fetch('/admin/courses', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({
+            course_code: code,
+            course_title: title,
+            credit_hours: credits,
+            department: dept,
+            description: desc
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.message);
+
+        closeAddCourseModal();
+        alert(`🎉 Course ${code} added to master catalog!`);
+        loadOfferingsData();
+
+      } catch (err) {
+        alert('Failed to create course: ' + err.message);
+      }
+    }
+
+    // Assign Courses to Offering
+    function openOfferCoursesModal() {
+      const dept = document.getElementById('courseFilterDept').value;
+      const sem = document.getElementById('courseFilterSem').value;
+      const year = document.getElementById('courseFilterYear').value;
+
+      document.getElementById('assignTermSubtitle').innerText = `Offering courses for ${dept} (${sem} ${year})`;
+      const container = document.getElementById('unofferedCoursesList');
+
+      if (!currentAvailableToOffer || currentAvailableToOffer.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 text-center text-slate-400">
+            <i class="fa-solid fa-circle-check text-2xl text-emerald-500 mb-2"></i>
+            <p class="font-semibold">All courses in the ${dept} catalog are already offered for this semester.</p>
+          </div>
+        `;
+      } else {
+        container.innerHTML = currentAvailableToOffer.map(c => `
+          <label class="p-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex items-center justify-between cursor-pointer hover:border-indigo-400">
+            <div class="flex items-center gap-3">
+              <input type="checkbox" name="assignCourseCheckbox" value="${c.id}" class="w-4 h-4 text-indigo-600 rounded">
+              <div>
+                <div class="font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400">${c.course_code} - ${c.course_title}</div>
+                <div class="text-[11px] text-slate-400">${c.credit_hours} Credits &bull; ${c.department}</div>
+              </div>
+            </div>
+          </label>
+        `).join('');
+      }
+
+      document.getElementById('offerCoursesModal').classList.remove('hidden');
+      document.getElementById('offerCoursesModal').classList.add('flex');
+    }
+
+    function closeOfferCoursesModal() {
+      document.getElementById('offerCoursesModal').classList.add('hidden');
+      document.getElementById('offerCoursesModal').classList.remove('flex');
+    }
+
+    async function submitOfferCourses() {
+      const checkedBoxes = document.querySelectorAll('input[name="assignCourseCheckbox"]:checked');
+      const ids = Array.from(checkedBoxes).map(cb => parseInt(cb.value));
+
+      if (ids.length === 0) {
+        alert('Please select at least one course to assign.');
+        return;
+      }
+
+      const dept = document.getElementById('courseFilterDept').value;
+      const sem = document.getElementById('courseFilterSem').value;
+      const year = document.getElementById('courseFilterYear').value;
+
+      try {
+        const res = await fetch('/admin/offerings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({
+            department: dept,
+            semester: sem,
+            academic_year: year,
+            course_ids: ids
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.message);
+
+        closeOfferCoursesModal();
+        alert(data.message);
+        loadOfferingsData();
+
+      } catch (err) {
+        alert('Failed to assign courses: ' + err.message);
+      }
+    }
+
+    // ==========================================
+    // TAB 4: TUITION & BILLING MANAGEMENT
+    // ==========================================
+    let adminBillsList = [];
+    let currentEditingBill = null;
+
+    async function loadAdminBills() {
+      try {
+        const search = (document.getElementById('billSearchInput').value || '').trim();
+        const dept = document.getElementById('billDeptFilter').value;
+        const status = document.getElementById('billStatusFilter').value;
+
+        const params = new URLSearchParams();
+        if (search) params.append('search', search);
+        if (dept && dept !== 'All') params.append('department', dept);
+        if (status && status !== 'All') params.append('payment_status', status);
+
+        const res = await fetch('/admin/bills?' + params.toString(), {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        if (res.status === 401) {
+          logout();
+          return;
+        }
+
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        adminBillsList = data.data || [];
+
+        // Update stats
+        if (data.stats) {
+          document.getElementById('statBillTotal').innerText = '৳' + (data.stats.total_billed || 0).toLocaleString();
+          document.getElementById('statBillCollected').innerText = '৳' + (data.stats.total_collected || 0).toLocaleString();
+          document.getElementById('statBillDue').innerText = '৳' + (data.stats.total_due || 0).toLocaleString();
+          document.getElementById('statBillDiscounts').innerText = '৳' + (data.stats.total_discounts || 0).toLocaleString();
+          document.getElementById('statBillCount').innerText = `${adminBillsList.length} semester assessments`;
+          document.getElementById('statBillPaidCount').innerText = `${data.stats.paid_count || 0} paid in full`;
+          document.getElementById('statBillUnpaidCount').innerText = `${data.stats.unpaid_count || 0} pending payments`;
+        }
+
+        renderAdminBillsTable(adminBillsList);
+
+      } catch (err) {
+        console.error('Error loading admin bills:', err);
+        alert('Failed to load billing records: ' + err.message);
+      }
+    }
+
+    let billSearchTimeout = null;
+    function handleBillSearch() {
+      clearTimeout(billSearchTimeout);
+      billSearchTimeout = setTimeout(() => {
+        loadAdminBills();
+      }, 350);
+    }
+
+    function renderAdminBillsTable(bills) {
+      const tbody = document.getElementById('billingTableBody');
+      if (!bills || bills.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="p-8 text-center text-slate-400">No student tuition bills found matching criteria.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = bills.map(bill => {
+        const isPaid = bill.payment_status === 'Paid';
+        const credits = bill.total_credits || 0;
+        const rate = bill.rate_per_credit || 5000.0;
+        const gross = bill.gross_amount || (credits * rate);
+        const discPct = bill.discount_percentage || 0;
+        const discAmt = bill.discount_amount || ((gross * discPct) / 100.0);
+        const net = bill.net_amount !== undefined ? bill.net_amount : (gross - discAmt);
+
+        const statusBadge = isPaid
+          ? `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-400 border border-emerald-500/20 inline-flex items-center gap-1">
+               <i class="fa-solid fa-check text-[10px]"></i> Paid
+             </span>`
+          : `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-700 dark:bg-amber-950/70 dark:text-amber-400 border border-amber-500/20 inline-flex items-center gap-1">
+               <i class="fa-solid fa-clock text-[10px]"></i> Unpaid
+             </span>`;
+
+        const discountBadge = discPct > 0
+          ? `<button onclick="openDiscountModal(${bill.id})" class="px-2.5 py-1 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:hover:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-500/20 text-xs transition flex items-center gap-1">
+               <span>${discPct}% Waiver</span>
+               <i class="fa-solid fa-pen text-[10px] opacity-60"></i>
+             </button>`
+          : `<button onclick="openDiscountModal(${bill.id})" class="px-2 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 font-semibold text-xs transition flex items-center gap-1">
+               <span>0% (Set Waiver)</span>
+               <i class="fa-solid fa-plus text-[10px]"></i>
+             </button>`;
+
+        return `
+          <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/60 transition">
+            <td class="p-3.5">
+              <div class="font-bold text-slate-900 dark:text-slate-100">${bill.first_name} ${bill.last_name}</div>
+              <div class="flex items-center gap-1.5 font-mono text-[11px] text-indigo-600 dark:text-indigo-400">
+                <i class="fa-solid fa-id-badge text-slate-400 text-[10px]"></i>
+                <strong>${bill.registration_id}</strong>
+              </div>
+              <div class="text-[10px] text-slate-400">${bill.email}</div>
+            </td>
+            <td class="p-3.5">
+              <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold font-mono text-[11px] text-slate-700 dark:text-slate-300 block w-fit mb-0.5">
+                ${bill.department || bill.student_department}
+              </span>
+              <span class="text-[11px] text-slate-500">${bill.semester} ${bill.academic_year}</span>
+            </td>
+            <td class="p-3.5 font-mono font-bold text-slate-800 dark:text-slate-200">
+              ${credits.toFixed(1)} Credits
+            </td>
+            <td class="p-3.5 font-mono font-bold text-slate-700 dark:text-slate-300">
+              ৳${gross.toLocaleString()}
+            </td>
+            <td class="p-3.5">
+              ${discountBadge}
+              ${discPct > 0 ? `<span class="text-[10px] text-slate-400 block mt-0.5">-৳${discAmt.toLocaleString()}</span>` : ''}
+            </td>
+            <td class="p-3.5 font-mono font-black text-indigo-600 dark:text-indigo-400 text-sm">
+              ৳${net.toLocaleString()}
+            </td>
+            <td class="p-3.5">
+              ${statusBadge}
+              ${bill.paid_at ? `<div class="text-[10px] text-slate-400 mt-1">${new Date(bill.paid_at).toLocaleDateString()}</div>` : ''}
+            </td>
+            <td class="p-3.5 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                ${isPaid
+                  ? `<button onclick="toggleBillPaymentStatus(${bill.id}, 'Unpaid', this)" title="Revert to Unpaid" class="px-3 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-400 text-xs font-semibold transition flex items-center gap-1">
+                       <i class="fa-solid fa-rotate-left text-[10px]"></i>
+                       <span class="hidden sm:inline">Mark Unpaid</span>
+                     </button>`
+                  : `<button onclick="toggleBillPaymentStatus(${bill.id}, 'Paid', this)" title="Mark as Paid" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm shadow-emerald-600/20">
+                       <i class="fa-solid fa-check"></i>
+                       <span>Mark Paid</span>
+                     </button>`
+                }
+                <button onclick="viewAdminBillVoucher(${bill.id}, this)" title="View Voucher Breakdown" class="p-1.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition text-xs font-semibold">
+                  <i class="fa-solid fa-file-invoice"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function toggleBillPaymentStatus(billId, newStatus, btnEl) {
+      let origHtml = '';
+      if (btnEl) {
+        btnEl.disabled = true;
+        origHtml = btnEl.innerHTML;
+        btnEl.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-xs"></i> <span class="text-[10px]">Updating...</span>';
+      }
+      try {
+        const res = await fetch(`/admin/bills/${billId}/status`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({ payment_status: newStatus })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.message || 'Failed to update payment status.');
+        }
+
+        await loadAdminBills();
+
+      } catch (err) {
+        alert(err.message);
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.innerHTML = origHtml;
+        }
+      }
+    }
+
+    async function openDiscountModal(billId) {
+      let bill = adminBillsList.find(b => b.id == billId);
+      if (!bill) {
+        try {
+          const res = await fetch(`/admin/bills/${billId}`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+          });
+          const data = await res.json();
+          if (data.success && data.data) {
+            bill = data.data;
+          }
+        } catch (e) {
+          console.error('Failed to fetch bill:', e);
+        }
+      }
+
+      if (!bill) {
+        alert('Could not find billing record for ID: ' + billId);
+        return;
+      }
+      currentEditingBill = bill;
+
+      document.getElementById('discModalStudentInfo').innerText = `Student: ${bill.first_name || ''} ${bill.last_name || ''} (${bill.registration_id}) • Term: ${bill.semester} ${bill.academic_year}`;
+      document.getElementById('discPercentageInput').value = bill.discount_percentage !== undefined ? bill.discount_percentage : 0;
+      document.getElementById('discRemarksInput').value = bill.remarks || '';
+      updateDiscountPreview();
+
+      const modal = document.getElementById('discountModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeDiscountModal() {
+      const modal = document.getElementById('discountModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      currentEditingBill = null;
+    }
+
+    function selectPresetDiscount(pct) {
+      document.getElementById('discPercentageInput').value = pct;
+      updateDiscountPreview();
+    }
+
+    function updateDiscountPreview() {
+      if (!currentEditingBill) return;
+      const gross = currentEditingBill.gross_amount || 0;
+      let val = document.getElementById('discPercentageInput').value;
+      let pct = parseFloat(val);
+      if (isNaN(pct)) pct = 0;
+      pct = Math.max(0, Math.min(100, pct));
+
+      const discAmt = (gross * pct) / 100.0;
+      const net = Math.max(0, gross - discAmt);
+
+      document.getElementById('discPreviewGross').innerText = '৳' + Math.round(gross).toLocaleString();
+      document.getElementById('discPreviewPercent').innerText = pct + '%';
+      document.getElementById('discPreviewDiscountAmt').innerText = pct > 0 ? `-৳${Math.round(discAmt).toLocaleString()}` : '-৳0';
+      document.getElementById('discPreviewNet').innerText = '৳' + Math.round(net).toLocaleString();
+
+      // Highlight matching preset button
+      document.querySelectorAll('#discountModal button[onclick^="selectPresetDiscount"]').forEach(btn => {
+        const btnMatch = btn.getAttribute('onclick').match(/\d+/);
+        if (btnMatch && parseFloat(btnMatch[0]) === pct) {
+          btn.className = "py-2 rounded-xl border border-indigo-600 bg-indigo-600 text-white font-bold text-center shadow-sm transition";
+        } else {
+          btn.className = "py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950 text-slate-700 dark:text-slate-300 transition text-center";
+        }
+      });
+    }
+
+    async function submitDiscountUpdate() {
+      if (!currentEditingBill) return;
+      const pct = parseFloat(document.getElementById('discPercentageInput').value);
+      const remarks = document.getElementById('discRemarksInput').value.trim();
+
+      if (isNaN(pct) || pct < 0 || pct > 100) {
+        alert('Please enter a valid discount percentage between 0 and 100.');
+        return;
+      }
+
+      const btn = document.getElementById('btnApplyDiscount');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-1"></i> Saving...';
+
+      try {
+        const res = await fetch(`/admin/bills/${currentEditingBill.id}/discount`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({
+            discount_percentage: pct,
+            remarks: remarks
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.message || 'Failed to update discount.');
+        }
+
+        closeDiscountModal();
+        loadAdminBills();
+
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Apply Waiver';
+      }
+    }
+
+    async function viewAdminBillVoucher(billId, btnEl) {
+      let origHtml = '';
+      if (btnEl) {
+        origHtml = btnEl.innerHTML;
+        btnEl.disabled = true;
+        btnEl.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-xs"></i>';
+      }
+      try {
+        const res = await fetch(`/admin/bills/${billId}`, {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message || 'Failed to load voucher details.');
+
+        const bill = data.data;
+        const courses = bill.courses || [];
+        const isPaid = bill.payment_status === 'Paid';
+        const credits = bill.total_credits || 0;
+        const gross = bill.gross_amount || 0;
+        const discPct = bill.discount_percentage || 0;
+        const discAmt = bill.discount_amount || 0;
+        const net = bill.net_amount !== undefined ? bill.net_amount : (gross - discAmt);
+
+        document.getElementById('adminVoucherTitle').innerText = `Tuition Voucher: ${bill.registration_id}`;
+        document.getElementById('adminVoucherSubtitle').innerText = `${bill.first_name || ''} ${bill.last_name || ''} • ${bill.department || bill.course_name || 'ULAB'} • ${bill.semester} ${bill.academic_year}`;
+
+        const container = document.getElementById('adminVoucherContent');
+        container.innerHTML = `
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+            <div>
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Student Name</span>
+              <span class="font-bold">${bill.first_name || ''} ${bill.last_name || ''}</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Student ID</span>
+              <span class="font-bold font-mono text-indigo-600 dark:text-indigo-400">${bill.registration_id}</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Department</span>
+              <span class="font-bold">${bill.department || bill.course_name || 'N/A'}</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Payment Status</span>
+              <span class="font-bold ${isPaid ? 'text-emerald-500' : 'text-amber-500'}">${bill.payment_status}</span>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead class="bg-slate-100 dark:bg-slate-800 uppercase text-[10px] text-slate-500">
+                <tr>
+                  <th class="p-2.5">Course</th>
+                  <th class="p-2.5">Title</th>
+                  <th class="p-2.5 text-center">Credits</th>
+                  <th class="p-2.5 text-right">Rate</th>
+                  <th class="p-2.5 text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                ${courses.length === 0
+                  ? `<tr><td colspan="5" class="p-4 text-center text-slate-400">No courses itemized.</td></tr>`
+                  : courses.map(c => `
+                    <tr>
+                      <td class="p-2.5 font-mono font-bold text-indigo-500">${c.course_code}</td>
+                      <td class="p-2.5 font-medium">${c.course_title}</td>
+                      <td class="p-2.5 font-mono text-center">${(Number(c.credit_hours) || 0).toFixed(1)}</td>
+                      <td class="p-2.5 font-mono text-right text-slate-400">৳5,000</td>
+                      <td class="p-2.5 font-mono font-bold text-right">৳${Math.round(c.course_tuition || ((Number(c.credit_hours) || 0) * 5000)).toLocaleString()}</td>
+                    </tr>
+                  `).join('')
+                }
+              </tbody>
+              <tfoot class="bg-slate-50 dark:bg-slate-950 font-bold border-t border-slate-200 dark:border-slate-800">
+                <tr>
+                  <td colspan="4" class="p-2.5 text-right text-slate-500">Gross Tuition Assessment:</td>
+                  <td class="p-2.5 text-right font-mono">৳${Math.round(gross).toLocaleString()}</td>
+                </tr>
+                <tr class="text-emerald-500">
+                  <td colspan="4" class="p-2.5 text-right">Scholarship / Waiver (${discPct}%):</td>
+                  <td class="p-2.5 text-right font-mono">-৳${Math.round(discAmt).toLocaleString()}</td>
+                </tr>
+                <tr class="text-indigo-600 dark:text-indigo-400 text-sm font-extrabold border-t border-slate-300 dark:border-slate-700">
+                  <td colspan="4" class="p-2.5 text-right">Net Payable Total:</td>
+                  <td class="p-2.5 text-right font-mono">৳${Math.round(net).toLocaleString()}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        `;
+
+        document.getElementById('billVoucherModal').classList.remove('hidden');
+        document.getElementById('billVoucherModal').classList.add('flex');
+
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.innerHTML = origHtml;
+        }
+      }
+    }
+
+    function closeBillVoucherModal() {
+      document.getElementById('billVoucherModal').classList.add('hidden');
+      document.getElementById('billVoucherModal').classList.remove('flex');
+    }
+
+    // Close open modals on ESC key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDiscountModal();
+        closeBillVoucherModal();
+        closeModal();
+        closeActionModal();
+        closeAddCourseModal();
+        closeOfferCoursesModal();
+      }
+    });
+
+    function printAdminVoucher() {
+      window.print();
     }
 
     function logout() {
@@ -478,6 +1704,7 @@
       window.location.href = 'admin-login.html';
     }
 
+    // Init
     loadStudents();
   </script>
 </body>

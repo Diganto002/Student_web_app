@@ -1,10 +1,10 @@
-# Student Registration System (Student Project)
+# Student Registration & Academic Management System
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
 
-A production-ready enterprise **Student Registration & Admission Portal** featuring Node.js, Express.js, SQLite, strict validation middleware (`express-validator`), status transition workflow engine, Admin authentication system, AI-powered admission assistant (Groq API), interactive Swagger API documentation, and a responsive Tailwind CSS portal.
+A production-ready enterprise **Student Admission, Academic Advising & Semester Billing Portal** featuring Node.js, Express.js, SQLite, strict validation middleware (`express-validator`), workflow state machine engine, dual role authentication (Admin & Student Self-Service), AI-powered admission assistant (DeepSeek & Groq API), comprehensive course advising with credit limits, automated tuition fee assessment (5,000 BDT/credit), individual scholarship discounts (0-100%), official printable invoices with verified stamps, and a responsive Tailwind CSS interface with premium dual light/dark themes.
 
 **Institution:** University Of Liberal Arts Bangladesh (ULAB)
 
@@ -12,26 +12,34 @@ A production-ready enterprise **Student Registration & Admission Portal** featur
 
 ## 🌟 Key Features
 
-- **Self-Service Registration:** Students submit admission details with real-time validation.
-- **Track Application Status:** Students can enter their sequential Registration ID (`REG1001`) on the home page to immediately check real-time approval status and remarks.
-- **System-Generated Unique ID:** Auto-generates sequential registration IDs (e.g. `REG1001`, `REG1002`).
-- **🤖 Groq AI Admission Assistant:** Integrated chatbot on the homepage grounded with official ULAB admission knowledge, requirements, and course details.
-- **Strict Input Validation Engine:**
-  - `first_name` & `last_name`: Required, 2-50 characters, alphabets and spaces only.
-  - `email`: Required, unique, valid email format.
-  - `phone`: Required, unique, exact 11 digits (e.g., `01712345678`).
-  - `date_of_birth`: Required, past date, **minimum age requirement is 16 years**.
-  - `gender`: Required (`Male`, `Female`, `Other`).
-  - `address`: Required, max 255 characters.
-  - `course_name`: Required dropdown (`CSE`, `SE`, `DSAI`, `EEE`, `BBA`, `MSJ`).
-- **🔐 Dedicated Admin Authentication:**
-  - **Admin Username:** `spetrum` (or `admin`)
-  - **Admin Password:** `admin123`
-- **Workflow State Machine:**
-  - `Submitted` &rarr; `Approved` OR `Submitted` &rarr; `Rejected`.
-  - **Rule:** Applications marked `Approved` or `Rejected` are locked and CANNOT be reverted to `Submitted` or re-processed.
-- **Audit Log History:** Tracks all status changes with timestamps, old/new status, and admin remarks in a `status_history` table.
-- **Interactive Swagger UI:** Live interactive API documentation at `/api-docs`.
+### 1. 🎓 Student Self-Service & Academic Portal
+- **Admission Application:** Online submission with real-time validation and tracking ID generation (`REG1001`).
+- **Application Status Tracker:** Check admission review progress directly on homepage using Registration ID.
+- **Student Authentication:** Secure JWT-based student login with first-time password reset security.
+- **Course Advising & Enrollment:** Enrolled students select offered courses within department credit hour caps (max 15.0 credits).
+- **Official Advising Slip:** Real-time generation of printable semester registration slips.
+
+### 2. 💳 Tuition & Semester Billing System
+- **Automated Fee Assessment:** Automatic bill generation at **৳5,000 / Credit Hour** upon course enrollment.
+- **Waiver & Scholarship Engine:** Admin can grant individual discounts (**0%, 20%, 40%, 50%, 100%** or custom %) with dynamic net tuition recalculation.
+- **Payment Lifecycle Management:** Admin records payment status (`Paid` with timestamp or `Unpaid`).
+- **Real-Time Student Billing Dashboard:** Live financial metrics, credit breakdown, payment instructions, and official printable fee invoice with verified stamps.
+
+### 3. 🛡️ Admin Control Center
+- **Admission Management:** Review applications, approve/reject with permanent workflow state locking.
+- **Course Catalog Management:** Add/edit offered departmental courses and credit limits.
+- **Tuition & Revenue Analytics:** Gross billed revenue, collected amount, outstanding dues, and waiver aggregations.
+- **Interactive Modals & Search:** Instant search by student ID, name, email, department, and payment filters.
+
+### 4. 🎨 Elevated UI/UX & Atmospheric Light Theme
+- **Balanced Light Mode:** Solved washed-out stark white appearance with soft atmospheric ambient radial gradients (`#f1f4f9` canvas), elevated card shadows, and defined borders.
+- **Color-Coded Pastel Badges:** Distinct icon anchors for statuses (Indigo, Amber, Emerald, Rose, Purple).
+- **Seamless Dark Mode:** Full high-contrast dark theme with persistent theme toggling.
+
+### 5. 🤖 AI Admission Assistant & Developer Tools
+- **Dual AI Model Switcher:** Real-time switching between **DeepSeek-v4-flash** (AgentRouter) and **Groq** on the homepage.
+- **Interactive Swagger Documentation:** Live interactive API explorer at `/api-docs`.
+- **System Documentation:** Complete database ER diagrams, use-case diagrams, DFDs, and Postman collections in `/docs`.
 
 ---
 
@@ -41,30 +49,34 @@ A production-ready enterprise **Student Registration & Admission Portal** featur
 ├── config/
 │   └── swagger.js              # OpenAPI 3.0 specification & Swagger UI
 ├── controllers/
-│   ├── adminController.js      # Admin authentication handler
-│   ├── aiController.js         # Groq AI chat completion handler
-│   └── studentController.js    # Student CRUD & workflow state machine
+│   ├── adminController.js      # Admin authentication & billing management
+│   ├── aiController.js         # DeepSeek & Groq AI chat completion handlers
+│   └── studentController.js    # Student CRUD, course enrollment & billing
 ├── docs/
 │   ├── api_documentation.md    # Full API Markdown specification
 │   ├── database/schema.sql     # SQLite DDL Schema Script
-│   ├── er_diagram.md           # Database Architecture ER Diagram
-│   └── postman_collection.json # Importable Postman v2.1 Collection
+│   ├── er_diagram.svg          # Database Architecture ER Diagram
+│   ├── system_diagrams.md      # Full Class, DFD, Use Case & ER Diagrams
+│   └── use_case_diagram.svg    # System Use-Case Diagram
 ├── middlewares/
-│   ├── authMiddleware.js       # Admin Bearer token validation
+│   ├── authMiddleware.js       # Admin & Student Bearer token validation
 │   └── validationMiddleware.js # Express-validator rules
 ├── public/                     # Static frontend client files
 │   ├── admin-login.html        # Administrator sign-in portal
-│   ├── dashboard.html          # Admin management dashboard with pagination
+│   ├── dashboard.html          # Admin management dashboard
 │   ├── index.html              # University landing page with AI Chat & Status Lookup
-│   └── register.html           # Student self-service registration form
+│   ├── register.html           # Student self-service registration form
+│   ├── student-dashboard.html  # Student academic & billing dashboard
+│   └── student-login.html      # Student self-service login portal
 ├── routes/
-│   ├── adminRoutes.js
-│   ├── aiRoutes.js
-│   └── studentRoutes.js
+│   ├── adminRoutes.js          # Admin endpoints & billing routes
+│   ├── aiRoutes.js             # AI assistant endpoints
+│   └── studentRoutes.js        # Student self-service & billing routes
 ├── scripts/
-│   └── verify_api.js           # Automated end-to-end test suite
+│   ├── verify_api.js           # Automated admission & API test suite
+│   └── verify_billing.js       # Automated billing & discount test suite
 ├── .env.example
-├── database.js                 # SQLite database connection & migrations
+├── database.js                 # SQLite connection, schema & auto-migrations
 ├── package.json
 ├── render.yaml                 # Render Blueprint cloud deployment configuration
 └── server.js                   # Main Express application entry point
@@ -76,8 +88,8 @@ A production-ready enterprise **Student Registration & Admission Portal** featur
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/Diganto002/student-project.git
-cd student-project
+git clone https://github.com/Diganto002/Student_web_app.git
+cd Student_web_app
 npm install
 ```
 
@@ -88,9 +100,14 @@ cp .env.example .env
 ```
 Ensure your `.env` contains:
 ```env
+PORT=3001
 GROQ_API_KEY=your_groq_api_key_here
 GROQ_MODEL=openai/gpt-oss-20b
-PORT=3000
+
+# DeepSeek (AgentRouter)
+AGENTROUTER_API_BASE=https://agentrouter.org/
+AGENTROUTER_API_KEY=your_agentrouter_key_here
+AGENTROUTER_MODEL=deepseek-v4-flash
 ```
 
 ### 3. Start Server
@@ -98,10 +115,11 @@ PORT=3000
 npm start
 ```
 
-- **Home Portal:** [http://localhost:3000](http://localhost:3000)
-- **Student Form:** [http://localhost:3000/register.html](http://localhost:3000/register.html)
-- **Admin Login:** [http://localhost:3000/admin-login.html](http://localhost:3000/admin-login.html)
-- **Interactive Swagger API Docs:** [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+- **Home Portal:** [http://localhost:3001](http://localhost:3001)
+- **Student Admission Form:** [http://localhost:3001/register.html](http://localhost:3001/register.html)
+- **Student Portal Login:** [http://localhost:3001/student-login.html](http://localhost:3001/student-login.html)
+- **Admin Login:** [http://localhost:3001/admin-login.html](http://localhost:3001/admin-login.html)
+- **Interactive Swagger API Docs:** [http://localhost:3001/api-docs](http://localhost:3001/api-docs)
 
 ---
 

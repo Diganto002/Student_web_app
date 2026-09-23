@@ -325,3 +325,200 @@ Reject a submitted student application. Requires Admin Bearer Header.
     "data": { ... }
   }
   ```
+
+---
+
+## 🎓 4. Student Portal Authentication & Course Advising Endpoints
+
+### `POST /students/login`
+Student authentication using generated Student/Registration ID and password.
+- **Request Body:**
+  ```json
+  {
+    "student_id": "REG1001",
+    "password": "REG1001"
+  }
+  ```
+- **Response (200 OK):**
+  ```json
+  {
+    "success": true,
+    "message": "Student login successful!",
+    "token": "student-token-REG1001-xxxxxxxxxxxx",
+    "student": {
+      "id": 1,
+      "student_id": "REG1001",
+      "first_name": "Mh",
+      "last_name": "Diganto",
+      "email": "mhdiganto@gmail.com",
+      "department": "CSE",
+      "semester": "Spring",
+      "academic_year": "2026",
+      "is_password_changed": 0
+    }
+  }
+  ```
+
+---
+
+### `POST /students/change-password`
+Updates student password. Required upon first login.
+- **Headers:** `Authorization: Bearer <student-token>`
+- **Request Body:**
+  ```json
+  {
+    "current_password": "REG1001",
+    "new_password": "MySecretPassword123"
+  }
+  ```
+- **Response (200 OK):**
+  ```json
+  {
+    "success": true,
+    "message": "Password updated successfully!"
+  }
+  ```
+
+---
+
+### `GET /students/me/profile`
+Fetches authenticated student's academic and personal profile.
+- **Headers:** `Authorization: Bearer <student-token>`
+- **Response (200 OK):**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "id": 1,
+      "registration_id": "REG1001",
+      "first_name": "Mh",
+      "last_name": "Diganto",
+      "department": "CSE",
+      "semester": "Spring",
+      "academic_year": "2026",
+      "status": "Approved",
+      "is_password_changed": 1
+    }
+  }
+  ```
+
+---
+
+### `GET /students/courses/available`
+Fetches courses offered for the student's department, semester, and academic year.
+- **Headers:** `Authorization: Bearer <student-token>`
+- **Response (200 OK):**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "student_department": "CSE",
+      "semester": "Spring",
+      "academic_year": "2026",
+      "available_courses": [
+        {
+          "course_id": 1,
+          "course_code": "CSE 101",
+          "course_title": "Structured Programming",
+          "credits": 3,
+          "department": "CSE"
+        }
+      ]
+    }
+  }
+  ```
+
+---
+
+### `POST /students/courses/register`
+Submit semester course registration (validates maximum 15.0 credits).
+- **Headers:** `Authorization: Bearer <student-token>`
+- **Request Body:**
+  ```json
+  {
+    "course_ids": [1, 2, 3]
+  }
+  ```
+- **Response (201 Created):**
+  ```json
+  {
+    "success": true,
+    "message": "Course registration submitted successfully!",
+    "data": {
+      "registration_id": 1,
+      "semester": "Spring",
+      "academic_year": "2026",
+      "total_credits": 9,
+      "status": "Completed",
+      "courses": [
+        { "course_code": "CSE 101", "course_title": "Structured Programming", "credits": 3 }
+      ]
+    }
+  }
+  ```
+
+---
+
+### `GET /students/courses/my-registrations`
+Fetches the student's completed course registration slip.
+- **Headers:** `Authorization: Bearer <student-token>`
+
+---
+
+## 🏛️ 5. Admin Academic Course & Student Management Endpoints
+
+### `GET /admin/students/approved`
+Lists all approved students with search and department filtering.
+- **Headers:** `Authorization: Bearer <admin-token>`
+- **Query Params:** `?search=Diganto&department=CSE`
+
+---
+
+### `GET /admin/courses` & `POST /admin/courses`
+Manage the university master course catalog.
+- **Headers:** `Authorization: Bearer <admin-token>`
+- **POST Body:**
+  ```json
+  {
+    "course_code": "CSE 419",
+    "course_title": "Distributed Systems",
+    "credits": 3,
+    "department": "CSE"
+  }
+  ```
+
+---
+
+### `GET /admin/courses/offered` & `POST /admin/courses/offer`
+Configure available courses for a specific Department, Semester, and Academic Year.
+- **Headers:** `Authorization: Bearer <admin-token>`
+- **POST Body:**
+  ```json
+  {
+    "department": "CSE",
+    "semester": "Spring",
+    "academic_year": "2026",
+    "course_ids": [1, 2, 3, 4]
+  }
+  ```
+
+---
+
+### `PATCH /admin/courses/offered/:id/toggle`
+Activate or deactivate an offered course for students.
+- **Headers:** `Authorization: Bearer <admin-token>`
+
+---
+
+## 🤖 6. AI Admission Assistant Endpoint
+
+### `POST /ai/chat`
+Real-time AI admission assistance supporting DeepSeek-v4-flash and Groq.
+- **Request Body:**
+  ```json
+  {
+    "message": "What is the minimum age to apply for CSE?",
+    "provider": "deepseek",
+    "history": []
+  }
+  ```

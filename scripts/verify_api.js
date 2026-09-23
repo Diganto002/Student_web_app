@@ -1,3 +1,4 @@
+require('dotenv').config();
 const http = require('http');
 
 const PORT = process.env.PORT || 3000;
@@ -129,12 +130,104 @@ async function runTests() {
     assert(reApprove.status === 400 && !reApprove.data?.success, 
       'PUT /students/:id/approve blocks state modification of an already Approved record (400 Bad Request)');
 
-    // 13. Groq AI Assistant Chat
-    const aiRes = await request('POST', '/ai/chat', {
-      message: 'What programs are offered at ULAB and what is the minimum age?'
+    // 13. DeepSeek-v4-flash AI Chat (AgentRouter)
+    const deepseekRes = await request('POST', '/ai/chat', {
+      message: 'What programs are offered at ULAB and what is the minimum age?',
+      provider: 'deepseek'
     });
-    assert(aiRes.status === 200 && aiRes.data?.success && aiRes.data?.data?.reply,
-      'POST /ai/chat connects to AI model, processes query, and returns sanitized domain reply');
+    assert(deepseekRes.status === 200 && deepseekRes.data?.success && deepseekRes.data?.data?.reply,
+      'POST /ai/chat connects to DeepSeek-v4-flash (AgentRouter), processes query, and returns sanitized domain reply');
+
+    // 14. Groq AI Assistant Chat
+    const groqRes = await request('POST', '/ai/chat', {
+      message: 'What programs are offered at ULAB?',
+      provider: 'groq'
+    });
+    assert(groqRes.status === 200 && groqRes.data?.success && groqRes.data?.data?.reply,
+      'POST /ai/chat connects to Groq model, processes query, and returns sanitized domain reply');
+
+    // 15. Student Login Rejection for Pending/Submitted Application
+    const num2 = Math.floor(10000000 + Math.random() * 90000000);
+    const pendingStudentData = {
+      first_name: 'Tanvir',
+      last_name: 'Ahmed',
+      email: `tanvir_${num2}@gmail.com`,
+      phone: `018${num2.toString().substring(0, 8)}`,
+      date_of_birth: '2003-08-20',
+      gender: 'Male',
+      address: 'Dhanmondi 27, Dhaka',
+      course_name: 'Computer Science & Engineering (CSE)'
+    };
+    const regPendingRes = await request('POST', '/students', pendingStudentData);
+    const pendingRegId = regPendingRes.data?.data?.registration_id;
+    const pendingLogin = await request('POST', '/students/login', { registration_id: pendingRegId, password: pendingRegId });
+    assert(pendingLogin.status === 403 && !pendingLogin.data?.success && pendingLogin.data?.status === 'Submitted',
+      'POST /students/login rejects unapproved/pending applicant with 403 Forbidden and administrative review notice');
+
+    // 16. Student Login Success with Approved ID (regId1 was approved in Test 11)
+    const approvedLogin = await request('POST', '/students/login', { registration_id: regId1, password: regId1 });
+    const studentToken = approvedLogin.data?.token;
+    assert(approvedLogin.status === 200 && approvedLogin.data?.success && studentToken,
+      `POST /students/login authenticates approved student ${regId1} with default credentials`);
+
+    // 17. Student Profile Fetch
+    const profileRes = await request('GET', '/students/me/profile', null, studentToken);
+    assert(profileRes.status === 200 && profileRes.data?.student?.registration_id === regId1,
+      'GET /students/me/profile returns authenticated student profile');
+
+    // 18. Student First-Time Password Change
+    const changePassRes = await request('POST', '/students/change-password', { new_password: 'StudentSecurePass123' }, studentToken);
+    assert(changePassRes.status === 200 && changePassRes.data?.success,
+      'POST /students/change-password allows student to update default password');
+
+    // 19. Admin List Approved Students
+    const approvedList = await request('GET', '/admin/approved-students', null, adminToken);
+    assert(approvedList.status === 200 && approvedList.data?.success && Array.isArray(approvedList.data?.data),
+      'GET /admin/approved-students returns list of active approved students');
+
+    // 20. Admin Course Catalog
+    const catalogRes = await request('GET', '/admin/courses?department=CSE', null, adminToken);
+    assert(catalogRes.status === 200 && catalogRes.data?.success && catalogRes.data?.data?.length > 0,
+      'GET /admin/courses returns pre-seeded course catalog');
+
+    // 21. Admin Add New Course to Catalog
+    const newCourseCode = `TEST${Math.floor(100 + Math.random() * 900)}`;
+    const addCourseRes = await request('POST', '/admin/courses', {
+      course_code: newCourseCode,
+      course_title: 'Cloud & Distributed Computing',
+      credit_hours: 3.0,
+      department: 'CSE',
+      description: 'Microservices, Docker, Kubernetes, and Cloud Architecture.'
+    }, adminToken);
+    assert(addCourseRes.status === 201 && addCourseRes.data?.success,
+      `POST /admin/courses adds new course ${newCourseCode} to catalog`);
+
+    // 22. Admin Query Offered Courses
+    const offeringsRes = await request('GET', '/admin/offerings?department=CSE&semester=Spring&academic_year=2026', null, adminToken);
+    assert(offeringsRes.status === 200 && offeringsRes.data?.offerings?.length > 0,
+      'GET /admin/offerings returns semester offered courses');
+
+    // 23. Student Available Courses for Registration
+    const availCoursesRes = await request('GET', '/students/me/available-courses', null, studentToken);
+    const availableCourses = availCoursesRes.data?.courses || [];
+    assert(availCoursesRes.status === 200 && availableCourses.length > 0,
+      'GET /students/me/available-courses returns eligible courses for student department and semester');
+
+    // 24. Student Course Registration Submission
+    const selectedCourseIds = availableCourses.slice(0, 3).map(c => c.id);
+    const regSubmitRes = await request('POST', '/students/me/register-courses', { course_ids: selectedCourseIds }, studentToken);
+    assert(regSubmitRes.status === 201 && regSubmitRes.data?.success && regSubmitRes.data?.registration?.status === 'Completed',
+      'POST /students/me/register-courses completes course registration and generates summary');
+
+    // 25. Prevent Duplicate Course Registration in Same Semester
+    const dupRegSubmit = await request('POST', '/students/me/register-courses', { course_ids: selectedCourseIds }, studentToken);
+    assert(dupRegSubmit.status === 400 && !dupRegSubmit.data?.success,
+      'POST /students/me/register-courses prevents duplicate enrollment in same semester (400 Bad Request)');
+
+    // 26. Fetch Completed Advising Slips
+    const slipsRes = await request('GET', '/students/me/registrations', null, studentToken);
+    assert(slipsRes.status === 200 && slipsRes.data?.registrations?.length > 0,
+      'GET /students/me/registrations returns completed registration slip with enrolled courses');
 
     console.log(`\n====================================================`);
     console.log(`📊 Test Execution Summary: ${passed} PASSED | ${failed} FAILED`);

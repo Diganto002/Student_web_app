@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal Login | University Of Liberal Arts Bangladesh</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Premium Light Theme Canvas & Atmosphere */
+    html:not(.dark) body {
+      background-color: #f1f4f9;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.07) 0px, transparent 45%),
+        radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.05) 0px, transparent 45%),
+        radial-gradient(at 50% 100%, rgba(59, 130, 246, 0.04) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="bg-slate-100/70 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-['Inter'] transition-colors duration-300 min-h-screen flex flex-col justify-between">
+
+  <!-- Header Navigation -->
+  <header class="bg-white/95 backdrop-blur-md border-b border-slate-200/90 dark:bg-slate-900/90 dark:border-slate-800 shadow-xs sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-indigo-600/30">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-bold leading-tight">University Of Liberal Arts Bangladesh</h1>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">Student Self-Service Academic Portal</p>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <!-- Light / Dark Mode Toggle Button -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition text-sm font-semibold flex items-center gap-2 border border-slate-200/60 dark:border-slate-700">
+          <i id="themeIcon" class="fa-solid fa-moon text-indigo-500"></i>
+          <span id="themeText" class="hidden sm:inline">Dark</span>
+        </button>
+
+        <!-- Navigation Links -->
+        <a href="index.html" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-xs font-semibold transition text-slate-700 dark:text-slate-200 border border-slate-200/90 dark:border-slate-700 shadow-xs">
+          Home
+        </a>
+
+        <a href="admin-login.html" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-xs font-semibold transition text-slate-700 dark:text-slate-200 border border-slate-200/90 dark:border-slate-700 shadow-xs">
+          Admin Portal
+        </a>
+
+        <a href="register.html" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-md shadow-indigo-600/25">
+          <i class="fa-solid fa-user-plus"></i>
+          <span class="hidden sm:inline">Apply for Admission</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Login Card -->
+  <main class="flex-grow flex items-center justify-center px-4 py-8">
+    <div class="w-full max-w-md bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-6 sm:p-8 rounded-3xl shadow-[0_4px_24px_-4px_rgba(15,23,42,0.08)] space-y-6">
+      
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/60 dark:border-indigo-800/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto text-3xl shadow-sm mb-3">
+          <i class="fa-solid fa-user-graduate"></i>
+        </div>
+        <h2 class="text-2xl font-bold tracking-tight">Student Portal Login</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Access course registration, advising slips, and student profile</p>
+      </div>
+
+      <!-- Notice Box for review or errors -->
+      <div id="statusNoticeBox" class="hidden p-4 rounded-2xl text-xs leading-relaxed border space-y-1"></div>
+
+      <!-- Login Form -->
+      <form id="studentLoginForm" onsubmit="handleStudentLogin(event)" class="space-y-4 text-sm">
+        <div>
+          <label class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            Student ID / Registration ID
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+              <i class="fa-solid fa-id-badge"></i>
+            </span>
+            <input type="text" id="studentId" required placeholder="e.g. REG1001"
+              class="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50/80 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:bg-white focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-500 text-sm font-medium uppercase transition">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            Password
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+              <i class="fa-solid fa-lock"></i>
+            </span>
+            <input type="password" id="studentPassword" required placeholder="Enter password..."
+              class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50/80 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:bg-white focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-500 text-sm transition">
+            <button type="button" onclick="togglePasswordVisibility('studentPassword', 'toggleEyeIcon')" class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+              <i id="toggleEyeIcon" class="fa-solid fa-eye text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 text-xs text-indigo-900 dark:text-indigo-200 leading-relaxed flex items-start gap-2.5">
+          <i class="fa-solid fa-circle-info text-indigo-500 text-sm mt-0.5 shrink-0"></i>
+          <div>
+            <span class="font-semibold">New Student Tip:</span> For approved applicants, your initial default password is your <strong>Student ID</strong> (e.g. <code>REG1001</code>). You will be prompted to choose a new password upon first login.
+          </div>
+        </div>
+
+        <button type="submit" id="btnStudentLogin" class="w-full py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-md shadow-indigo-600/30 flex items-center justify-center gap-2">
+          <span>Sign In to Student Portal</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <div class="pt-2 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500">
+        <p>Haven't applied yet? <a href="register.html" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">Submit an admission application</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 dark:bg-slate-900 dark:border-slate-800 py-4 text-center text-xs text-slate-500">
+    <p>&copy; 2026 University Of Liberal Arts Bangladesh (ULAB) &bull; Student Academic Portal</p>
+  </footer>
+
+  <script>
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-400';
+        document.getElementById('themeText').innerText = 'Light';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-moon text-indigo-500';
+        document.getElementById('themeText').innerText = 'Dark';
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      initTheme();
+    }
+
+    initTheme();
+
+    // Autofill from query param if available (?id=REG1001)
+    const urlParams = new URLSearchParams(window.location.search);
+    const prefillId = urlParams.get('id');
+    if (prefillId) {
+      document.getElementById('studentId').value = prefillId.toUpperCase();
+    }
+
+    async function handleStudentLogin(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnStudentLogin');
+      const noticeBox = document.getElementById('statusNoticeBox');
+      noticeBox.classList.add('hidden');
+      noticeBox.innerHTML = '';
+
+      const studentId = document.getElementById('studentId').value.trim().toUpperCase();
+      const password = document.getElementById('studentPassword').value.trim();
+
+      if (!studentId || !password) {
+        showNotice('error', 'Please enter your Student ID and password.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i><span>Authenticating...</span>';
+
+      try {
+        const res = await fetch('/students/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ registration_id: studentId, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          // Store token and student session
+          localStorage.setItem('student_token', data.token);
+          localStorage.setItem('student_profile', JSON.stringify(data.student));
+          if (data.must_change_password) {
+            localStorage.setItem('must_change_password', 'true');
+          } else {
+            localStorage.removeItem('must_change_password');
+          }
+
+          showNotice('success', 'Authentication successful! Redirecting to student portal...');
+          setTimeout(() => {
+            window.location.href = 'student-dashboard.html';
+          }, 800);
+
+        } else if (res.status === 403 && data.status === 'Submitted') {
+          // Dedicated professional review notice per specification
+          showNotice('warning', `
+            <div class="flex items-start gap-2.5">
+              <i class="fa-solid fa-clock-rotate-left text-amber-500 text-base mt-0.5 shrink-0"></i>
+              <div>
+                <p class="font-semibold text-amber-900 dark:text-amber-200">Application Under Review</p>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">
+                  ${data.message || 'Your admission is currently under administrative review. Once approved, your Student ID will be active and you will be able to log in to the student portal.'}
+                </p>
+                <div class="mt-2.5 flex items-center gap-2">
+                  <a href="index.html?track=${encodeURIComponent(studentId)}" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-700 dark:text-amber-300 font-semibold hover:underline inline-flex items-center gap-1">
+                    <i class="fa-solid fa-magnifying-glass text-[10px]"></i> Track Real-Time Status
+                  </a>
+                </div>
+              </div>
+            </div>
+          `);
+        } else if (res.status === 403 && data.status === 'Rejected') {
+          showNotice('error', `
+            <div class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-xmark text-rose-500 text-base mt-0.5 shrink-0"></i>
+              <div>
+                <p class="font-semibold text-rose-900 dark:text-rose-200">Application Not Approved</p>
+                <p class="mt-1 text-slate-700 dark:text-slate-300">${data.message}</p>
+              </div>
+            </div>
+          `);
+        } else {
+          showNotice('error', data.message || 'Invalid Student ID or password.');
+        }
+
+      } catch (err) {
+        showNotice('error', 'Network error connecting to the server. Please try again.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Sign In to Student Portal</span><i class="fa-solid fa-arrow-right text-xs"></i>';
+      }
+    }
+
+    function showNotice(type, content) {
+      const box = document.getElementById('statusNoticeBox');
+      box.classList.remove('hidden');
+
+      if (type === 'warning') {
+        box.className = 'p-4 rounded-2xl text-xs leading-relaxed border bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200';
+      } else if (type === 'success') {
+        box.className = 'p-4 rounded-2xl text-xs leading-relaxed border bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200';
+      } else {
+        box.className = 'p-4 rounded-2xl text-xs leading-relaxed border bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800/60 text-rose-900 dark:text-rose-200';
+      }
+
+      box.innerHTML = content;
+    }
+  </script>
+</body>
+</html>

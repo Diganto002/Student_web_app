@@ -1,0 +1,295 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 980" width="100%" height="100%" style="background:#0b0f19; font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <!-- Background & Node Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="50%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#0b0f19"/>
+    </linearGradient>
+
+    <linearGradient id="ucGradStudent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+
+    <linearGradient id="ucGradAdvise" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+
+    <linearGradient id="ucGradAdmin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#581c87"/>
+      <stop offset="100%" stop-color="#7e22ce"/>
+    </linearGradient>
+
+    <linearGradient id="ucGradAI" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+
+    <filter id="glowIndigo" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#6366f1" flood-opacity="0.6"/>
+    </filter>
+
+    <!-- Arrow Marker -->
+    <marker id="ucArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 2 L 8 5 L 0 8 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="includeArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 2 L 8 5 L 0 8 z" fill="#a855f7"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="980" fill="url(#bgGrad)"/>
+  <g stroke="#1e293b" stroke-width="1" opacity="0.3">
+    <path d="M0 70 H1400 M0 140 H1400 M0 210 H1400 M0 280 H1400 M0 350 H1400 M0 420 H1400 M0 490 H1400 M0 560 H1400 M0 630 H1400 M0 700 H1400 M0 770 H1400 M0 840 H1400 M0 910 H1400"/>
+    <path d="M70 0 V980 M140 0 V980 M210 0 V980 M280 0 V980 M350 0 V980 M420 0 V980 M490 0 V980 M560 0 V980 M630 0 V980 M700 0 V980 M770 0 V980 M840 0 V980 M910 0 V980 M980 0 V980 M1050 0 V980 M1120 0 V980 M1190 0 V980 M1260 0 V980 M1330 0 V980"/>
+  </g>
+
+  <!-- Title Banner -->
+  <text x="700" y="38" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="800" letter-spacing="0.5">ULAB Student Registration &amp; Academic Management — Use Case Diagram</text>
+  <text x="700" y="58" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="500">Actors, Functional System Boundaries, Subsystems &amp; Dependency Associations</text>
+
+  <!-- ================= SYSTEM BOUNDARY ================= -->
+  <rect x="240" y="80" width="920" height="850" rx="20" fill="#0f172a" stroke="#334155" stroke-width="2" opacity="0.95" filter="url(#shadow)"/>
+  
+  <!-- Boundary Header Label -->
+  <rect x="240" y="80" width="920" height="42" rx="20" fill="#1e293b"/>
+  <rect x="240" y="100" width="920" height="22" fill="#1e293b"/>
+  <text x="700" y="107" text-anchor="middle" fill="#38bdf8" font-size="14" font-weight="800" letter-spacing="0.8">SYSTEM BOUNDARY: ULAB ADMISSION &amp; COURSE ADVISING PORTAL</text>
+
+  <!-- Subsystem Dividing Guides -->
+  <line x1="260" y1="360" x2="1140" y2="360" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <text x="260" y="145" fill="#64748b" font-size="11" font-weight="700">A. PUBLIC ADMISSION &amp; TRACKING</text>
+  <text x="260" y="380" fill="#64748b" font-size="11" font-weight="700">B. STUDENT PORTAL &amp; COURSE ADVISING</text>
+  <text x="800" y="145" fill="#64748b" font-size="11" font-weight="700">C. ADMINISTRATIVE ACADEMIC MANAGEMENT</text>
+
+
+  <!-- ================= ACTORS ================= -->
+
+  <!-- ACTOR 1: Applicant / Prospective Student (Top Left) -->
+  <g id="actorApplicant" transform="translate(100, 180)">
+    <circle cx="20" cy="-20" r="14" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+    <line x1="20" y1="-6" x2="20" y2="28" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="-2" y1="6" x2="42" y2="6" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="20" y1="28" x2="2" y2="60" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="20" y1="28" x2="38" y2="60" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/>
+    <text x="20" y="82" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="bold">Applicant</text>
+    <text x="20" y="98" text-anchor="middle" fill="#94a3b8" font-size="10">(Public User)</text>
+  </g>
+
+  <!-- ACTOR 2: Approved Student (Bottom Left) -->
+  <g id="actorStudent" transform="translate(100, 560)">
+    <circle cx="20" cy="-20" r="14" fill="#10b981" stroke="#059669" stroke-width="2"/>
+    <line x1="20" y1="-6" x2="20" y2="28" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="-2" y1="6" x2="42" y2="6" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="20" y1="28" x2="2" y2="60" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="20" y1="28" x2="38" y2="60" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+    <text x="20" y="82" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="bold">Approved Student</text>
+    <text x="20" y="98" text-anchor="middle" fill="#94a3b8" font-size="10">(Enrolled Scholar)</text>
+  </g>
+
+  <!-- ACTOR 3: Admissions Administrator (Top Right) -->
+  <g id="actorAdmin" transform="translate(1270, 240)">
+    <circle cx="20" cy="-20" r="14" fill="#c084fc" stroke="#9333ea" stroke-width="2"/>
+    <line x1="20" y1="-6" x2="20" y2="28" stroke="#c084fc" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="-2" y1="6" x2="42" y2="6" stroke="#c084fc" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="20" y1="28" x2="2" y2="60" stroke="#c084fc" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="20" y1="28" x2="38" y2="60" stroke="#c084fc" stroke-width="3.5" stroke-linecap="round"/>
+    <text x="20" y="82" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="bold">Admissions Admin</text>
+    <text x="20" y="98" text-anchor="middle" fill="#94a3b8" font-size="10">(Administrative Staff)</text>
+  </g>
+
+  <!-- ACTOR 4: AI Assistant Gateway (Bottom Right) -->
+  <g id="actorAI" transform="translate(1270, 700)">
+    <rect x="-10" y="-30" width="60" height="50" rx="14" fill="#0284c7" opacity="0.2" stroke="#38bdf8" stroke-width="2"/>
+    <!-- Robot / Cloud Icon -->
+    <path d="M 5 -5 C 5 -18, 35 -18, 35 -5 C 44 -5, 44 15, 35 15 C 5 15, 0 10, 5 -5 Z" fill="#38bdf8"/>
+    <text x="20" y="42" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="bold">AI Cloud Gateway</text>
+    <text x="20" y="58" text-anchor="middle" fill="#94a3b8" font-size="10">(DeepSeek / Groq)</text>
+  </g>
+
+
+  <!-- ================= USE CASES (OVALS) ================= -->
+
+  <!-- UC 1: Submit Online Admission Application -->
+  <g id="uc1" transform="translate(400, 190)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="125" ry="32" fill="url(#ucGradStudent)" stroke="#6366f1" stroke-width="1.8"/>
+    <text x="0" y="-4" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Submit Online Admission</text>
+    <text x="0" y="12" text-anchor="middle" fill="#c7d2fe" font-size="10">(Programs: CSE, EEE, BBA...)</text>
+  </g>
+
+  <!-- UC 2: Validate Data & Age Constraint (Included by UC1) -->
+  <g id="uc2" transform="translate(630, 160)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="100" ry="26" fill="#1e293b" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="0" y="-2" text-anchor="middle" fill="#e0e7ff" font-size="10" font-weight="600">Validate Age &gt;= 16 &amp;</text>
+    <text x="0" y="12" text-anchor="middle" fill="#cbd5e1" font-size="9">11-Digit Phone Number</text>
+  </g>
+
+  <!-- UC 3: Track Status & Audit History -->
+  <g id="uc3" transform="translate(400, 280)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="125" ry="30" fill="url(#ucGradStudent)" stroke="#6366f1" stroke-width="1.8"/>
+    <text x="0" y="-3" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Track Application Status</text>
+    <text x="0" y="13" text-anchor="middle" fill="#c7d2fe" font-size="10">(Query by Registration ID)</text>
+  </g>
+
+  <!-- UC 4: Consult AI Assistant -->
+  <g id="uc4" transform="translate(640, 270)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="115" ry="32" fill="url(#ucGradAI)" stroke="#0ea5e9" stroke-width="1.8"/>
+    <text x="0" y="-4" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Inquire AI Admission Bot</text>
+    <text x="0" y="12" text-anchor="middle" fill="#7dd3fc" font-size="10">(DeepSeek-v4 &amp; Groq Fallback)</text>
+  </g>
+
+  <!-- UC 5: Student Portal Login -->
+  <g id="uc5" transform="translate(400, 440)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="125" ry="32" fill="url(#ucGradAdvise)" stroke="#10b981" stroke-width="2"/>
+    <text x="0" y="-4" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Student Portal Login</text>
+    <text x="0" y="12" text-anchor="middle" fill="#a7f3d0" font-size="10">(Approved Students Only)</text>
+  </g>
+
+  <!-- UC 6: Change Initial Password -->
+  <g id="uc6" transform="translate(640, 420)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="105" ry="28" fill="#1e293b" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="0" y="-2" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="600">Change Initial Password</text>
+    <text x="0" y="12" text-anchor="middle" fill="#6ee7b7" font-size="9">(First-Time Login Prompt)</text>
+  </g>
+
+  <!-- UC 7: View Student Profile & Details -->
+  <g id="uc7" transform="translate(400, 530)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="120" ry="30" fill="url(#ucGradAdvise)" stroke="#10b981" stroke-width="1.8"/>
+    <text x="0" y="-3" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">View Student Profile</text>
+    <text x="0" y="13" text-anchor="middle" fill="#a7f3d0" font-size="10">(Dept, ID, Semester, Term)</text>
+  </g>
+
+  <!-- UC 8: Browse & Select Semester Courses -->
+  <g id="uc8" transform="translate(400, 630)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="125" ry="34" fill="url(#ucGradAdvise)" stroke="#10b981" stroke-width="2"/>
+    <text x="0" y="-5" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Register Semester Courses</text>
+    <text x="0" y="11" text-anchor="middle" fill="#a7f3d0" font-size="10">(Offered Course Selection)</text>
+  </g>
+
+  <!-- UC 9: Enforce 15.0 Credit Limit (Included by UC8) -->
+  <g id="uc9" transform="translate(640, 630)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="105" ry="28" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="0" y="-2" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="600">Enforce Credit Limits</text>
+    <text x="0" y="12" text-anchor="middle" fill="#fcd34d" font-size="9">(Max 15.0 Total Credits)</text>
+  </g>
+
+  <!-- UC 10: Generate Advising Slip -->
+  <g id="uc10" transform="translate(400, 730)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="120" ry="30" fill="url(#ucGradAdvise)" stroke="#10b981" stroke-width="1.8"/>
+    <text x="0" y="-3" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Print Advising Slip</text>
+    <text x="0" y="13" text-anchor="middle" fill="#a7f3d0" font-size="10">(Official Registration Record)</text>
+  </g>
+
+  <!-- UC 11: Admin Login & Authentication -->
+  <g id="uc11" transform="translate(980, 190)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="120" ry="32" fill="url(#ucGradAdmin)" stroke="#c084fc" stroke-width="2"/>
+    <text x="0" y="-4" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Admin Authentication</text>
+    <text x="0" y="12" text-anchor="middle" fill="#f3e8ff" font-size="10">(Bearer Token Issuance)</text>
+  </g>
+
+  <!-- UC 12: Review & Approve/Reject Applications -->
+  <g id="uc12" transform="translate(980, 290)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="125" ry="34" fill="url(#ucGradAdmin)" stroke="#c084fc" stroke-width="2"/>
+    <text x="0" y="-5" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Approve / Reject Application</text>
+    <text x="0" y="11" text-anchor="middle" fill="#f3e8ff" font-size="10">(Auto-generate Credentials)</text>
+  </g>
+
+  <!-- UC 13: View Approved Student Roster -->
+  <g id="uc13" transform="translate(980, 400)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="125" ry="32" fill="url(#ucGradAdmin)" stroke="#c084fc" stroke-width="1.8"/>
+    <text x="0" y="-4" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Manage Student Roster</text>
+    <text x="0" y="12" text-anchor="middle" fill="#f3e8ff" font-size="10">(Search &amp; Filter by Department)</text>
+  </g>
+
+  <!-- UC 14: Manage Course Catalog -->
+  <g id="uc14" transform="translate(980, 510)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="125" ry="32" fill="url(#ucGradAdmin)" stroke="#c084fc" stroke-width="1.8"/>
+    <text x="0" y="-4" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Manage Master Catalog</text>
+    <text x="0" y="12" text-anchor="middle" fill="#f3e8ff" font-size="10">(Add Courses, Codes, Credits)</text>
+  </g>
+
+  <!-- UC 15: Configure Semester Offerings -->
+  <g id="uc15" transform="translate(980, 620)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="130" ry="34" fill="url(#ucGradAdmin)" stroke="#c084fc" stroke-width="2"/>
+    <text x="0" y="-5" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Assign Department Courses</text>
+    <text x="0" y="11" text-anchor="middle" fill="#f3e8ff" font-size="10">(Semester Term: Spring/Fall)</text>
+  </g>
+
+  <!-- UC 16: Toggle Course Availability -->
+  <g id="uc16" transform="translate(980, 730)" filter="url(#shadow)">
+    <ellipse cx="0" cy="0" rx="120" ry="30" fill="url(#ucGradAdmin)" stroke="#c084fc" stroke-width="1.8"/>
+    <text x="0" y="-3" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Toggle Course Offerings</text>
+    <text x="0" y="13" text-anchor="middle" fill="#f3e8ff" font-size="10">(Open / Close Registration)</text>
+  </g>
+
+
+  <!-- ================= ASSOCIATIONS & CONNECTOR LINES ================= -->
+
+  <!-- Applicant associations -->
+  <line x1="140" y1="210" x2="275" y2="190" stroke="#38bdf8" stroke-width="2"/>
+  <line x1="140" y1="220" x2="275" y2="280" stroke="#38bdf8" stroke-width="2"/>
+  <line x1="140" y1="230" x2="525" y2="270" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Student associations -->
+  <line x1="145" y1="580" x2="275" y2="440" stroke="#10b981" stroke-width="2"/>
+  <line x1="145" y1="590" x2="280" y2="530" stroke="#10b981" stroke-width="2"/>
+  <line x1="145" y1="600" x2="275" y2="630" stroke="#10b981" stroke-width="2"/>
+  <line x1="145" y1="610" x2="280" y2="730" stroke="#10b981" stroke-width="2"/>
+
+  <!-- Admin associations -->
+  <line x1="1265" y1="260" x2="1100" y2="190" stroke="#c084fc" stroke-width="2"/>
+  <line x1="1265" y1="270" x2="1105" y2="290" stroke="#c084fc" stroke-width="2"/>
+  <line x1="1265" y1="280" x2="1105" y2="400" stroke="#c084fc" stroke-width="2"/>
+  <line x1="1265" y1="290" x2="1105" y2="510" stroke="#c084fc" stroke-width="2"/>
+  <line x1="1265" y1="300" x2="1110" y2="620" stroke="#c084fc" stroke-width="2"/>
+  <line x1="1265" y1="310" x2="1100" y2="730" stroke="#c084fc" stroke-width="2"/>
+
+  <!-- AI Gateway association -->
+  <line x1="1260" y1="720" x2="755" y2="270" stroke="#38bdf8" stroke-width="2"/>
+
+
+  <!-- Include Dependency Arrows -->
+  <!-- UC1 -> UC2 (<<include>>) -->
+  <path d="M 525 180 L 530 170" fill="none" stroke="#a855f7" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#includeArrow)"/>
+  <text x="545" y="165" fill="#c084fc" font-size="9" font-weight="bold">&lt;&lt;include&gt;&gt;</text>
+
+  <!-- UC5 -> UC6 (<<include>>) -->
+  <path d="M 525 435 L 535 430" fill="none" stroke="#a855f7" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#includeArrow)"/>
+  <text x="545" y="425" fill="#c084fc" font-size="9" font-weight="bold">&lt;&lt;include&gt;&gt;</text>
+
+  <!-- UC8 -> UC9 (<<include>>) -->
+  <path d="M 525 630 L 535 630" fill="none" stroke="#a855f7" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#includeArrow)"/>
+  <text x="545" y="622" fill="#c084fc" font-size="9" font-weight="bold">&lt;&lt;include&gt;&gt;</text>
+
+
+  <!-- Legend at Bottom Center -->
+  <g transform="translate(420, 840)">
+    <rect width="560" height="70" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="15" y="22" fill="#f8fafc" font-size="11" font-weight="bold">Diagram Legend &amp; Stereotypes</text>
+    
+    <g transform="translate(15, 45)">
+      <circle cx="6" cy="-2" r="5" fill="#38bdf8"/>
+      <text x="18" y="2" fill="#94a3b8" font-size="10">Applicant Action</text>
+
+      <circle cx="120" cy="-2" r="5" fill="#10b981"/>
+      <text x="132" y="2" fill="#94a3b8" font-size="10">Student Advising Action</text>
+
+      <circle cx="260" cy="-2" r="5" fill="#c084fc"/>
+      <text x="272" y="2" fill="#94a3b8" font-size="10">Admin Management</text>
+
+      <line x1="390" y1="-2" x2="420" y2="-2" stroke="#a855f7" stroke-width="2" stroke-dasharray="3,3"/>
+      <text x="430" y="2" fill="#c084fc" font-size="10">&lt;&lt;include&gt;&gt; constraint</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <text x="700" y="960" text-anchor="middle" fill="#64748b" font-size="11">University of Liberal Arts Bangladesh (ULAB) • Software Requirements Specification (SRS) • 2026</text>
+</svg>

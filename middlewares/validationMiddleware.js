@@ -102,6 +102,11 @@ const validateAiChatRequest = [
     .notEmpty().withMessage('History content cannot be empty')
     .isLength({ max: 2000 }).withMessage('History content must not exceed 2000 characters'),
 
+  body('provider')
+    .optional()
+    .isString().withMessage('Provider must be a string')
+    .isIn(['groq', 'deepseek', 'deepseek-v4-flash']).withMessage('Provider must be groq or deepseek'),
+
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

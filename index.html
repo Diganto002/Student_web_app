@@ -20,16 +20,28 @@
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Premium Light Theme Canvas & Atmosphere */
+    html:not(.dark) body {
+      background-color: #f1f4f9;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.07) 0px, transparent 45%),
+        radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.05) 0px, transparent 45%),
+        radial-gradient(at 50% 100%, rgba(59, 130, 246, 0.04) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-['Inter'] transition-colors duration-300 min-h-screen flex flex-col">
+<body class="bg-slate-100/70 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-['Inter'] transition-colors duration-300 min-h-screen flex flex-col">
 
   <!-- Header Navigation -->
-  <header class="bg-white border-b border-slate-200 dark:bg-slate-900 dark:border-slate-800 shadow-sm sticky top-0 z-40">
+  <header class="bg-white/95 backdrop-blur-md border-b border-slate-200/90 dark:bg-slate-900/90 dark:border-slate-800 shadow-xs sticky top-0 z-40">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       
       <!-- University Name & Logo -->
       <a href="index.html" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-indigo-600/30">
           <i class="fa-solid fa-university"></i>
         </div>
         <div>
@@ -41,21 +53,26 @@
       </a>
 
       <!-- Header Actions -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2.5 sm:gap-3">
         <!-- Light / Dark Mode Toggle Button -->
-        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition text-sm font-semibold flex items-center gap-2">
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition text-sm font-semibold flex items-center gap-2 border border-slate-200/60 dark:border-slate-700">
           <i id="themeIcon" class="fa-solid fa-moon text-indigo-500"></i>
           <span id="themeText" class="hidden sm:inline">Dark</span>
         </button>
 
         <!-- Navigation Links -->
-        <a href="register.html" class="hidden sm:flex px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition items-center gap-1.5">
-          <i class="fa-solid fa-user-plus"></i>
-          <span>Student Form</span>
+        <a href="student-login.html" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-md shadow-emerald-600/25">
+          <i class="fa-solid fa-user-graduate"></i>
+          <span>Student Portal</span>
         </a>
 
-        <a href="admin-login.html" class="px-3.5 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-semibold transition flex items-center gap-1.5">
-          <i class="fa-solid fa-shield-halved"></i>
+        <a href="register.html" class="hidden sm:flex px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition items-center gap-1.5 shadow-md shadow-indigo-600/25">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>Admission Form</span>
+        </a>
+
+        <a href="admin-login.html" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition flex items-center gap-1.5 border border-slate-200/90 dark:border-slate-700 shadow-xs">
+          <i class="fa-solid fa-shield-halved text-indigo-500"></i>
           <span>Admin Login</span>
         </a>
       </div>
@@ -67,20 +84,25 @@
   <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8 space-y-8">
 
     <!-- Banner Card -->
-    <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-800 text-white p-8 rounded-3xl shadow-xl relative overflow-hidden">
+    <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-800 text-white p-8 sm:p-10 rounded-3xl shadow-xl relative overflow-hidden">
       <div class="relative z-10 max-w-2xl space-y-4">
         <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider backdrop-blur-md">Welcome to ULAB Portal</span>
         <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight">University Of Liberal Arts Bangladesh</h2>
-        <p class="text-sm opacity-90">Empowering future leaders through liberal arts and modern technology education. Access student application forms or manage admission applications via admin control.</p>
+        <p class="text-sm opacity-90 leading-relaxed">Empowering future leaders through liberal arts and modern technology education. Apply for admission, register for semester courses via the student portal, or manage academic offerings.</p>
         
         <!-- Action Navigation Buttons -->
         <div class="pt-2 flex flex-wrap gap-3">
-          <a href="register.html" class="px-6 py-3 rounded-xl bg-white text-indigo-900 font-bold text-sm shadow-lg hover:bg-slate-100 transition flex items-center gap-2">
-            <i class="fa-solid fa-pen-to-square"></i>
-            <span>Student Registration Form</span>
+          <a href="register.html" class="px-5 py-3 rounded-2xl bg-white text-indigo-900 font-bold text-sm shadow-lg hover:bg-slate-100 transition flex items-center gap-2">
+            <i class="fa-solid fa-pen-to-square text-indigo-600"></i>
+            <span>Admission Application</span>
           </a>
 
-          <a href="admin-login.html" class="px-6 py-3 rounded-xl bg-slate-900/60 hover:bg-slate-900 text-white font-bold text-sm border border-white/20 backdrop-blur-md transition flex items-center gap-2">
+          <a href="student-login.html" class="px-5 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm shadow-lg transition flex items-center gap-2">
+            <i class="fa-solid fa-user-graduate"></i>
+            <span>Student Portal Login</span>
+          </a>
+
+          <a href="admin-login.html" class="px-5 py-3 rounded-2xl bg-slate-900/60 hover:bg-slate-900 text-white font-bold text-sm border border-white/20 backdrop-blur-md transition flex items-center gap-2">
             <i class="fa-solid fa-user-shield"></i>
             <span>Admin Portal</span>
           </a>
@@ -89,32 +111,46 @@
     </div>
 
     <!-- Quick Navigation Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       
       <!-- Card 1: Student Registration -->
-      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-7 rounded-3xl shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
         <div class="space-y-3">
-          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-xl font-bold">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl font-bold shadow-xs">
             <i class="fa-solid fa-id-card"></i>
           </div>
-          <h3 class="text-lg font-bold">Student Application</h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Fill out the online admission form with personal and academic details. Select your program from CSE, SE, DSAI, EEE, BBA, or MSJ.</p>
+          <h3 class="text-lg font-bold">Admission Application</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Fill out the online admission form with personal and academic details across CSE, SE, DSAI, EEE, BBA, and MSJ departments.</p>
         </div>
-        <a href="register.html" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold text-center transition block">
-          Open Registration Form &rarr;
+        <a href="register.html" class="w-full py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold text-center transition block shadow-md shadow-indigo-600/25">
+          Open Application Form &rarr;
         </a>
       </div>
 
-      <!-- Card 2: Admin Portal -->
-      <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
+      <!-- Card 2: Student Portal -->
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-7 rounded-3xl shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
         <div class="space-y-3">
-          <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-xl font-bold">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold shadow-xs">
+            <i class="fa-solid fa-user-graduate"></i>
+          </div>
+          <h3 class="text-lg font-bold">Student Portal</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Approved students can sign in with their Student ID, change initial password, register for semester courses, and print registration slips.</p>
+        </div>
+        <a href="student-login.html" class="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold text-center transition block shadow-md shadow-emerald-600/25">
+          Student Portal Login &rarr;
+        </a>
+      </div>
+
+      <!-- Card 3: Admin Portal -->
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-7 rounded-3xl shadow-sm hover:shadow-md transition space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold shadow-xs">
             <i class="fa-solid fa-shield-halved"></i>
           </div>
-          <h3 class="text-lg font-bold">Admin Management Portal</h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Authorized admission officers and administrative staff can sign in using admin credentials to manage and approve/reject applications.</p>
+          <h3 class="text-lg font-bold">Admin Management</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Review admission applications, generate student credentials upon approval, configure course offerings, and track student rosters.</p>
         </div>
-        <a href="admin-login.html" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold text-center transition block">
+        <a href="admin-login.html" class="w-full py-3 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold text-center transition block shadow-md shadow-purple-600/25">
           Admin Sign In &rarr;
         </a>
       </div>
@@ -122,7 +158,7 @@
     </div>
 
     <!-- Application Status Lookup Section -->
-    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm space-y-4">
+    <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-7 rounded-3xl shadow-sm space-y-4">
       <div class="flex items-center justify-between flex-wrap gap-2">
         <h3 class="text-base font-bold flex items-center gap-2">
           <i class="fa-solid fa-magnifying-glass text-indigo-500"></i>
@@ -134,50 +170,50 @@
       <div class="flex flex-col sm:flex-row gap-3">
         <div class="relative flex-grow">
           <input type="text" id="statusLookupInput" placeholder="Enter Registration ID (e.g. REG1001)"
-            class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 uppercase font-mono">
+            class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-50/80 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:bg-white focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-500 uppercase font-mono transition">
           <i class="fa-solid fa-id-card absolute left-3 top-3.5 text-slate-400 text-xs"></i>
         </div>
-        <button id="statusLookupBtn" onclick="checkApplicationStatus()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center justify-center gap-2">
+        <button id="statusLookupBtn" onclick="checkApplicationStatus()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center justify-center gap-2 shadow-md shadow-indigo-600/25">
           <i class="fa-solid fa-search"></i>
           <span>Check Status</span>
         </button>
       </div>
 
       <!-- Status Result Box (hidden by default) -->
-      <div id="statusResultBox" class="hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4 space-y-3 text-sm">
+      <div id="statusResultBox" class="hidden rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950 p-4 space-y-3 text-sm">
         <!-- Loaded via JS -->
       </div>
     </div>
 
     <!-- Academic Programs Overview -->
-    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm space-y-4">
+    <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-7 rounded-3xl shadow-sm space-y-4">
       <h3 class="text-base font-bold flex items-center gap-2">
         <i class="fa-solid fa-graduation-cap text-indigo-500"></i>
         <span>Offered Programs at ULAB</span>
       </h3>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-semibold">
-        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+        <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-indigo-300 transition flex items-center gap-2.5">
           <i class="fa-solid fa-code text-indigo-500"></i>
           <span>Computer Science & Engineering</span>
         </div>
-        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+        <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-purple-300 transition flex items-center gap-2.5">
           <i class="fa-solid fa-laptop-code text-purple-500"></i>
           <span>Software Engineering</span>
         </div>
-        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+        <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-emerald-300 transition flex items-center gap-2.5">
           <i class="fa-solid fa-brain text-emerald-500"></i>
           <span>Data Science & AI</span>
         </div>
-        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+        <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-amber-300 transition flex items-center gap-2.5">
           <i class="fa-solid fa-bolt text-amber-500"></i>
           <span>Electrical & Electronic Eng.</span>
         </div>
-        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+        <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-blue-300 transition flex items-center gap-2.5">
           <i class="fa-solid fa-briefcase text-blue-500"></i>
           <span>Business Administration (BBA)</span>
         </div>
-        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
+        <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 shadow-2xs hover:border-rose-300 transition flex items-center gap-2.5">
           <i class="fa-solid fa-newspaper text-rose-500"></i>
           <span>Media Studies & Journalism</span>
         </div>
@@ -185,26 +221,49 @@
     </div>
 
     <!-- AI Chat Assistant -->
-    <div class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm space-y-4">
-      <h3 class="text-base font-bold flex items-center gap-2">
-        <i class="fa-solid fa-robot text-indigo-500"></i>
-        <span>AI Chat Assistant (Groq)</span>
-      </h3>
-      <p class="text-xs text-slate-500 dark:text-slate-400">
-        Ask admission-related questions. Make sure <code>GROQ_API_KEY</code> is configured in your local server environment.
-      </p>
+    <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-7 rounded-3xl shadow-sm space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200/80 dark:border-slate-800 pb-4">
+        <div>
+          <h3 class="text-base font-bold flex items-center gap-2">
+            <i class="fa-solid fa-robot text-indigo-500"></i>
+            <span>AI Admission Assistant</span>
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Instant guidance on programs, eligibility requirements, and admission procedures.
+          </p>
+        </div>
+
+        <!-- Model Switcher: DeepSeek vs Groq -->
+        <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs">
+          <button type="button" id="modelBtnDeepSeek" onclick="switchModel('deepseek')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition shadow-sm bg-white dark:bg-indigo-600 text-indigo-600 dark:text-white font-semibold">
+            <i class="fa-solid fa-bolt text-emerald-500"></i>
+            <span>DeepSeek-v4-flash</span>
+          </button>
+          <button type="button" id="modelBtnGroq" onclick="switchModel('groq')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium">
+            <i class="fa-solid fa-fire text-amber-500"></i>
+            <span>Groq</span>
+          </button>
+        </div>
+      </div>
 
       <div id="aiChatMessages" class="h-72 overflow-y-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 space-y-3 text-sm">
-        <div class="text-slate-600 dark:text-slate-300">
-          <span class="font-semibold">Assistant:</span> Hi! Ask me anything about registration, requirements, or admission steps.
+        <div class="rounded-lg px-3 py-2 bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="font-semibold text-xs">Assistant</span>
+          </div>
+          <div class="text-xs leading-relaxed">Hi! I am your ULAB Admission AI Assistant. Ask me anything about programs, minimum age eligibility, required documents, or application procedures.</div>
         </div>
       </div>
 
       <div class="space-y-2">
-        <textarea id="aiChatInput" rows="3" maxlength="2000" placeholder="Type your question..." class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-        <div class="flex justify-end">
-          <button id="aiChatSendBtn" onclick="sendAiMessage()" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition">
-            Send
+        <textarea id="aiChatInput" rows="2" maxlength="2000" placeholder="Type your question here... (Press Enter to send)" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] text-slate-400 dark:text-slate-500">
+            Press Enter to send or click Send
+          </span>
+          <button id="aiChatSendBtn" onclick="sendAiMessage()" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-sm">
+            <span>Send</span>
+            <i class="fa-solid fa-paper-plane text-[10px]"></i>
           </button>
         </div>
       </div>
@@ -269,6 +328,22 @@
       return safe;
     }
 
+    let currentAiProvider = 'deepseek';
+
+    function switchModel(provider) {
+      currentAiProvider = provider;
+      const btnDeepSeek = document.getElementById('modelBtnDeepSeek');
+      const btnGroq = document.getElementById('modelBtnGroq');
+
+      if (provider === 'deepseek') {
+        btnDeepSeek.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition shadow-sm bg-white dark:bg-indigo-600 text-indigo-600 dark:text-white font-semibold';
+        btnGroq.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium';
+      } else {
+        btnGroq.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition shadow-sm bg-white dark:bg-indigo-600 text-indigo-600 dark:text-white font-semibold';
+        btnDeepSeek.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium';
+      }
+    }
+
     function appendAiMessage(role, text) {
       const container = document.getElementById('aiChatMessages');
       const message = document.createElement('div');
@@ -278,7 +353,7 @@
         : 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100';
 
       message.className = `rounded-lg px-3 py-2 ${bubbleClass}`;
-      message.innerHTML = `<span class="font-semibold">${label}:</span> ${formatMessageContent(text)}`;
+      message.innerHTML = `<div class="flex items-center gap-1 mb-1"><span class="font-semibold text-xs">${label}</span></div><div class="text-xs leading-relaxed">${formatMessageContent(text)}</div>`;
       container.appendChild(message);
       container.scrollTop = container.scrollHeight;
     }
@@ -306,7 +381,8 @@
           },
           body: JSON.stringify({
             message: userMessage,
-            history: aiHistory.slice(-10)
+            history: aiHistory.slice(-10),
+            provider: currentAiProvider
           })
         });
 
@@ -325,6 +401,18 @@
         sendButton.classList.remove('opacity-60', 'cursor-not-allowed');
       }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const chatInput = document.getElementById('aiChatInput');
+      if (chatInput) {
+        chatInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendAiMessage();
+          }
+        });
+      }
+    });
 
     async function checkApplicationStatus() {
       const input = document.getElementById('statusLookupInput');
@@ -385,6 +473,15 @@
               <span class="font-semibold text-slate-700 dark:text-slate-300">Admission Office Status Note:</span>
               <p class="text-xs text-slate-500 dark:text-slate-400 italic">${remarksText}</p>
             </div>
+            ${student.status === 'Approved' ? `
+            <div class="mt-3 pt-3 border-t border-emerald-500/20 bg-emerald-500/5 rounded-lg p-2.5 flex items-center justify-between flex-wrap gap-2">
+              <div class="text-xs text-emerald-600 dark:text-emerald-400">
+                <i class="fa-solid fa-circle-check mr-1.5"></i><strong>Admission Approved!</strong> Your default login ID & password is <strong>${student.registration_id}</strong>.
+              </div>
+              <a href="student-login.html" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition inline-flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Student Portal Login &rarr;
+              </a>
+            </div>` : ''}
           `;
           resultBox.classList.remove('hidden');
         } else {

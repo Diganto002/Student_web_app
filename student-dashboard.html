@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal Dashboard | University Of Liberal Arts Bangladesh</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Premium Light Theme Canvas & Atmosphere */
+    html:not(.dark) body {
+      background-color: #f1f4f9;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.06) 0px, transparent 45%),
+        radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.05) 0px, transparent 45%),
+        radial-gradient(at 50% 100%, rgba(59, 130, 246, 0.03) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+    html:not(.dark) .light-card {
+      background-color: #ffffff;
+      border-color: rgba(226, 232, 240, 0.9);
+      box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 4px 16px -2px rgba(15, 23, 42, 0.03);
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printableSlip, #printableSlip *, #printableInvoice, #printableInvoice * {
+        visibility: visible;
+      }
+      #printableSlip, #printableInvoice {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-100/70 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-['Inter'] transition-colors duration-300 min-h-screen flex flex-col justify-between">
+
+  <!-- Header Navigation -->
+  <header class="bg-white/95 backdrop-blur-md border-b border-slate-200/90 dark:bg-slate-900/90 dark:border-slate-800 shadow-xs sticky top-0 z-30 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-indigo-600/30">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </a>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base font-bold leading-tight">Student Academic Portal</h1>
+            <span id="headerRegBadge" class="px-2 py-0.5 rounded-md text-[11px] font-mono font-bold bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">REG...</span>
+          </div>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">University Of Liberal Arts Bangladesh</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <!-- Light / Dark Mode Toggle Button -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition text-sm font-semibold flex items-center gap-2 border border-slate-200/60 dark:border-slate-700">
+          <i id="themeIcon" class="fa-solid fa-moon text-indigo-500"></i>
+          <span id="themeText" class="hidden sm:inline">Dark</span>
+        </button>
+
+        <!-- User Greeting & Logout -->
+        <div class="flex items-center gap-2 pl-2 border-l border-slate-200 dark:border-slate-800">
+          <span id="headerStudentName" class="text-xs font-semibold hidden md:inline text-slate-700 dark:text-slate-200">Loading...</span>
+          <button onclick="logoutStudent()" class="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-400 text-xs font-semibold transition flex items-center gap-1.5 border border-rose-100 dark:border-rose-900/40">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="hidden sm:inline">Sign Out</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6 flex-grow w-full">
+
+    <!-- Toast Banner for Messages -->
+    <div id="toastAlert" class="hidden p-4 rounded-2xl text-xs font-medium border flex items-center justify-between transition-all duration-300 no-print">
+      <div class="flex items-center gap-2.5">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-base"></i>
+        <span id="toastMessage">Action completed successfully.</span>
+      </div>
+      <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-sm">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Student Profile Hero Card -->
+    <section class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-3xl shadow-sm relative overflow-hidden no-print">
+      <div class="absolute -right-8 -bottom-8 w-44 h-44 bg-indigo-500/5 rounded-full blur-2xl pointer-events-none"></div>
+
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+        <div class="flex items-start sm:items-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-indigo-500/30 shrink-0" id="avatarInitial">
+            U
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <h2 class="text-xl font-bold" id="profileFullName">Loading Student...</h2>
+              <span id="profileStatusBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-500/20">
+                Active Student
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 flex flex-wrap items-center gap-3">
+              <span><i class="fa-solid fa-envelope mr-1 text-slate-400"></i><span id="profileEmail">email@example.com</span></span>
+              <span><i class="fa-solid fa-phone mr-1 text-slate-400"></i><span id="profilePhone">017XXXXXXXX</span></span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Academic Badges & Password Quick Action -->
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+          <div class="px-3.5 py-2 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700/60 text-center shadow-xs">
+            <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">Department</span>
+            <span class="text-sm font-bold text-indigo-600 dark:text-indigo-400" id="profileDepartment">CSE</span>
+          </div>
+
+          <div class="px-3.5 py-2 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700/60 text-center shadow-xs">
+            <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">Semester</span>
+            <span class="text-sm font-bold" id="profileSemester">Spring 2026</span>
+          </div>
+
+          <div class="px-3.5 py-2 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700/60 text-center shadow-xs">
+            <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">Advising</span>
+            <span class="text-sm font-bold text-amber-500" id="profileRegStatus">Pending</span>
+          </div>
+
+          <div class="px-3.5 py-2 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700/60 text-center shadow-xs">
+            <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">Tuition Fee</span>
+            <span class="text-sm font-bold text-slate-400" id="profileBillingStatus">Pending</span>
+          </div>
+
+          <button onclick="openPasswordModal()" class="p-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition text-xs font-semibold flex items-center gap-1.5 border border-slate-200/90 dark:border-slate-700 shadow-xs" title="Change Password">
+            <i class="fa-solid fa-key text-indigo-500"></i>
+            <span class="hidden sm:inline">Password</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="flex items-center gap-2.5 border-b border-slate-200/80 dark:border-slate-800 pb-3 no-print overflow-x-auto">
+      <button id="tabBtnRegister" onclick="switchPortalTab('register')" class="px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-indigo-600 text-white shadow-md shadow-indigo-600/25 shrink-0">
+        <i class="fa-solid fa-book-open"></i>
+        <span>Course Registration</span>
+      </button>
+      <button id="tabBtnSlip" onclick="switchPortalTab('slip')" class="px-4 py-2.5 rounded-2xl text-xs font-semibold transition flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-slate-300 shrink-0">
+        <i class="fa-solid fa-file-invoice text-indigo-500"></i>
+        <span>Advising Slip</span>
+      </button>
+      <button id="tabBtnBilling" onclick="switchPortalTab('billing')" class="px-4 py-2.5 rounded-2xl text-xs font-semibold transition flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-slate-300 shrink-0">
+        <i class="fa-solid fa-file-invoice-dollar text-emerald-500"></i>
+        <span>Tuition & Billing</span>
+        <span id="tabBillingBadge" class="hidden px-2 py-0.5 rounded-full text-[10px] font-bold"></span>
+      </button>
+    </div>
+
+    <!-- TAB 1: Course Registration Module -->
+    <section id="tabCourseRegister" class="space-y-6 no-print">
+      
+      <!-- Credit Limit Meter & Action Bar -->
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <h3 class="text-base font-bold">Eligible Courses for Registration</h3>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20" id="badgeDeptSem">CSE - Spring 2026</span>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400">
+            Select courses from your department's active semester offerings. Maximum credit limit is <strong>15.0 Credit Hours</strong>.
+          </p>
+        </div>
+
+        <!-- Real-time Credit Counter Card -->
+        <div class="flex items-center gap-4 self-end sm:self-auto">
+          <div class="text-right">
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Selected Credits</span>
+            <div class="text-lg font-black font-mono">
+              <span id="selectedCreditsCount" class="text-indigo-600 dark:text-indigo-400">0.0</span>
+              <span class="text-xs text-slate-400 font-medium">/ 15.0 Max</span>
+            </div>
+          </div>
+
+          <button id="btnSubmitRegistration" onclick="submitCourseRegistration()" class="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-xs transition shadow-md shadow-indigo-600/30 flex items-center gap-2">
+            <i class="fa-solid fa-check-double"></i>
+            <span>Confirm & Submit</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Course Selection Cards Grid -->
+      <div id="courseListContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="col-span-full py-12 text-center text-slate-400">
+          <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-2 text-indigo-500"></i>
+          <p class="text-xs">Loading offered courses for your department...</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TAB 2: Registration Summary / Advising Slip -->
+    <section id="tabAdvisingSlip" class="hidden space-y-4">
+      
+      <div class="flex justify-end gap-2 no-print">
+        <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 border border-slate-200/90 dark:border-slate-700 shadow-xs transition flex items-center gap-2">
+          <i class="fa-solid fa-print text-indigo-500"></i>
+          <span>Print Advising Slip</span>
+        </button>
+      </div>
+
+      <!-- Printable Document Container -->
+      <div id="printableSlip" class="bg-white text-slate-900 border border-slate-200/90 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800 p-8 sm:p-10 rounded-3xl shadow-md space-y-6">
+        
+        <!-- Institution Header -->
+        <div class="border-b border-slate-200 dark:border-slate-800 pb-6 text-center space-y-1">
+          <div class="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center mx-auto text-xl font-bold mb-2 shadow-md">
+            <i class="fa-solid fa-university"></i>
+          </div>
+          <h2 class="text-xl font-extrabold uppercase tracking-wide">University Of Liberal Arts Bangladesh</h2>
+          <p class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Office of the Controller of Examinations & Registrar</p>
+          <p class="text-xs text-slate-500">Official Semester Course Registration & Advising Slip</p>
+        </div>
+
+        <!-- Student & Semester Meta Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs">
+          <div>
+            <span class="text-slate-400 block font-medium">Student Name</span>
+            <span class="font-bold text-slate-800 dark:text-slate-100" id="slipStudentName">-</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-medium">Student ID</span>
+            <span class="font-bold font-mono text-indigo-600 dark:text-indigo-400" id="slipStudentId">-</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-medium">Department</span>
+            <span class="font-bold" id="slipDepartment">-</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-medium">Academic Term</span>
+            <span class="font-bold" id="slipSemester">-</span>
+          </div>
+        </div>
+
+        <!-- Enrolled Subjects Table -->
+        <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 uppercase tracking-wider text-[10px]">
+                <th class="py-3 px-4">#</th>
+                <th class="py-3 px-4">Course Code</th>
+                <th class="py-3 px-4">Course Title</th>
+                <th class="py-3 px-4">Credit Hours</th>
+                <th class="py-3 px-4">Status</th>
+              </tr>
+            </thead>
+            <tbody id="slipCoursesBody" class="divide-y divide-slate-200 dark:divide-slate-800">
+              <tr>
+                <td colspan="5" class="py-8 text-center text-slate-400">
+                  No courses registered yet. Please complete course registration in the "Course Registration" tab.
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="bg-slate-50 dark:bg-slate-950/80 font-bold">
+                <td colspan="3" class="py-3 px-4 text-right">Total Enrolled Credits:</td>
+                <td class="py-3 px-4 font-mono text-indigo-600 dark:text-indigo-400 text-sm" id="slipTotalCredits">0.0</td>
+                <td class="py-3 px-4 text-emerald-500">Completed</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- Footer Signatures -->
+        <div class="pt-8 grid grid-cols-2 gap-8 text-center text-[11px] text-slate-500">
+          <div class="space-y-1">
+            <div class="border-b border-slate-300 dark:border-slate-700 w-40 mx-auto mb-1"></div>
+            <p class="font-semibold text-slate-700 dark:text-slate-300">Student Signature</p>
+            <p class="text-[10px]" id="slipTimestamp">Date: -</p>
+          </div>
+          <div class="space-y-1">
+            <div class="border-b border-slate-300 dark:border-slate-700 w-40 mx-auto mb-1"></div>
+            <p class="font-semibold text-slate-700 dark:text-slate-300">Head of Department / Registrar</p>
+            <p class="text-[10px]">Approved & Electronically Verified</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TAB 3: Semester Tuition & Billing -->
+    <section id="tabBilling" class="hidden space-y-6">
+      
+      <!-- Top Actions Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print">
+        <div>
+          <h3 class="text-base font-bold flex items-center gap-2">
+            <i class="fa-solid fa-file-invoice-dollar text-indigo-500"></i>
+            <span>Semester Tuition & Financial Account</span>
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">
+            Per-credit tuition billing (Standard rate: <strong>৳5,000 / Credit Hour</strong>) & Institutional Waiver records
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="loadStudentBilling()" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 border border-slate-200/90 dark:border-slate-700 shadow-xs transition flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate-right text-indigo-500 mr-1"></i> Refresh
+          </button>
+          <button onclick="printTuitionInvoice()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-2 shadow-md shadow-indigo-600/25">
+            <i class="fa-solid fa-print"></i>
+            <span>Print Official Invoice</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Financial Metric Cards (4 Cards) -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 no-print">
+        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between text-slate-400 mb-3">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Enrolled Credits</span>
+            <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+          </div>
+          <div class="text-2xl font-black font-mono text-slate-900 dark:text-slate-100" id="billMetricCredits">0.0</div>
+          <span class="text-[11px] text-slate-500 dark:text-slate-400">@ ৳5,000 / Credit Hour</span>
+        </div>
+
+        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between text-slate-400 mb-3">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Gross Tuition</span>
+            <div class="w-8 h-8 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-coins"></i>
+            </div>
+          </div>
+          <div class="text-2xl font-black font-mono text-slate-900 dark:text-slate-100" id="billMetricGross">৳0</div>
+          <span class="text-[11px] text-slate-500 dark:text-slate-400">Base credit assessment</span>
+        </div>
+
+        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between text-slate-400 mb-3">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Scholarship / Waiver</span>
+            <div class="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-percent"></i>
+            </div>
+          </div>
+          <div class="text-2xl font-black font-mono text-emerald-600 dark:text-emerald-400" id="billMetricDiscount">0%</div>
+          <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold" id="billMetricDiscountAmt">-৳0</span>
+        </div>
+
+        <div class="bg-white border border-indigo-200/80 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm hover:shadow-md transition bg-gradient-to-br from-indigo-50/60 to-white dark:from-indigo-950/20">
+          <div class="flex items-center justify-between text-slate-400 mb-3">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Net Payable Amount</span>
+            <div class="w-8 h-8 rounded-xl bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-receipt"></i>
+            </div>
+          </div>
+          <div class="text-2xl font-black font-mono text-indigo-600 dark:text-indigo-400" id="billMetricNet">৳0</div>
+          <span class="text-[11px] font-semibold" id="billMetricStatusText">Pending Assessment</span>
+        </div>
+      </div>
+
+      <!-- Payment Status Alert Banner -->
+      <div id="billStatusBanner" class="p-6 rounded-3xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-circle-info text-2xl text-indigo-500"></i>
+          <div>
+            <h4 class="text-sm font-bold text-slate-800 dark:text-slate-100">Loading Billing Information...</h4>
+            <p class="text-xs text-slate-400">Please wait while we load your semester fees and payment status.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Printable Official Invoice Container -->
+      <div id="printableInvoice" class="bg-white text-slate-900 border border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800 p-8 sm:p-10 rounded-3xl shadow-lg space-y-6 relative overflow-hidden">
+        
+        <!-- Header -->
+        <div class="border-b border-slate-200 dark:border-slate-800 pb-6 text-center space-y-1">
+          <div class="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center mx-auto text-xl font-bold mb-2 shadow-md">
+            <i class="fa-solid fa-university"></i>
+          </div>
+          <h2 class="text-xl font-extrabold uppercase tracking-wide">University Of Liberal Arts Bangladesh</h2>
+          <p class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Office of the Accounts & Financial Services</p>
+          <p class="text-xs text-slate-500">Semester Course Tuition & Fee Assessment Invoice</p>
+        </div>
+
+        <!-- Student & Assessment Meta Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs">
+          <div>
+            <span class="text-slate-400 block font-medium">Student Name</span>
+            <span class="font-bold text-slate-800 dark:text-slate-100" id="invoiceStudentName">-</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-medium">Student ID</span>
+            <span class="font-bold font-mono text-indigo-600 dark:text-indigo-400" id="invoiceStudentId">-</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-medium">Department</span>
+            <span class="font-bold" id="invoiceDepartment">-</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-medium">Academic Term</span>
+            <span class="font-bold" id="invoiceSemester">-</span>
+          </div>
+        </div>
+
+        <!-- Course Tuition Breakdown Table -->
+        <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 uppercase tracking-wider text-[10px]">
+                <th class="py-3 px-4">#</th>
+                <th class="py-3 px-4">Course Code</th>
+                <th class="py-3 px-4">Course Title</th>
+                <th class="py-3 px-4 text-center">Credit Hours</th>
+                <th class="py-3 px-4 text-right">Rate / Credit</th>
+                <th class="py-3 px-4 text-right">Tuition Amount</th>
+              </tr>
+            </thead>
+            <tbody id="invoiceCoursesBody" class="divide-y divide-slate-200 dark:divide-slate-800">
+              <tr>
+                <td colspan="6" class="py-8 text-center text-slate-400">Loading course tuition breakdown...</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="bg-slate-50 dark:bg-slate-950/80">
+                <td colspan="3" class="py-2.5 px-4 font-bold text-right text-slate-500">Gross Total (<span id="invoiceTotalCreditsFooter">0.0</span> Credits @ ৳5,000):</td>
+                <td class="py-2.5 px-4 text-center font-mono font-bold" id="invoiceCreditsTotal">0.0</td>
+                <td></td>
+                <td class="py-2.5 px-4 font-mono font-bold text-right" id="invoiceGrossTotal">৳0</td>
+              </tr>
+              <tr class="bg-slate-50 dark:bg-slate-950/80 text-emerald-600 dark:text-emerald-400">
+                <td colspan="5" class="py-2.5 px-4 font-bold text-right">
+                  Scholarship / Institutional Waiver (<span id="invoiceDiscountPercent">0%</span>):
+                </td>
+                <td class="py-2.5 px-4 font-mono font-bold text-right" id="invoiceDiscountAmount">-৳0</td>
+              </tr>
+              <tr class="bg-slate-100 dark:bg-slate-900 font-extrabold text-sm border-t-2 border-slate-300 dark:border-slate-700">
+                <td colspan="5" class="py-3.5 px-4 text-right">Net Payable Amount:</td>
+                <td class="py-3.5 px-4 font-mono text-indigo-600 dark:text-indigo-400 text-right text-base" id="invoiceNetTotal">৳0</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- Payment Seal & Signatures -->
+        <div class="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 items-center text-center text-[11px] text-slate-500">
+          <div class="space-y-1">
+            <div class="border-b border-slate-300 dark:border-slate-700 w-36 mx-auto mb-1"></div>
+            <p class="font-semibold text-slate-700 dark:text-slate-300">Student Signature</p>
+            <p class="text-[10px]" id="invoiceDateStamp">Date: -</p>
+          </div>
+
+          <!-- Official Stamp Seal Badge -->
+          <div class="flex justify-center" id="invoiceStampContainer">
+            <!-- Stamp Injected via JS -->
+          </div>
+
+          <div class="space-y-1">
+            <div class="border-b border-slate-300 dark:border-slate-700 w-36 mx-auto mb-1"></div>
+            <p class="font-semibold text-slate-700 dark:text-slate-300">Accounts & Finance Officer</p>
+            <p class="text-[10px]" id="invoiceOfficerTimestamp">Authorized Verification</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Mandatory Password Change Modal (First Login or Manual) -->
+  <div id="passwordModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/75 backdrop-blur-sm p-4 hidden no-print">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl space-y-5">
+      
+      <div class="text-center space-y-1">
+        <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 border border-amber-500/20 mx-auto flex items-center justify-center text-2xl mb-2">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 class="text-lg font-bold" id="passModalTitle">Secure Your Student Account</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400" id="passModalSubtitle">
+          For your security, please update your initial default password to a strong personal password.
+        </p>
+      </div>
+
+      <div id="passModalError" class="hidden p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/60 text-xs"></div>
+
+      <form id="passwordForm" onsubmit="submitPasswordChange(event)" class="space-y-4 text-sm">
+        <div id="oldPassFieldContainer" class="hidden">
+          <label class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-500">Current Password</label>
+          <input type="password" id="oldPasswordInput" placeholder="Enter current password..."
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-500">New Password (Min 6 characters)</label>
+          <input type="password" id="newPasswordInput" required minlength="6" placeholder="Choose a secure password..."
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-xs uppercase tracking-wider text-slate-500">Confirm New Password</label>
+          <input type="password" id="confirmPasswordInput" required minlength="6" placeholder="Re-type new password..."
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <button type="submit" id="btnSubmitPass" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md shadow-indigo-600/25 flex items-center justify-center gap-2">
+          <span>Set New Password & Continue</span>
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </button>
+
+        <div class="text-center" id="btnCancelPassContainer">
+          <button type="button" onclick="closePasswordModal()" class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+            Cancel
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 dark:bg-slate-900 dark:border-slate-800 py-4 text-center text-xs text-slate-500 no-print">
+    <p>&copy; 2026 University Of Liberal Arts Bangladesh (ULAB) &bull; Student Academic Portal</p>
+  </footer>
+
+  <script>
+    let currentStudent = null;
+    let availableCoursesList = [];
+    let selectedCourseIds = new Set();
+    let isAlreadyRegistered = false;
+
+    // Theme Manager
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-400';
+        document.getElementById('themeText').innerText = 'Light';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-moon text-indigo-500';
+        document.getElementById('themeText').innerText = 'Dark';
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      initTheme();
+    }
+
+    initTheme();
+
+    // Check Auth Token
+    const token = localStorage.getItem('student_token');
+    if (!token) {
+      window.location.href = 'student-login.html';
+    }
+
+    function logoutStudent() {
+      localStorage.removeItem('student_token');
+      localStorage.removeItem('student_profile');
+      localStorage.removeItem('must_change_password');
+      window.location.href = 'student-login.html';
+    }
+
+    function showToast(type, msg) {
+      const toast = document.getElementById('toastAlert');
+      const icon = document.getElementById('toastIcon');
+      const msgEl = document.getElementById('toastMessage');
+
+      toast.classList.remove('hidden');
+      msgEl.innerText = msg;
+
+      if (type === 'success') {
+        toast.className = 'p-4 rounded-2xl text-xs font-medium border flex items-center justify-between transition-all duration-300 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60';
+        icon.className = 'fa-solid fa-circle-check text-base text-emerald-500';
+      } else if (type === 'error') {
+        toast.className = 'p-4 rounded-2xl text-xs font-medium border flex items-center justify-between transition-all duration-300 bg-rose-50 text-rose-800 dark:bg-rose-950/50 dark:text-rose-300 border-rose-200 dark:border-rose-800/60';
+        icon.className = 'fa-solid fa-circle-exclamation text-base text-rose-500';
+      } else {
+        toast.className = 'p-4 rounded-2xl text-xs font-medium border flex items-center justify-between transition-all duration-300 bg-amber-50 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300 border-amber-200 dark:border-amber-800/60';
+        icon.className = 'fa-solid fa-triangle-exclamation text-base text-amber-500';
+      }
+
+      setTimeout(() => {
+        hideToast();
+      }, 5000);
+    }
+
+    function hideToast() {
+      document.getElementById('toastAlert').classList.add('hidden');
+    }
+
+    // Tab Switcher
+    function switchPortalTab(tab) {
+      const tabRegister = document.getElementById('tabCourseRegister');
+      const tabSlip = document.getElementById('tabAdvisingSlip');
+      const tabBilling = document.getElementById('tabBilling');
+
+      const btnReg = document.getElementById('tabBtnRegister');
+      const btnSlip = document.getElementById('tabBtnSlip');
+      const btnBill = document.getElementById('tabBtnBilling');
+
+      const activeClasses = 'px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-indigo-600 text-white shadow-md shadow-indigo-600/25 shrink-0';
+      const inactiveClasses = 'px-4 py-2.5 rounded-2xl text-xs font-semibold transition flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-slate-300 shrink-0';
+
+      tabRegister.classList.add('hidden');
+      tabSlip.classList.add('hidden');
+      tabBilling.classList.add('hidden');
+
+      btnReg.className = inactiveClasses;
+      btnSlip.className = inactiveClasses;
+      btnBill.className = inactiveClasses;
+
+      if (tab === 'register') {
+        tabRegister.classList.remove('hidden');
+        btnReg.className = activeClasses;
+      } else if (tab === 'slip') {
+        tabSlip.classList.remove('hidden');
+        btnSlip.className = activeClasses;
+      } else if (tab === 'billing') {
+        tabBilling.classList.remove('hidden');
+        btnBill.className = activeClasses;
+        loadStudentBilling();
+      }
+    }
+
+    // Load Student Profile and Courses
+    async function loadStudentData() {
+      try {
+        const res = await fetch('/students/me/profile', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (res.status === 401 || res.status === 403) {
+          logoutStudent();
+          return;
+        }
+
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        currentStudent = data.student;
+
+        // Populate header and profile hero
+        document.getElementById('headerRegBadge').innerText = currentStudent.registration_id;
+        document.getElementById('headerStudentName').innerText = `${currentStudent.first_name} ${currentStudent.last_name}`;
+        document.getElementById('profileFullName').innerText = `${currentStudent.first_name} ${currentStudent.last_name}`;
+        document.getElementById('avatarInitial').innerText = (currentStudent.first_name || 'U')[0].toUpperCase();
+        document.getElementById('profileEmail').innerText = currentStudent.email;
+        document.getElementById('profilePhone').innerText = currentStudent.phone;
+        document.getElementById('profileDepartment').innerText = currentStudent.department;
+        document.getElementById('profileSemester').innerText = `${currentStudent.semester} ${currentStudent.academic_year}`;
+        document.getElementById('badgeDeptSem').innerText = `${currentStudent.department} • ${currentStudent.semester} ${currentStudent.academic_year}`;
+
+        // Populate slip meta
+        document.getElementById('slipStudentName').innerText = `${currentStudent.first_name} ${currentStudent.last_name}`;
+        document.getElementById('slipStudentId').innerText = currentStudent.registration_id;
+        document.getElementById('slipDepartment').innerText = currentStudent.department;
+        document.getElementById('slipSemester').innerText = `${currentStudent.semester} ${currentStudent.academic_year}`;
+
+        // First-Time Password prompt check
+        if (currentStudent.is_password_changed === 0 || localStorage.getItem('must_change_password') === 'true') {
+          openFirstTimePasswordModal();
+        }
+
+        // Check registration status
+        if (data.registration) {
+          isAlreadyRegistered = true;
+          document.getElementById('profileRegStatus').innerText = 'Completed';
+          document.getElementById('profileRegStatus').className = 'text-sm font-bold text-emerald-500';
+          renderRegistrationSlip(data.registration);
+        } else {
+          isAlreadyRegistered = false;
+          document.getElementById('profileRegStatus').innerText = 'Pending';
+          document.getElementById('profileRegStatus').className = 'text-sm font-bold text-amber-500';
+        }
+
+        // Load courses
+        await loadAvailableCourses();
+
+        // Load billing data
+        await loadStudentBilling();
+
+      } catch (err) {
+        showToast('error', 'Failed to load profile data: ' + err.message);
+      }
+    }
+
+    async function loadAvailableCourses() {
+      try {
+        const res = await fetch('/students/me/available-courses', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        availableCoursesList = data.courses || [];
+        const container = document.getElementById('courseListContainer');
+
+        if (availableCoursesList.length === 0) {
+          container.innerHTML = `
+            <div class="col-span-full py-12 text-center text-slate-400 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8">
+              <i class="fa-solid fa-folder-open text-3xl mb-2 text-slate-300"></i>
+              <p class="font-semibold text-sm">No courses currently opened for enrollment in ${currentStudent.department}.</p>
+              <p class="text-xs text-slate-500 mt-1">Please check back when the registration period opens.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = availableCoursesList.map(course => {
+          const isSelected = selectedCourseIds.has(course.id) || (data.registered_course_ids && data.registered_course_ids.includes(course.id));
+          const disabledAttr = isAlreadyRegistered ? 'disabled' : '';
+
+          return `
+            <div id="courseCard_${course.id}" class="p-5 rounded-3xl border transition-all duration-200 relative flex flex-col justify-between ${
+              isSelected
+                ? 'bg-indigo-50/70 dark:bg-indigo-950/40 border-indigo-400 dark:border-indigo-700/80 shadow-md shadow-indigo-500/10'
+                : 'bg-white dark:bg-slate-900 border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-800'
+            }">
+              <div class="space-y-3">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400">
+                      ${course.course_code}
+                    </span>
+                    <span class="px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                      ${course.credit_hours.toFixed(1)} Credits
+                    </span>
+                  </div>
+
+                  <input type="checkbox" id="chkCourse_${course.id}" ${isSelected ? 'checked' : ''} ${disabledAttr}
+                    onchange="toggleCourseSelection(${course.id}, ${course.credit_hours})"
+                    class="w-5 h-5 rounded-lg text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-700 cursor-pointer disabled:cursor-not-allowed">
+                </div>
+
+                <div>
+                  <h4 class="text-sm font-bold leading-snug">${course.course_title}</h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed line-clamp-2">
+                    ${course.description || 'Core academic syllabus course for undergraduate study.'}
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-3 mt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+                <span>Dept: <strong>${course.department}</strong></span>
+                <span class="text-emerald-500 font-medium"><i class="fa-solid fa-circle-check text-[10px] mr-1"></i>Open</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        if (isAlreadyRegistered) {
+          document.getElementById('btnSubmitRegistration').disabled = true;
+          document.getElementById('btnSubmitRegistration').innerHTML = '<i class="fa-solid fa-check"></i><span>Registration Completed</span>';
+        }
+
+        updateCreditsMeter();
+
+      } catch (err) {
+        showToast('error', 'Failed to load courses: ' + err.message);
+      }
+    }
+
+    function toggleCourseSelection(courseId, credits) {
+      if (selectedCourseIds.has(courseId)) {
+        selectedCourseIds.delete(courseId);
+      } else {
+        // Calculate projected credits
+        let currentTotal = 0;
+        availableCoursesList.forEach(c => {
+          if (selectedCourseIds.has(c.id)) currentTotal += c.credit_hours;
+        });
+
+        if (currentTotal + credits > 15.0) {
+          showToast('warning', `Cannot select course! Exceeds maximum 15.0 credits limit.`);
+          document.getElementById(`chkCourse_${courseId}`).checked = false;
+          return;
+        }
+
+        selectedCourseIds.add(courseId);
+      }
+
+      // Update card style
+      const card = document.getElementById(`courseCard_${courseId}`);
+      if (selectedCourseIds.has(courseId)) {
+        card.className = 'p-5 rounded-3xl border transition-all duration-200 relative flex flex-col justify-between bg-indigo-50/70 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-700/80 shadow-md shadow-indigo-500/5';
+      } else {
+        card.className = 'p-5 rounded-3xl border transition-all duration-200 relative flex flex-col justify-between bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-800';
+      }
+
+      updateCreditsMeter();
+    }
+
+    function updateCreditsMeter() {
+      let total = 0;
+      availableCoursesList.forEach(c => {
+        if (selectedCourseIds.has(c.id)) total += c.credit_hours;
+      });
+
+      const countEl = document.getElementById('selectedCreditsCount');
+      countEl.innerText = total.toFixed(1);
+
+      if (total > 0) {
+        countEl.className = 'text-indigo-600 dark:text-indigo-400';
+      } else {
+        countEl.className = 'text-slate-400';
+      }
+    }
+
+    async function submitCourseRegistration() {
+      if (selectedCourseIds.size === 0) {
+        showToast('warning', 'Please select at least one course to register.');
+        return;
+      }
+
+      const btn = document.getElementById('btnSubmitRegistration');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i><span>Submitting...</span>';
+
+      try {
+        const res = await fetch('/students/me/register-courses', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            course_ids: Array.from(selectedCourseIds)
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.message || 'Registration failed.');
+        }
+
+        showToast('success', '🎉 Course registration completed successfully!');
+        isAlreadyRegistered = true;
+        document.getElementById('profileRegStatus').innerText = 'Completed';
+        document.getElementById('profileRegStatus').className = 'text-sm font-bold text-emerald-500';
+
+        // Render slip and switch to slip view
+        renderRegistrationSlip(data.registration);
+        await loadStudentBilling();
+        setTimeout(() => {
+          switchPortalTab('slip');
+        }, 800);
+
+      } catch (err) {
+        showToast('error', err.message);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-check-double"></i><span>Confirm & Submit</span>';
+      }
+    }
+
+    function renderRegistrationSlip(reg) {
+      const courses = reg.courses || [];
+      const tbody = document.getElementById('slipCoursesBody');
+      const totalEl = document.getElementById('slipTotalCredits');
+      const timeEl = document.getElementById('slipTimestamp');
+
+      if (courses.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400">No courses listed.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = courses.map((c, idx) => `
+        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+          <td class="py-3 px-4 text-slate-400 font-mono">${idx + 1}</td>
+          <td class="py-3 px-4 font-mono font-bold text-indigo-600 dark:text-indigo-400">${c.course_code}</td>
+          <td class="py-3 px-4 font-semibold text-slate-800 dark:text-slate-100">${c.course_title}</td>
+          <td class="py-3 px-4 font-mono">${c.credit_hours.toFixed(1)}</td>
+          <td class="py-3 px-4 text-emerald-500 font-semibold"><i class="fa-solid fa-circle-check mr-1 text-[10px]"></i>Enrolled</td>
+        </tr>
+      `).join('');
+
+      totalEl.innerText = (reg.total_credits || courses.reduce((sum, c) => sum + c.credit_hours, 0)).toFixed(1);
+      timeEl.innerText = 'Registration Date: ' + (reg.registered_at ? new Date(reg.registered_at).toLocaleString() : new Date().toLocaleString());
+    }
+
+    // Password Modal Logic
+    function openFirstTimePasswordModal() {
+      document.getElementById('passModalTitle').innerText = 'First-Time Login Security';
+      document.getElementById('passModalSubtitle').innerText = 'Welcome to ULAB! Please change your initial default password to access your student portal.';
+      document.getElementById('oldPassFieldContainer').classList.add('hidden');
+      document.getElementById('btnCancelPassContainer').classList.add('hidden');
+      document.getElementById('passwordModal').classList.remove('hidden');
+    }
+
+    function openPasswordModal() {
+      document.getElementById('passModalTitle').innerText = 'Update Password';
+      document.getElementById('passModalSubtitle').innerText = 'Set a new secure password for your student portal account.';
+      document.getElementById('oldPassFieldContainer').classList.remove('hidden');
+      document.getElementById('btnCancelPassContainer').classList.remove('hidden');
+      document.getElementById('passwordModal').classList.remove('hidden');
+    }
+
+    function closePasswordModal() {
+      if (currentStudent && currentStudent.is_password_changed === 0 && localStorage.getItem('must_change_password') === 'true') {
+        showToast('warning', 'You must set a new personal password to continue.');
+        return;
+      }
+      document.getElementById('passwordModal').classList.add('hidden');
+      document.getElementById('passwordForm').reset();
+      document.getElementById('passModalError').classList.add('hidden');
+    }
+
+    async function submitPasswordChange(e) {
+      e.preventDefault();
+      const errBox = document.getElementById('passModalError');
+      errBox.classList.add('hidden');
+
+      const oldPass = document.getElementById('oldPasswordInput').value.trim();
+      const newPass = document.getElementById('newPasswordInput').value.trim();
+      const confirmPass = document.getElementById('confirmPasswordInput').value.trim();
+
+      if (newPass.length < 6) {
+        errBox.innerText = 'New password must be at least 6 characters.';
+        errBox.classList.remove('hidden');
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        errBox.innerText = 'New password and confirmation do not match.';
+        errBox.classList.remove('hidden');
+        return;
+      }
+
+      const btn = document.getElementById('btnSubmitPass');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i><span>Updating...</span>';
+
+      try {
+        const res = await fetch('/students/change-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            old_password: oldPass,
+            new_password: newPass
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.message || 'Failed to update password.');
+        }
+
+        localStorage.removeItem('must_change_password');
+        if (currentStudent) currentStudent.is_password_changed = 1;
+
+        document.getElementById('passwordModal').classList.add('hidden');
+        document.getElementById('passwordForm').reset();
+        showToast('success', 'Password updated successfully! Welcome to your student portal.');
+
+      } catch (err) {
+        errBox.innerText = err.message;
+        errBox.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Set New Password & Continue</span><i class="fa-solid fa-arrow-right text-[10px]"></i>';
+      }
+    }
+
+    // ==========================================
+    // BILLING & TUITION LOGIC
+    // ==========================================
+    let currentStudentBill = null;
+
+    async function loadStudentBilling() {
+      try {
+        const res = await fetch('/students/me/bills', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message);
+
+        const bills = data.bills || [];
+        if (bills.length > 0) {
+          currentStudentBill = bills[0]; // Active semester bill
+          renderBillingData(currentStudentBill);
+        } else {
+          currentStudentBill = null;
+          renderEmptyBilling();
+        }
+      } catch (err) {
+        console.error('Error loading billing data:', err);
+      }
+    }
+
+    function renderBillingData(bill) {
+      if (!bill) {
+        renderEmptyBilling();
+        return;
+      }
+
+      const isPaid = bill.payment_status === 'Paid';
+      const credits = bill.total_credits || 0;
+      const rate = bill.rate_per_credit || 5000.0;
+      const gross = bill.gross_amount || (credits * rate);
+      const discPct = bill.discount_percentage || 0;
+      const discAmt = bill.discount_amount || ((gross * discPct) / 100.0);
+      const net = bill.net_amount !== undefined ? bill.net_amount : (gross - discAmt);
+
+      // Profile hero badge
+      const heroBilling = document.getElementById('profileBillingStatus');
+      if (heroBilling) {
+        if (isPaid) {
+          heroBilling.innerText = 'Paid';
+          heroBilling.className = 'text-sm font-bold text-emerald-500';
+        } else {
+          heroBilling.innerText = '৳' + net.toLocaleString() + ' Due';
+          heroBilling.className = 'text-sm font-bold text-amber-500';
+        }
+      }
+
+      // Nav Tab badge
+      const tabBadge = document.getElementById('tabBillingBadge');
+      if (tabBadge) {
+        tabBadge.classList.remove('hidden');
+        if (isPaid) {
+          tabBadge.innerText = 'PAID';
+          tabBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-400 border border-emerald-500/20';
+        } else {
+          tabBadge.innerText = 'DUE';
+          tabBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-700 dark:bg-rose-950/70 dark:text-rose-400 border border-rose-500/20';
+        }
+      }
+
+      // Metric Cards
+      document.getElementById('billMetricCredits').innerText = credits.toFixed(1) + ' Cr';
+      document.getElementById('billMetricGross').innerText = '৳' + gross.toLocaleString();
+      document.getElementById('billMetricDiscount').innerText = discPct + '%';
+      document.getElementById('billMetricDiscountAmt').innerText = discPct > 0 ? `-৳${discAmt.toLocaleString()}` : 'No waiver';
+      document.getElementById('billMetricNet').innerText = '৳' + net.toLocaleString();
+      document.getElementById('billMetricStatusText').innerHTML = isPaid
+        ? '<span class="text-emerald-500"><i class="fa-solid fa-circle-check mr-1"></i>Fully Cleared</span>'
+        : '<span class="text-rose-500"><i class="fa-solid fa-clock mr-1"></i>Payment Pending</span>';
+
+      // Status Banner
+      const banner = document.getElementById('billStatusBanner');
+      if (isPaid) {
+        banner.className = 'p-6 rounded-3xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print bg-emerald-50/70 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200';
+        banner.innerHTML = `
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/30 shrink-0">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h4 class="text-base font-bold">Tuition Fee: Cleared & Fully Paid</h4>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white uppercase tracking-wider">Paid</span>
+              </div>
+              <p class="text-xs text-emerald-700 dark:text-emerald-300/90 mt-0.5">
+                Payment verified and acknowledged by Accounts Office on <strong>${bill.paid_at ? new Date(bill.paid_at).toLocaleString() : 'Verified'}.</strong>
+              </p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 block">VOUCHER REF</span>
+            <span class="font-mono font-bold text-xs">ULAB-REC-${bill.id}</span>
+          </div>
+        `;
+      } else {
+        banner.className = 'p-6 rounded-3xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print bg-amber-50/70 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200';
+        banner.innerHTML = `
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl shadow-lg shadow-amber-500/30 shrink-0">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h4 class="text-base font-bold">Tuition Fee: Payment Pending (Unpaid)</h4>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-600 text-white uppercase tracking-wider">Unpaid</span>
+              </div>
+              <p class="text-xs text-amber-700 dark:text-amber-300/90 mt-0.5">
+                Total payable amount is <strong>৳${net.toLocaleString()}</strong>. Please deposit payment at university accounts counter.
+              </p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] uppercase font-semibold text-amber-600 dark:text-amber-400 block">Status Note</span>
+            <span class="text-xs font-semibold">Admin will mark Paid upon receipt</span>
+          </div>
+        `;
+      }
+
+      // Invoice Table & Meta
+      if (currentStudent) {
+        document.getElementById('invoiceStudentName').innerText = `${currentStudent.first_name} ${currentStudent.last_name}`;
+        document.getElementById('invoiceStudentId').innerText = currentStudent.registration_id;
+        document.getElementById('invoiceDepartment').innerText = currentStudent.department;
+      }
+      document.getElementById('invoiceSemester').innerText = `${bill.semester} ${bill.academic_year}`;
+      document.getElementById('invoiceTotalCreditsFooter').innerText = credits.toFixed(1);
+      document.getElementById('invoiceCreditsTotal').innerText = credits.toFixed(1);
+      document.getElementById('invoiceGrossTotal').innerText = '৳' + gross.toLocaleString();
+      document.getElementById('invoiceDiscountPercent').innerText = discPct + '%';
+      document.getElementById('invoiceDiscountAmount').innerText = discPct > 0 ? `-৳${discAmt.toLocaleString()}` : '-৳0';
+      document.getElementById('invoiceNetTotal').innerText = '৳' + net.toLocaleString();
+      document.getElementById('invoiceDateStamp').innerText = 'Date: ' + (bill.created_at ? new Date(bill.created_at).toLocaleDateString() : new Date().toLocaleDateString());
+
+      // Courses schedule rows
+      const courses = bill.courses || [];
+      const tbody = document.getElementById('invoiceCoursesBody');
+      if (courses.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-400">No registered courses found for fee assessment.</td></tr>`;
+      } else {
+        tbody.innerHTML = courses.map((c, idx) => `
+          <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+            <td class="py-3 px-4 text-slate-400 font-mono">${idx + 1}</td>
+            <td class="py-3 px-4 font-mono font-bold text-indigo-600 dark:text-indigo-400">${c.course_code}</td>
+            <td class="py-3 px-4 font-semibold text-slate-800 dark:text-slate-100">${c.course_title}</td>
+            <td class="py-3 px-4 font-mono text-center">${c.credit_hours.toFixed(1)}</td>
+            <td class="py-3 px-4 font-mono text-right text-slate-500">৳5,000</td>
+            <td class="py-3 px-4 font-mono font-bold text-right text-slate-900 dark:text-slate-100">৳${(c.credit_hours * 5000).toLocaleString()}</td>
+          </tr>
+        `).join('');
+      }
+
+      // Stamp in invoice
+      const stampEl = document.getElementById('invoiceStampContainer');
+      if (isPaid) {
+        stampEl.innerHTML = `
+          <div class="inline-block border-2 border-emerald-600 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400 px-4 py-1.5 rounded-xl font-mono font-black text-xs sm:text-sm tracking-widest uppercase rotate-[-3deg] shadow-sm">
+            ✓ PAID &bull; VERIFIED
+          </div>
+        `;
+        document.getElementById('invoiceOfficerTimestamp').innerText = 'Cleared on ' + (bill.paid_at ? new Date(bill.paid_at).toLocaleDateString() : 'Verified');
+      } else {
+        stampEl.innerHTML = `
+          <div class="inline-block border-2 border-rose-600 text-rose-600 dark:border-rose-400 dark:text-rose-400 px-4 py-1.5 rounded-xl font-mono font-black text-xs sm:text-sm tracking-widest uppercase rotate-[-3deg] shadow-sm">
+            ! PAYMENT DUE
+          </div>
+        `;
+        document.getElementById('invoiceOfficerTimestamp').innerText = 'Awaiting payment verification';
+      }
+    }
+
+    function renderEmptyBilling() {
+      const heroBilling = document.getElementById('profileBillingStatus');
+      if (heroBilling) {
+        heroBilling.innerText = 'Pending';
+        heroBilling.className = 'text-sm font-bold text-slate-400';
+      }
+
+      const banner = document.getElementById('billStatusBanner');
+      if (banner) {
+        banner.className = 'p-6 rounded-3xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500';
+        banner.innerHTML = `
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-circle-info text-2xl text-indigo-500"></i>
+            <div>
+              <h4 class="text-sm font-bold text-slate-800 dark:text-slate-100">No Course Registration Found for Billing</h4>
+              <p class="text-xs text-slate-400">Please register courses in the "Course Registration" tab to generate your semester tuition bill.</p>
+            </div>
+          </div>
+          <button onclick="switchPortalTab('register')" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-sm">
+            Register Courses Now
+          </button>
+        `;
+      }
+    }
+
+    function printTuitionInvoice() {
+      window.print();
+    }
+
+    // Init Page
+    loadStudentData();
+  </script>
+</body>
+</html>
