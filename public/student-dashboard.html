@@ -113,7 +113,7 @@
     </div>
 
     <!-- Student Profile Hero Card -->
-    <section class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-3xl shadow-sm relative overflow-hidden no-print">
+    <section class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-6 rounded-2xl shadow-sm relative overflow-hidden no-print">
       <div class="absolute -right-8 -bottom-8 w-44 h-44 bg-indigo-500/5 rounded-full blur-2xl pointer-events-none"></div>
 
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
@@ -165,17 +165,17 @@
       </div>
     </section>
 
-    <!-- Navigation Tabs -->
-    <div class="flex items-center gap-2.5 border-b border-slate-200/80 dark:border-slate-800 pb-3 no-print overflow-x-auto">
-      <button id="tabBtnRegister" onclick="switchPortalTab('register')" class="px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-indigo-600 text-white shadow-md shadow-indigo-600/25 shrink-0">
+    <!-- Navigation Tabs (Segmented Control Bar) -->
+    <div class="inline-flex p-1.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 gap-1 overflow-x-auto max-w-full no-print">
+      <button id="tabBtnRegister" onclick="switchPortalTab('register')" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-white text-indigo-600 shadow-sm border border-slate-200/80 dark:bg-slate-800 dark:text-white dark:border-slate-700 shrink-0">
         <i class="fa-solid fa-book-open"></i>
         <span>Course Registration</span>
       </button>
-      <button id="tabBtnSlip" onclick="switchPortalTab('slip')" class="px-4 py-2.5 rounded-2xl text-xs font-semibold transition flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-slate-300 shrink-0">
+      <button id="tabBtnSlip" onclick="switchPortalTab('slip')" class="px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60 shrink-0">
         <i class="fa-solid fa-file-invoice text-indigo-500"></i>
         <span>Advising Slip</span>
       </button>
-      <button id="tabBtnBilling" onclick="switchPortalTab('billing')" class="px-4 py-2.5 rounded-2xl text-xs font-semibold transition flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-slate-300 shrink-0">
+      <button id="tabBtnBilling" onclick="switchPortalTab('billing')" class="px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60 shrink-0">
         <i class="fa-solid fa-file-invoice-dollar text-emerald-500"></i>
         <span>Tuition & Billing</span>
         <span id="tabBillingBadge" class="hidden px-2 py-0.5 rounded-full text-[10px] font-bold"></span>
@@ -186,7 +186,7 @@
     <section id="tabCourseRegister" class="space-y-6 no-print">
       
       <!-- Credit Limit Meter & Action Bar -->
-      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-2xl shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div class="space-y-1">
           <div class="flex items-center gap-2">
             <h3 class="text-base font-bold">Eligible Courses for Registration</h3>
@@ -342,7 +342,7 @@
 
       <!-- Financial Metric Cards (4 Cards) -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 no-print">
-        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm hover:shadow-md transition">
+        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-2xl shadow-sm hover:shadow-md transition">
           <div class="flex items-center justify-between text-slate-400 mb-3">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Enrolled Credits</span>
             <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm">
@@ -353,7 +353,7 @@
           <span class="text-[11px] text-slate-500 dark:text-slate-400">@ ৳5,000 / Credit Hour</span>
         </div>
 
-        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm hover:shadow-md transition">
+        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-2xl shadow-sm hover:shadow-md transition">
           <div class="flex items-center justify-between text-slate-400 mb-3">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Gross Tuition</span>
             <div class="w-8 h-8 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm">
@@ -364,7 +364,7 @@
           <span class="text-[11px] text-slate-500 dark:text-slate-400">Base credit assessment</span>
         </div>
 
-        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm hover:shadow-md transition">
+        <div class="bg-white border border-slate-200/90 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-2xl shadow-sm hover:shadow-md transition">
           <div class="flex items-center justify-between text-slate-400 mb-3">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Scholarship / Waiver</span>
             <div class="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm">
@@ -375,7 +375,7 @@
           <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold" id="billMetricDiscountAmt">-৳0</span>
         </div>
 
-        <div class="bg-white border border-indigo-200/80 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-3xl shadow-sm hover:shadow-md transition bg-gradient-to-br from-indigo-50/60 to-white dark:from-indigo-950/20">
+        <div class="bg-white border border-indigo-200/80 dark:bg-slate-900 dark:border-slate-800 p-5 rounded-2xl shadow-sm hover:shadow-md transition bg-gradient-to-br from-indigo-50/60 to-white dark:from-indigo-950/20">
           <div class="flex items-center justify-between text-slate-400 mb-3">
             <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Net Payable Amount</span>
             <div class="w-8 h-8 rounded-xl bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-sm">
@@ -388,7 +388,7 @@
       </div>
 
       <!-- Payment Status Alert Banner -->
-      <div id="billStatusBanner" class="p-6 rounded-3xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500">
+      <div id="billStatusBanner" class="p-6 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500">
         <div class="flex items-center gap-3">
           <i class="fa-solid fa-circle-info text-2xl text-indigo-500"></i>
           <div>
@@ -399,7 +399,7 @@
       </div>
 
       <!-- Printable Official Invoice Container -->
-      <div id="printableInvoice" class="bg-white text-slate-900 border border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800 p-8 sm:p-10 rounded-3xl shadow-lg space-y-6 relative overflow-hidden">
+      <div id="printableInvoice" class="bg-white text-slate-900 border border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800 p-8 sm:p-10 rounded-2xl shadow-lg space-y-6 relative overflow-hidden">
         
         <!-- Header -->
         <div class="border-b border-slate-200 dark:border-slate-800 pb-6 text-center space-y-1">
@@ -636,8 +636,8 @@
       const btnSlip = document.getElementById('tabBtnSlip');
       const btnBill = document.getElementById('tabBtnBilling');
 
-      const activeClasses = 'px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-indigo-600 text-white shadow-md shadow-indigo-600/25 shrink-0';
-      const inactiveClasses = 'px-4 py-2.5 rounded-2xl text-xs font-semibold transition flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-slate-300 shrink-0';
+      const activeClasses = 'px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-white text-indigo-600 shadow-sm border border-slate-200/80 dark:bg-slate-800 dark:text-white dark:border-slate-700 shrink-0';
+      const inactiveClasses = 'px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60 shrink-0';
 
       tabRegister.classList.add('hidden');
       tabSlip.classList.add('hidden');
